@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=1]
+
+[ext_resource path="res://Scripts/player.gd" type="Script" id=1]
+[ext_resource path="res://Textures/Graphics/healthbar.tex" type="Texture" id=2]
+[ext_resource path="res://Scripts/player_health_bar.gd" type="Script" id=3]
+[ext_resource path="res://Textures/Graphics/magicbar.tex" type="Texture" id=4]
+[ext_resource path="res://Scripts/player_magic_bar.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/controller.gd" type="Script" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 15, 15 )
+
+[node name="Player" type="KinematicBody2D"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+collision/margin = 1.0
+script/script = ExtResource( 1 )
+player_number = 1
+
+[node name="Sprite" type="Sprite" parent="."]
+
+vframes = 4
+hframes = 3
+frame = 1
+
+[node name="Health bar" type="Sprite" parent="Sprite"]
+
+transform/pos = Vector2( -16, -24 )
+transform/scale = Vector2( 1, 0.1 )
+z/z = 1
+texture = ExtResource( 2 )
+centered = false
+region = true
+region_rect = Rect2( 0, 0, 32, 32 )
+script/script = ExtResource( 3 )
+
+[node name="Magic bar" type="Sprite" parent="Sprite"]
+
+transform/pos = Vector2( -16, -20 )
+transform/scale = Vector2( 1, 0.1 )
+z/z = 1
+texture = ExtResource( 4 )
+centered = false
+region = true
+region_rect = Rect2( 0, 0, 32, 32 )
+script/script = ExtResource( 5 )
+
+[node name="Controller" type="Node2D" parent="."]
+
+script/script = ExtResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+visibility/visible = false
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+
