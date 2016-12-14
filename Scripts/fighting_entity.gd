@@ -34,6 +34,7 @@ func _process(delta):
 	if(damage_timer>0):
 		damage_timer -= delta
 		move(knockback*(delta/damage_time))
+		if (test_move(knockback*(delta/damage_time))): damage_timer = 0
 	else: if(get_state() == ST_HURT): set_state(ST_IDLE)
 	if(inv_timer>0):
 		inv_timer -= delta
@@ -60,8 +61,9 @@ func increase_mp(amount):
 
 #Takes a certain amount of damage and is knocked back
 func take_damage(amount,kb):
-	damage_timer = damage_time
-	inv_timer = inv_time
-	increase_hp(-amount)
-	set_state(ST_HURT)
-	knockback = kb
+	if(inv_timer<=0):
+		damage_timer = damage_time
+		inv_timer = inv_time
+		increase_hp(-amount)
+		set_state(ST_HURT)
+		knockback = kb
