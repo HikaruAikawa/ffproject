@@ -12,7 +12,6 @@ func _ready():
 	base_stats[ATK]=15
 	base_stats[DEF]=5
 	base_stats[SPD]=2.5
-	print("Eo")
 	
 	current_stats = [0,0,0,0,0]
 	for i in range(base_stats.size()):
