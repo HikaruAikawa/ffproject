@@ -49,7 +49,3 @@ func init_animations():
 		}
 	}
 	set_animation()
-
-static func get_class_script(cl):
-	if (cl == CL_NIGHT): return load("res://Scripts/player_classes/Night.gd")
-	elif (cl == CL_MAIGE): return load("res://Scripts/player_classes/Maige.gd")

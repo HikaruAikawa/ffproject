@@ -125,7 +125,7 @@ func set_animation():
 
 func new_skill(number):
 	var skill = Node2D.new()
-	skill.set_script(load("res://Scripts/skills/skill_"+String(number)+".gd"))
+	skill.set_script(load("res://Scripts/Skills/skill_"+String(number)+".gd"))
 	add_child(skill)
 	skill.set_owner(self)
 	skill.set_user(self)
