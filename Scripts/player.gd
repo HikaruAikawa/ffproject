@@ -1,17 +1,19 @@
 #Player's main node, a kinematic body
 extends "res://Scripts/fighting_entity.gd"
 
-export var player_number = 0
-var skill
-var sprite
+#DEFINITION OF CONSTANTS
 
 const CL_NIGHT = 0
 const CL_MAIGE = 1
 
+#DEFINITION OF VARIABLES 
+
+var player_number
+var skill
+
 #DEFINITION OF METHODS
 
 func _ready():
-	sprite = find_node("Sprite")
 	damage_time = 0.2
 	inv_time = 3
 	#Creates the skill that will be used (testing purposes)
@@ -19,6 +21,9 @@ func _ready():
 
 func set_player_number(n):
 	player_number = n
+
+func get_player_number():
+	return player_number
 
 #Initializes all animations into arrays
 func init_animations():
@@ -45,5 +50,5 @@ func init_animations():
 	set_animation()
 
 static func get_class_script(cl):
-	if (cl == CL_NIGHT): return preload("res://Scripts/player_classes/Night.gd")
-	elif (cl == CL_MAIGE): return preload("res://Scripts/player_classes/Maige.gd")
+	if (cl == CL_NIGHT): return load("res://Scripts/player_classes/Night.gd")
+	elif (cl == CL_MAIGE): return load("res://Scripts/player_classes/Maige.gd")
