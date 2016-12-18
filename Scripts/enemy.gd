@@ -1,6 +1,8 @@
 #An enemy's main node, a kinematic body
 extends "res://Scripts/fighting_entity.gd"
 
+#This enemy's body hitbox
+var hitbox
 #The map on which to find a path
 var map
 #An array of points towards the target
@@ -24,6 +26,7 @@ func _ready():
 	map = get_node("../Map")
 	player = get_node("../Night")
 	path = []
+	hitbox = get_node("Hitbox")
 
 func init_animations():
 	animations = {
@@ -84,11 +87,14 @@ func _process(delta):
 	else: set_state(ST_IDLE)
 	
 	#If it collides with a player, it deals damage
-	if(is_colliding()):
-		print("Collision")
-		var collider = get_collider()
-		if(collider extends PhysicsBody2D):
-			print("With physics body")
-			if(collider.get_collision_mask_bit(1)):
-				print("With player")
-				collider.take_damage(10,10*(get_collider().get_global_pos()-get_global_pos()))
+#	if(is_colliding()):
+#		print("Collision")
+#		var collider = get_collider()
+#		if(collider extends PhysicsBody2D):
+#			print("With physics body")
+#			if(collider.get_collision_mask_bit(1)):
+#				print("With player")
+#				collider.take_damage(10,10*(get_collider().get_global_pos()-get_global_pos()))
+	for hit in hitbox.get_overlapping_areas():
+		var target = hit.get_parent()
+		target.take_damage(10,10*((target.get_global_pos()-get_global_pos()).normalized()))

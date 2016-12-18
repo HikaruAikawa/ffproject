@@ -18,7 +18,7 @@ var action_stack
 func _ready():
 	#Gets the player and player number
 	player = get_parent()
-	player_number = String(player.player_number)
+	player_number = String(player.get_player_number())
 	action_stack = []
 	set_process_input(true)
 

@@ -1,10 +1,62 @@
-#extends Node2D
-#
-#var viewport
-#var map
-#
-#func _ready():
-#	viewport = get_viewport()
-#	map = get_node("Map")
-#	var rect = map.get_node("GameArea").get_shape(0)
-#	viewport.set_rect(Rect2(Vector2(0,0),2*rect.get_extents()))
+extends Node2D
+
+#DEFINITION OF CONSTANTS
+
+const CL_NIGHT = 0
+const CL_MAIGE = 1
+
+#DEFINITION OF VARIABLES
+
+#Scenes to instantiate
+var map_scn
+var players_scn
+var enemies_scn
+
+var map
+var players
+var enemy
+
+func _ready():
+	#Imports necessary scenes
+	import_map()
+	import_players()
+	import_enemies()
+	#Instantiates the map
+	instantiate_map()
+	#Instantiates the players
+	players = {}
+	instantiate_player(1,CL_NIGHT,32*14+16,32*8+16)
+	instantiate_player(2,CL_MAIGE,32*17+16,32*8+16)
+	#Instantiates the enemy
+	instantiate_enemy(0,32*1+16,32*1+16)
+
+func import_map():
+	map_scn = preload("res://Scenes/Map.tscn")
+
+func import_players():
+	players_scn = {}
+	players_scn[CL_NIGHT] = preload("res://Scenes/Player_classes/Night.tscn")
+	players_scn[CL_MAIGE] = preload("res://Scenes/Player_classes/Maige.tscn")
+
+func import_enemies():
+	enemies_scn = {}
+	enemies_scn[0] = preload("res://Scenes/Enemy.tscn")
+
+func instantiate_map():
+	map = map_scn.instance()
+	add_child(map)
+	map.set_owner(self)
+	map.set_name("Map")
+
+func instantiate_player(number, cl, xpos, ypos):
+	players[number] = players_scn[cl].instance()
+	players[number].set_player_number(number)
+	add_child(players[number])
+	players[number].set_owner(self)
+	players[number].set_pos(Vector2(xpos,ypos))
+
+func instantiate_enemy(number, xpos, ypos):
+	enemy = enemies_scn[number].instance()
+	add_child(enemy)
+	enemy.set_owner(self)
+	enemy.set_pos(Vector2(xpos,ypos))

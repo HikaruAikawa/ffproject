@@ -4,6 +4,7 @@ extends "res://Scripts/player.gd"
 #DEFINITION OF METHODS
 
 func _ready():
+	sprite.set_texture(preload("res://Textures/Characters/Night.tex"))
 	
 	base_stats = [0,0,0,0,0]
 	base_stats[HP]=100
@@ -17,8 +18,6 @@ func _ready():
 		current_stats[i] = base_stats[i]
 	current_hp = current_stats[HP]
 	current_mp = current_stats[MP]
-	
-	#._ready()
 
 func _process(delta):
 	movement_speed = current_stats[SPD]
