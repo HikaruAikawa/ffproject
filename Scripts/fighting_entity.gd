@@ -24,20 +24,41 @@ var knockback
 #Timer for the invincibility time after taking damage
 var inv_time
 var inv_timer
+#Timer for the blinking animation when the character is invincible
+var blink_time
+var blink_timer
+var blink_state
 
 func _ready():
 	damage_timer = 0
 	inv_timer = 0
+	blink_timer = 0
+	blink_state = false
 
 func _process(delta):
-	#Counts down and gets knocked back
-	if(damage_timer>0):
-		damage_timer -= delta
-		move(knockback*(delta/damage_time))
-		if (test_move(knockback*(delta/damage_time))): damage_timer = 0
-	else: if(get_state() == ST_HURT): set_state(ST_IDLE)
+	if(get_state() == ST_HURT):
+		#If the damage timer is not 0, counts down and gets knocked back
+		if(damage_timer>0):
+			damage_timer -= delta
+			move(knockback*(delta/damage_time))
+			#Changes color to red (experimental)
+			sprite.set_modulate(Color(1,0,0,1))
+			#If it collides, stop moving backwards
+			if (test_move(knockback*(delta/damage_time))): damage_timer = 0
+		#If it is, returns to natural state
+		else:
+			set_state(ST_IDLE)
+			sprite.set_modulate(Color(1,1,1,1))
 	if(inv_timer>0):
 		inv_timer -= delta
+		#This timer switches the blinking state (between transparent and solid) when it reaches 0, then resets
+		#(Only if it's not getting knocked back)
+		if (damage_timer<=0):
+			blink_timer -= delta
+			if (blink_timer<=0):
+				switch_blinking()
+				blink_timer = blink_time
+	else: if (blink_state): switch_blinking()
 
 #Returns the given stat
 func get_stat(stat):
@@ -64,6 +85,15 @@ func take_damage(amount,kb):
 	if(inv_timer<=0):
 		damage_timer = damage_time
 		inv_timer = inv_time
+		blink_timer = blink_time
 		increase_hp(-amount)
 		set_state(ST_HURT)
 		knockback = kb
+
+func switch_blinking():
+	if (blink_state == false):
+		sprite.set_modulate(Color(1,1,1,0.5))
+		blink_state = true
+	else:
+		sprite.set_modulate(Color(1,1,1,1))
+		blink_state = false

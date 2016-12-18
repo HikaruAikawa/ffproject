@@ -16,6 +16,7 @@ var skill
 func _ready():
 	damage_time = 0.2
 	inv_time = 3
+	blink_time = 0.1
 	#Creates the skill that will be used (testing purposes)
 	skill = new_skill(0)
 

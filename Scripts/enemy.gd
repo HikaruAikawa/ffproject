@@ -87,14 +87,6 @@ func _process(delta):
 	else: set_state(ST_IDLE)
 	
 	#If it collides with a player, it deals damage
-#	if(is_colliding()):
-#		print("Collision")
-#		var collider = get_collider()
-#		if(collider extends PhysicsBody2D):
-#			print("With physics body")
-#			if(collider.get_collision_mask_bit(1)):
-#				print("With player")
-#				collider.take_damage(10,10*(get_collider().get_global_pos()-get_global_pos()))
 	for hit in hitbox.get_overlapping_areas():
 		var target = hit.get_parent()
-		target.take_damage(10,10*((target.get_global_pos()-get_global_pos()).normalized()))
+		target.take_damage(10,15*((target.get_global_pos()-get_global_pos()).normalized()))
