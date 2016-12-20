@@ -18,7 +18,7 @@ func _ready():
 	inv_time = 3
 	blink_time = 0.1
 	#Creates the skill that will be used (testing purposes)
-	skill = new_skill(0)
+	skill = new_skill(1)
 
 func set_player_number(n):
 	player_number = n

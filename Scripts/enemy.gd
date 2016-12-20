@@ -89,4 +89,4 @@ func _process(delta):
 	#If it collides with a player, it deals damage
 	for hit in hitbox.get_overlapping_areas():
 		var target = hit.get_parent()
-		target.take_damage(10,15*((target.get_global_pos()-get_global_pos()).normalized()))
+		if (target extends preload("res://Scripts/fighting_entity.gd")): target.take_damage(10,15*((target.get_global_pos()-get_global_pos()).normalized()))
