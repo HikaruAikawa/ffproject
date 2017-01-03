@@ -1,10 +1,5 @@
 extends "res://Scripts/skill.gd"
 
-const ST_IDLE = 0
-const ST_MOVING = 1
-const ST_HURT = 2
-const ST_SKILL = 3
-
 var swing_scn = preload("res://Scenes/Swing.tscn")
 var swing
 var texture
