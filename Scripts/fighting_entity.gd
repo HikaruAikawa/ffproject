@@ -17,6 +17,9 @@ var current_stats
 #Current health and magic points
 var current_hp
 var current_mp
+#Maximum health and magic points
+var max_hp
+var max_mp
 #Timer for the animation of taking damage
 var damage_time
 var damage_timer
@@ -28,15 +31,27 @@ var inv_timer
 var blink_time
 var blink_timer
 var blink_state
+#Timer for the use of a skill
+var skill_time
+var skill_timer
 
 func _ready():
 	damage_timer = 0
 	inv_timer = 0
 	blink_timer = 0
+	skill_timer = 0
 	blink_state = false
 
+func set_using_skill(time):
+	set_state(ST_SKILL)
+	skill_timer = time
+
 func _process(delta):
-	if(get_state() == ST_HURT):
+	if (get_state() == ST_SKILL):
+		skill_timer -= delta
+		if (skill_timer <= 0):
+			set_state(ST_IDLE)
+	elif (get_state() == ST_HURT):
 		#If the damage timer is not 0, counts down and gets knocked back
 		if(damage_timer>0):
 			damage_timer -= delta
@@ -71,7 +86,7 @@ func get_base_stat(stat):
 #Increases (or decreases) health points by the given amount
 func increase_hp(amount):
 	current_hp+=amount
-	if (current_hp<0): current_hp=0
+	if (current_hp<=0): die()
 	elif (current_hp>current_stats[HP]): current_hp=current_stats[HP]
 
 #Increases (or decreases) magic points by the given amount
@@ -97,3 +112,6 @@ func switch_blinking():
 	else:
 		sprite.set_modulate(Color(1,1,1,1))
 		blink_state = false
+
+func die():
+	self.queue_free()
