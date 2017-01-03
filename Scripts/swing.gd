@@ -20,7 +20,7 @@ var swing_time
 #The hitbox for this swing, and its size
 var hitbox
 var size
-#Angle of the swing (from the cardinal direction; the total angle will be this times two)
+#Angle of the swing
 var angle
 #The sprite of the weapon that will be swung, and its texture
 var sprite
@@ -44,6 +44,10 @@ func _ready():
 		rotate(PI/2)
 	elif (user.get_direction() == DR_DOWN):
 		rotate(PI)
+	elif (user.get_direction() == DR_UP):
+		sprite.set_z(-1)
+	translate(10*user.forward)
+	rotate(-angle/2)
 	set_process(true)
 
 func initialize(usr,tex,sw_time,ang,sz):
@@ -54,5 +58,12 @@ func initialize(usr,tex,sw_time,ang,sz):
 	size = sz
 
 func _process(delta):
-	if(!hitbox.get_overlapping_areas().empty()):
-		print("Test")
+	rotate(angle*delta/swing_time)
+	var overlapping_areas = hitbox.get_overlapping_areas()
+	if(!overlapping_areas.empty()):
+		for hit in overlapping_areas:
+			if (hit.get_layer_mask_bit(11)):
+				hit.get_parent().take_damage(10,15*(hit.get_global_pos()-get_global_pos()).normalized())
+	swing_timer -= delta
+	if (swing_timer <= 0):
+		self.free()
