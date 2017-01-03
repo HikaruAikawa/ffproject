@@ -46,6 +46,12 @@ func init_animations():
 			DR_LEFT:	[[4],[0]],
 			DR_DOWN:	[[1],[0]],
 			DR_RIGHT:	[[7],[0]]
+		} ,
+		ST_SKILL : {
+			DR_UP:		[[9],[0]],
+			DR_LEFT:	[[3],[0]],
+			DR_DOWN:	[[0],[0]],
+			DR_RIGHT:	[[6],[0]]
 		}
 	}
 	set_animation()
