@@ -16,8 +16,9 @@ var skill
 func _ready():
 	damage_time = 0.2
 	inv_time = 3
+	blink_time = 0.1
 	#Creates the skill that will be used (testing purposes)
-	skill = new_skill(0)
+	skill = new_skill(1)
 
 func set_player_number(n):
 	player_number = n
@@ -45,10 +46,12 @@ func init_animations():
 			DR_LEFT:	[[4],[0]],
 			DR_DOWN:	[[1],[0]],
 			DR_RIGHT:	[[7],[0]]
+		} ,
+		ST_SKILL : {
+			DR_UP:		[[9],[0]],
+			DR_LEFT:	[[3],[0]],
+			DR_DOWN:	[[0],[0]],
+			DR_RIGHT:	[[6],[0]]
 		}
 	}
 	set_animation()
-
-static func get_class_script(cl):
-	if (cl == CL_NIGHT): return load("res://Scripts/player_classes/Night.gd")
-	elif (cl == CL_MAIGE): return load("res://Scripts/player_classes/Maige.gd")

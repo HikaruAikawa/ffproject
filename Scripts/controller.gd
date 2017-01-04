@@ -38,8 +38,9 @@ func _input(event):
 	elif (event.is_action_released("gm_p"+player_number+"_down")): action_stack.erase(DR_DOWN)
 	elif (event.is_action_released("gm_p"+player_number+"_right")): action_stack.erase(DR_RIGHT)
 	
-	if (action_stack.empty()): player.set_state(ST_IDLE)
-	else: player.set_state_direction(ST_MOVING,action_stack[0])
+	if (player.get_state() == ST_IDLE || player.get_state() == ST_MOVING):
+		if (action_stack.empty()): player.set_state(ST_IDLE)
+		else: player.set_state_direction(ST_MOVING,action_stack[0])
 	
 #	#DEBUGGING INPUTS
 	if (event.is_action("db_p"+player_number+"_reduce_health")):

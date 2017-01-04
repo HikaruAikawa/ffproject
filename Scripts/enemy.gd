@@ -22,7 +22,23 @@ func _init():
 	turn_timer = turn_time
 
 func _ready():
-	movement_speed = 1
+	base_stats = [0,0,0,0,0]
+	base_stats[HP]=20
+	base_stats[MP]=100
+	base_stats[ATK]=5
+	base_stats[DEF]=5
+	base_stats[SPD]=1
+	
+	current_stats = [0,0,0,0,0]
+	for i in range(base_stats.size()):
+		current_stats[i] = base_stats[i]
+	current_hp = current_stats[HP]
+	current_mp = current_stats[MP]
+	
+	damage_time = 0.2
+	inv_time = 3
+	blink_time = 0.1
+	
 	map = get_node("../Map")
 	player = get_node("../Night")
 	path = []
@@ -41,11 +57,18 @@ func init_animations():
 			DR_LEFT:	[[3,4,5,4],[10,10,10,10]],
 			DR_DOWN:	[[0,1,2,1],[10,10,10,10]],
 			DR_RIGHT:	[[6,7,8,7],[10,10,10,10]]
+		} ,
+		ST_HURT : {
+			DR_UP:		[[10],[0]],
+			DR_LEFT:	[[4],[0]],
+			DR_DOWN:	[[1],[0]],
+			DR_RIGHT:	[[7],[0]]
 		}
 	}
 	set_animation()
 
 func _process(delta):
+	movement_speed = current_stats[SPD]
 	#Gets the path to the player
 	path = map.get_simple_path(get_global_pos(),player.get_global_pos(),false)
 	#Increases the timer for turning
@@ -87,14 +110,8 @@ func _process(delta):
 	else: set_state(ST_IDLE)
 	
 	#If it collides with a player, it deals damage
-#	if(is_colliding()):
-#		print("Collision")
-#		var collider = get_collider()
-#		if(collider extends PhysicsBody2D):
-#			print("With physics body")
-#			if(collider.get_collision_mask_bit(1)):
-#				print("With player")
-#				collider.take_damage(10,10*(get_collider().get_global_pos()-get_global_pos()))
 	for hit in hitbox.get_overlapping_areas():
 		var target = hit.get_parent()
-		target.take_damage(10,10*((target.get_global_pos()-get_global_pos()).normalized()))
+		#if (target extends preload("res://Scripts/fighting_entity.gd")):
+		if (hit.get_layer_mask_bit(10)):
+			target.take_damage(10,15*((target.get_global_pos()-get_global_pos()).normalized()))

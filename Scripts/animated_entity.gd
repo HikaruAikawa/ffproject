@@ -5,6 +5,7 @@ extends KinematicBody2D
 const ST_IDLE = 0
 const ST_MOVING = 1
 const ST_HURT = 2
+const ST_SKILL = 3
 const DR_UP = 0
 const DR_LEFT = 1
 const DR_DOWN = 2
@@ -125,7 +126,7 @@ func set_animation():
 
 func new_skill(number):
 	var skill = Node2D.new()
-	skill.set_script(load("res://Scripts/skills/skill_"+String(number)+".gd"))
+	skill.set_script(load("res://Scripts/Skills/skill_"+String(number)+".gd"))
 	add_child(skill)
 	skill.set_owner(self)
 	skill.set_user(self)
@@ -140,7 +141,6 @@ func test_move_no_collision(vect):
 	print(is_colliding())
 	var ret
 	set_global_pos(get_global_pos()+vect)
-#	move(Vector2(0,0))
 	ret = is_colliding()
 	print(is_colliding())
 	set_global_pos(get_global_pos()-vect)
