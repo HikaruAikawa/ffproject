@@ -15,6 +15,6 @@ func _process(delta):
 func effect():
 	user.set_using_skill(0.2)
 	swing = swing_scn.instance()
-	swing.initialize(user,texture,0.2,PI/2,24)
+	swing.initialize(user,texture,0.2,-PI/2,24)
 	add_child(swing)
 	swing.set_owner(self)
