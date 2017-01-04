@@ -47,6 +47,7 @@ func instantiate_map():
 	add_child(map)
 	map.set_owner(self)
 	map.set_name("Map")
+	map.set_z(-10)
 
 func instantiate_player(number, cl, xpos, ypos):
 	players[number] = players_scn[cl].instance()
