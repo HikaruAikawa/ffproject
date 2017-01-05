@@ -7,13 +7,10 @@ const MP = 1
 const ATK = 2
 const DEF = 3
 const SPD = 4
+const MAX_STATS = 5
 
 #DEFINITION OF VARIABLES
 
-#The base stats of this entity
-var base_stats
-#The current stats of this entity
-var current_stats
 #Current health and magic points
 var current_hp
 var current_mp
@@ -41,10 +38,6 @@ func _ready():
 	blink_timer = 0
 	skill_timer = 0
 	blink_state = false
-
-func set_using_skill(time):
-	set_state(ST_SKILL)
-	skill_timer = time
 
 func _process(delta):
 	if (get_state() == ST_SKILL):
@@ -75,25 +68,23 @@ func _process(delta):
 				blink_timer = blink_time
 	else: if (blink_state): switch_blinking()
 
-#Returns the given stat
-func get_stat(stat):
-	return current_stats[stat]
+#Sets the entity to the state using a skill
+func set_using_skill(time):
+	set_state(ST_SKILL)
+	skill_timer = time
 
-#Returns the given base stat
-func get_base_stat(stat):
-	return base_stats[stat]
 
 #Increases (or decreases) health points by the given amount
 func increase_hp(amount):
 	current_hp+=amount
 	if (current_hp<=0): die()
-	elif (current_hp>current_stats[HP]): current_hp=current_stats[HP]
+	elif (current_hp>max_hp): current_hp=max_hp
 
 #Increases (or decreases) magic points by the given amount
 func increase_mp(amount):
 	current_mp+=amount
 	if (current_mp<0): current_mp=0
-	elif (current_mp>current_stats[MP]): current_mp=current_stats[MP]
+	elif (current_mp>max_mp): current_mp=max_mp
 
 #Takes a certain amount of damage and is knocked back
 func take_damage(amount,kb):

@@ -7,18 +7,41 @@ const CL_NIGHT = 0
 const CL_MAIGE = 1
 
 #DEFINITION OF VARIABLES 
+var cl_script
 
+#The current stats of this entity
+var current_stats
 var player_number
 var skill
 
 #DEFINITION OF METHODS
 
 func _ready():
+	
+	#Gets the class to access static methods
+	cl_script = get_script()
+	
+	#Gets the data from the class
+	sprite.set_texture(cl_script.get_texture())
+	current_stats = []
+	current_stats.resize(MAX_STATS)
+	for i in range(MAX_STATS):
+		current_stats[i] = cl_script.get_base_stat(i)
+	
+	#Sets HP and MP
+	max_hp = current_stats[HP]
+	max_mp = current_stats[MP]
+	current_hp = max_hp
+	current_mp = max_mp
+	
 	damage_time = 0.2
 	inv_time = 3
 	blink_time = 0.1
 	#Creates the skill that will be used (testing purposes)
 	skill = new_skill(1)
+
+func _process(delta):
+	movement_speed = current_stats[SPD]
 
 func set_player_number(n):
 	player_number = n
@@ -55,3 +78,7 @@ func init_animations():
 		}
 	}
 	set_animation()
+
+#Returns the given stat
+func get_stat(stat):
+	return current_stats[stat]

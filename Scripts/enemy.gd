@@ -22,18 +22,12 @@ func _init():
 	turn_timer = turn_time
 
 func _ready():
-	base_stats = [0,0,0,0,0]
-	base_stats[HP]=20
-	base_stats[MP]=100
-	base_stats[ATK]=5
-	base_stats[DEF]=5
-	base_stats[SPD]=1
 	
-	current_stats = [0,0,0,0,0]
-	for i in range(base_stats.size()):
-		current_stats[i] = base_stats[i]
-	current_hp = current_stats[HP]
-	current_mp = current_stats[MP]
+	movement_speed = 0.8
+	max_hp = 20
+	max_mp = 100
+	current_hp = max_hp
+	current_mp = max_mp
 	
 	damage_time = 0.2
 	inv_time = 3
@@ -68,7 +62,6 @@ func init_animations():
 	set_animation()
 
 func _process(delta):
-	movement_speed = current_stats[SPD]
 	#Gets the path to the player
 	path = map.get_simple_path(get_global_pos(),player.get_global_pos(),false)
 	#Increases the timer for turning
