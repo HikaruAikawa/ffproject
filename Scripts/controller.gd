@@ -41,13 +41,14 @@ func _input(event):
 	if (player.get_state() == ST_IDLE || player.get_state() == ST_MOVING):
 		if (action_stack.empty()): player.set_state(ST_IDLE)
 		else: player.set_state_direction(ST_MOVING,action_stack[0])
+		
+		if (event.is_action_pressed("db_p"+player_number+"_skill")):
+			player.skill.use()
+			get_tree().set_input_as_handled()
 	
 #	#DEBUGGING INPUTS
 	if (event.is_action("db_p"+player_number+"_reduce_health")):
 		player.increase_hp(-1)
 	elif (event.is_action("db_p"+player_number+"_increase_health")):
 		player.increase_hp(1)
-	elif (event.is_action_pressed("db_p"+player_number+"_skill")):
-		player.skill.use()
-		get_tree().set_input_as_handled()
 	

@@ -14,11 +14,6 @@ func _init():
 	rect.set_extents(Vector2(15,15))
 	target.add_shape(rect)
 	target.set_shape_as_trigger(0,true)
-#	
-#	var spr = Sprite.new()
-#	spr.set_texture(load("res://Textures/Graphics/healthbar.png"))
-#	target.add_child(spr)
-#	spr.set_owner(target)
 
 func _process(delta):
 	target.set_pos(96*user.get_forward())
