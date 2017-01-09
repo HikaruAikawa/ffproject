@@ -14,6 +14,7 @@ const DR_RIGHT = 3
 var player
 var player_number
 var action_stack
+var weapon
 
 func _ready():
 	#Gets the player and player number
@@ -42,8 +43,10 @@ func _input(event):
 		if (action_stack.empty()): player.set_state(ST_IDLE)
 		else: player.set_state_direction(ST_MOVING,action_stack[0])
 		
-		if (event.is_action_pressed("db_p"+player_number+"_skill")):
-			player.skill.use()
+		if (event.is_action_pressed("gm_p"+player_number+"_skill1")):
+			player.get_weapon().use_skill(0)
+		elif (event.is_action_pressed("gm_p"+player_number+"_skill2")):
+			player.get_weapon().use_skill(1)
 	
 #	#DEBUGGING INPUTS
 	if (event.is_action("db_p"+player_number+"_reduce_health")):

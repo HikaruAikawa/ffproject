@@ -7,7 +7,10 @@ const CL_NIGHT = 0
 const CL_MAIGE = 1
 
 #DEFINITION OF VARIABLES 
-var cl_script
+var script
+var weapon
+var weapon_scn
+var global
 
 #The current stats of this entity
 var current_stats
@@ -19,14 +22,18 @@ var skill
 func _ready():
 	
 	#Gets the class to access static methods
-	cl_script = get_script()
+	script = get_script()
+	
+	#Saves the global node
+	global = get_node("/root/global")
+	weapon_scn = global.get_weapon_scene()
 	
 	#Gets the data from the class
-	sprite.set_texture(cl_script.get_texture())
+	sprite.set_texture(script.get_texture())
 	current_stats = []
 	current_stats.resize(MAX_STATS)
 	for i in range(MAX_STATS):
-		current_stats[i] = cl_script.get_base_stat(i)
+		current_stats[i] = script.get_base_stat(i)
 	
 	#Sets HP and MP
 	max_hp = current_stats[HP]
@@ -38,7 +45,7 @@ func _ready():
 	inv_time = 3
 	blink_time = 0.1
 	#Creates the skill that will be used (testing purposes)
-	skill = new_skill(1)
+	add_weapon(0)
 
 func _process(delta):
 	movement_speed = current_stats[SPD]
@@ -82,3 +89,16 @@ func init_animations():
 #Returns the given stat
 func get_stat(stat):
 	return current_stats[stat]
+
+#Replaces the current weapon with the given one
+func add_weapon(id):
+	if (weapon != null):
+		weapon.free()
+	weapon = weapon_scn.instance()
+	weapon.set_script(global.get_weapon_script(id))
+	add_child(weapon)
+	weapon.set_owner(self)
+
+#Returns the current weapon
+func get_weapon():
+	return weapon
