@@ -44,7 +44,6 @@ func _input(event):
 		
 		if (event.is_action_pressed("db_p"+player_number+"_skill")):
 			player.skill.use()
-			get_tree().set_input_as_handled()
 	
 #	#DEBUGGING INPUTS
 	if (event.is_action("db_p"+player_number+"_reduce_health")):

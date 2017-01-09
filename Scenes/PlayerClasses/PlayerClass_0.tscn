@@ -4,11 +4,8 @@
 [ext_resource path="res://Scripts/PlayerClasses/player_class_0.gd" type="Script" id=2]
 [ext_resource path="res://Textures/Characters/player_class_0.tex" type="Texture" id=3]
 
-
-
 [node name="Night" instance=ExtResource( 1 )]
 
-editor/display_folded = true
 script/script = ExtResource( 2 )
 
 [node name="Sprite" parent="."]

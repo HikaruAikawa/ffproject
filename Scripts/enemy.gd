@@ -1,6 +1,8 @@
 #An enemy's main node, a kinematic body
 extends "res://Scripts/fighting_entity.gd"
 
+#The script of this enemy
+var script
 #This enemy's body hitbox
 var hitbox
 #The map on which to find a path
@@ -23,9 +25,15 @@ func _init():
 
 func _ready():
 	
-	movement_speed = 0.8
-	max_hp = 20
-	max_mp = 100
+	#Gets the script to access static methods
+	script = get_script()
+	print(script.get_source_code())
+	
+	#Gets the data from the script
+	sprite.set_texture(script.get_texture())
+	movement_speed = script.get_speed()
+	max_hp = script.get_hp()
+	max_mp = script.get_mp()
 	current_hp = max_hp
 	current_mp = max_mp
 	
@@ -34,7 +42,7 @@ func _ready():
 	blink_time = 0.1
 	
 	map = get_node("../Map")
-	player = get_node("../Night")
+	player = get_node("../Player")
 	path = []
 	hitbox = get_node("Hitbox")
 
