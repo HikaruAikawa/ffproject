@@ -12,9 +12,8 @@ var global
 
 #Scenes to instantiate
 var map_scn
-var players_scn
 var player_scn
-var enemies_scn
+var enemy_scn
 
 #Nodes of the scene
 var map
@@ -27,7 +26,7 @@ func _ready():
 	#Imports necessary scenes
 	import_map()
 	import_player()
-	import_enemies()
+	import_enemy()
 	#Instantiates the map
 	instantiate_map()
 	#Instantiates the players
@@ -38,14 +37,13 @@ func _ready():
 	instantiate_enemy(0,32*1+16,32*1+16)
 
 func import_map():
-	map_scn = preload("res://Scenes/Map.tscn")
+	map_scn = global.get_map_scene(0)
 
 func import_player():
-	player_scn = preload("res://Scenes/Player.tscn")
+	player_scn = global.get_player_scene()
 
-func import_enemies():
-	enemies_scn = {}
-	enemies_scn[0] = preload("res://Scenes/Enemy.tscn")
+func import_enemy():
+	enemy_scn = global.get_enemy_scene()
 
 func instantiate_map():
 	map = map_scn.instance()
@@ -54,17 +52,18 @@ func instantiate_map():
 	map.set_name("Map")
 	map.set_z(-10)
 
-func instantiate_player(number, cl, xpos, ypos):
+func instantiate_player(number, id, xpos, ypos):
 	players[number] = player_scn.instance()
-	players[number].set_script(global.get_player_class(cl))
+	players[number].set_script(global.get_player_script(id))
 	players[number].set_player_number(number)
+	players[number].set_name("Player "+str(number))
 	add_child(players[number])
 	players[number].set_owner(self)
 	players[number].set_pos(Vector2(xpos,ypos))
 
-func instantiate_enemy(number, xpos, ypos):
-	enemy = enemies_scn[number].instance()
-	enemy.set_script(global.get_enemy_script(0))
+func instantiate_enemy(id, xpos, ypos):
+	enemy = enemy_scn.instance()
+	enemy.set_script(global.get_enemy_script(id))
 	add_child(enemy)
 	enemy.set_owner(self)
 	enemy.set_pos(Vector2(xpos,ypos))

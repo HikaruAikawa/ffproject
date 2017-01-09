@@ -27,7 +27,6 @@ func _ready():
 	
 	#Gets the script to access static methods
 	script = get_script()
-	print(script.get_source_code())
 	
 	#Gets the data from the script
 	sprite.set_texture(script.get_texture())
@@ -42,7 +41,7 @@ func _ready():
 	blink_time = 0.1
 	
 	map = get_node("../Map")
-	player = get_node("../Player")
+	player = get_node("../Player 1")
 	path = []
 	hitbox = get_node("Hitbox")
 
