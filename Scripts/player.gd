@@ -102,3 +102,7 @@ func add_weapon(id):
 #Returns the current weapon
 func get_weapon():
 	return weapon
+
+func die():
+	get_node("/root/Main").remove_player(player_number)
+	.die()

@@ -67,3 +67,9 @@ func instantiate_enemy(id, xpos, ypos):
 	add_child(enemy)
 	enemy.set_owner(self)
 	enemy.set_pos(Vector2(xpos,ypos))
+
+func remove_player(number):
+	players[number] = null
+
+func get_player_list():
+	return players
