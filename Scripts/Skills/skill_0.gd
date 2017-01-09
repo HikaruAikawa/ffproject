@@ -2,6 +2,13 @@ extends "res://Scripts/skill.gd"
 
 var target
 
+#CLASS METHODS
+
+static func get_mp_cost(): return 20
+static func get_cooldown(): return 2
+
+#OTHER METHODS
+
 func _init():
 	mp_cost = 20
 	cooldown = 2

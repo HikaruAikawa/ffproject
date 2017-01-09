@@ -1,4 +1,5 @@
 #Player's controller
+extends Node2D
 
 #DEFINITION OF CONSTANTS
 
@@ -21,6 +22,7 @@ func _ready():
 	player = get_parent()
 	player_number = String(player.get_player_number())
 	action_stack = []
+	set_process(true)
 	set_process_input(true)
 
 #Handles all inputs
@@ -40,12 +42,9 @@ func _input(event):
 	elif (event.is_action_released("gm_p"+player_number+"_right")): action_stack.erase(DR_RIGHT)
 	
 	if (player.get_state() == ST_IDLE || player.get_state() == ST_MOVING):
-		if (action_stack.empty()): player.set_state(ST_IDLE)
-		else: player.set_state_direction(ST_MOVING,action_stack[0])
-		
-		if (event.is_action_pressed("gm_p"+player_number+"_skill1")):
+		if (event.is_action_pressed("gm_p"+player_number+"_skill_0")):
 			player.get_weapon().use_skill(0)
-		elif (event.is_action_pressed("gm_p"+player_number+"_skill2")):
+		elif (event.is_action_pressed("gm_p"+player_number+"_skill_1")):
 			player.get_weapon().use_skill(1)
 	
 #	#DEBUGGING INPUTS
@@ -53,4 +52,8 @@ func _input(event):
 		player.increase_hp(-1)
 	elif (event.is_action("db_p"+player_number+"_increase_health")):
 		player.increase_hp(1)
-	
+
+func _process(delta):
+	if (player.get_state() == ST_IDLE || player.get_state() == ST_MOVING):
+		if (action_stack.empty()): player.set_state(ST_IDLE)
+		else: player.set_state_direction(ST_MOVING,action_stack[0])

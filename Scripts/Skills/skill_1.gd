@@ -4,13 +4,14 @@ var swing_scn = preload("res://Scenes/Swing.tscn")
 var swing
 var texture
 
-func _init():
-	mp_cost = 5
-	cooldown = 2
-	texture = preload("res://Textures/Weapons/sword_0.tex")
+#CLASS METHODS
 
-func _process(delta):
-	pass
+static func get_mp_cost(): return 2
+static func get_cooldown(): return 0.5
+
+#OTHER METHODS
+func _ready():
+	texture = get_parent().get_texture()
 
 func effect():
 	user.set_using_skill(0.2)
@@ -18,3 +19,4 @@ func effect():
 	swing.initialize(user,texture,0.2,-PI/2,24)
 	add_child(swing)
 	swing.set_owner(self)
+	return true

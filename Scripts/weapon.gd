@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 #DEFINITION OF CONSTANTS
 
@@ -17,16 +17,12 @@ var user
 var id
 #The name of this weapon
 var name
+#The sprite of this weapon
+var texture
 #An array with the skills assigned to this weapon
 var skills
 
 #DEFINITION OF METHODS
-
-#func _init(id,usr):
-#	index = id
-#	user = usr
-#	skills = []
-#	skill_class = preload("res://Scripts/skill.gd")
 
 func _ready():
 	global = get_node("/root/global")
@@ -67,3 +63,6 @@ func get_skill(i):
 #Returns the index of this weapon
 func get_id():
 	return id
+
+func get_texture():
+	return texture

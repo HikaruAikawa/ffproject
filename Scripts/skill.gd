@@ -2,6 +2,7 @@ extends Node2D
 
 #DEFINITION OF VARIABLES 
 
+var script
 #How much MP will be depleted when the skill is used
 var mp_cost
 #The time in seconds it takes for the ability to become useable again
@@ -10,14 +11,13 @@ var cooldown_timer
 #A reference to the entity using this skill
 var user
 
-#When created, takes the entity that will use it
-#func _init(usr):
-#	user = usr
-
 #Enables processing
-func _init():
-	set_process(true)
+func _ready():
+	script = get_script()
+	mp_cost = script.get_mp_cost()
+	cooldown = script.get_cooldown()
 	cooldown_timer = 0
+	set_process(true)
 
 #Every frame, the cooldown timer will decrease if it's not 0
 func _process(delta):
