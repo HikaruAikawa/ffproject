@@ -7,7 +7,7 @@ var texture
 func _init():
 	mp_cost = 5
 	cooldown = 2
-	texture = preload("res://Textures/Weapons/Sword1.tex")
+	texture = preload("res://Textures/Weapons/sword_0.tex")
 
 func _process(delta):
 	pass

@@ -1,6 +1,7 @@
 [gd_scene load_steps=4 format=1]
 
-[ext_resource path="res://Textures/Tiles/tiles0.tex" type="Texture" id=1]
+[ext_resource path="res://Textures/Tiles/tiles_0.tex" type="Texture" id=1]
+
 
 [sub_resource type="NavigationPolygon" id=1]
 

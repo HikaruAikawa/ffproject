@@ -35,8 +35,8 @@ func import_map():
 
 func import_players():
 	players_scn = {}
-	players_scn[CL_NIGHT] = preload("res://Scenes/PlayerClasses/Night.tscn")
-	players_scn[CL_MAIGE] = preload("res://Scenes/PlayerClasses/Maige.tscn")
+	players_scn[CL_NIGHT] = preload("res://Scenes/PlayerClasses/PlayerClass_0.tscn")
+	players_scn[CL_MAIGE] = preload("res://Scenes/PlayerClasses/PlayerClass_1.tscn")
 
 func import_enemies():
 	enemies_scn = {}
