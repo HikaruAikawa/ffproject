@@ -123,31 +123,31 @@ func _process(delta):
 					if (-PI<=angle && angle<-PI/2):
 						if (angle<-3*PI/4):
 							set_direction(DR_UP)
-							if (test_move(movement_speed*forward)): set_direction(DR_LEFT)
+							if (test_move(forward)): set_direction(DR_LEFT)
 						else:
 							set_direction(DR_LEFT)
-							if (test_move(movement_speed*forward)): set_direction(DR_UP)
+							if (test_move(forward)): set_direction(DR_UP)
 					elif (-PI/2<=angle && angle<0):
 						if (angle<-PI/4):
 							set_direction(DR_LEFT)
-							if (test_move(movement_speed*forward)): set_direction(DR_DOWN)
+							if (test_move(forward)): set_direction(DR_DOWN)
 						else:
 							set_direction(DR_DOWN)
-							if (test_move(movement_speed*forward)): set_direction(DR_LEFT)
+							if (test_move(forward)): set_direction(DR_LEFT)
 					elif (0<=angle && angle<PI/2):
 						if (angle<PI/4):
 							set_direction(DR_DOWN)
-							if (test_move(movement_speed*forward)): set_direction(DR_RIGHT)
+							if (test_move(forward)): set_direction(DR_RIGHT)
 						else:
 							set_direction(DR_RIGHT)
-							if (test_move(movement_speed*forward)): set_direction(DR_DOWN)
+							if (test_move(forward)): set_direction(DR_DOWN)
 					else:
 						if (angle<3*PI/4):
 							set_direction(DR_RIGHT)
-							if (test_move(movement_speed*forward)): set_direction(DR_UP)
+							if (test_move(forward)): set_direction(DR_UP)
 						else:
 							set_direction(DR_UP)
-							if (test_move(movement_speed*forward)): set_direction(DR_RIGHT)
+							if (test_move(forward)): set_direction(DR_RIGHT)
 					turn_timer = 0
 		else: set_state(ST_IDLE)
 	else: set_state(ST_IDLE)
