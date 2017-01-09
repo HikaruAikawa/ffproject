@@ -100,26 +100,54 @@ func _process(delta):
 				#2. If there is a wall in that direction, check which other direction it's the closest to
 				if(turn_timer>=turn_time):
 					var angle = (path[2]-get_global_pos()).angle()
-					if (-PI*3/4<=angle && angle<-PI/4):
-						set_direction(DR_LEFT)
-						if(test_move(movement_speed*forward)):
-							if(angle<-PI/2): set_direction(DR_UP)
-							else: set_direction(DR_DOWN)
-					elif (-PI/4<=angle && angle<PI/4):
-						set_direction(DR_DOWN)
-						if(test_move(movement_speed*forward)):
-							if(angle<0): set_direction(DR_LEFT)
-							else: set_direction(DR_RIGHT)
-					elif (PI/4<=angle && angle<3*PI/4):
-						set_direction(DR_RIGHT)
-						if(test_move(movement_speed*forward)):
-							if(angle<PI/2): set_direction(DR_DOWN)
-							else: set_direction(DR_UP)
+#					if (-PI*3/4<=angle && angle<-PI/4):
+#						set_direction(DR_LEFT)
+#						if(test_move(movement_speed*forward)):
+#							if(angle<-PI/2): set_direction(DR_UP)
+#							else: set_direction(DR_DOWN)
+#					elif (-PI/4<=angle && angle<PI/4):
+#						set_direction(DR_DOWN)
+#						if(test_move(movement_speed*forward)):
+#							if(angle<0): set_direction(DR_LEFT)
+#							else: set_direction(DR_RIGHT)
+#					elif (PI/4<=angle && angle<3*PI/4):
+#						set_direction(DR_RIGHT)
+#						if(test_move(movement_speed*forward)):
+#							if(angle<PI/2): set_direction(DR_DOWN)
+#							else: set_direction(DR_UP)
+#					else:
+#						set_direction(DR_UP)
+#						if(test_move(movement_speed*forward)):
+#							if(angle<0): set_direction(DR_LEFT)
+#							else: set_direction(DR_RIGHT)
+					if (-PI<=angle && angle<-PI/2):
+						if (angle<-3*PI/4):
+							set_direction(DR_UP)
+							if (test_move(movement_speed*forward)): set_direction(DR_LEFT)
+						else:
+							set_direction(DR_LEFT)
+							if (test_move(movement_speed*forward)): set_direction(DR_UP)
+					elif (-PI/2<=angle && angle<0):
+						if (angle<-PI/4):
+							set_direction(DR_LEFT)
+							if (test_move(movement_speed*forward)): set_direction(DR_DOWN)
+						else:
+							set_direction(DR_DOWN)
+							if (test_move(movement_speed*forward)): set_direction(DR_LEFT)
+					elif (0<=angle && angle<PI/2):
+						if (angle<PI/4):
+							set_direction(DR_DOWN)
+							if (test_move(movement_speed*forward)): set_direction(DR_RIGHT)
+						else:
+							set_direction(DR_RIGHT)
+							if (test_move(movement_speed*forward)): set_direction(DR_DOWN)
 					else:
-						set_direction(DR_UP)
-						if(test_move(movement_speed*forward)):
-							if(angle<0): set_direction(DR_LEFT)
-							else: set_direction(DR_RIGHT)
+						if (angle<3*PI/4):
+							set_direction(DR_RIGHT)
+							if (test_move(movement_speed*forward)): set_direction(DR_UP)
+						else:
+							set_direction(DR_UP)
+							if (test_move(movement_speed*forward)): set_direction(DR_RIGHT)
 					turn_timer = 0
 		else: set_state(ST_IDLE)
 	else: set_state(ST_IDLE)
