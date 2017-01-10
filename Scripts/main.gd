@@ -14,11 +14,13 @@ var global
 var map_scn
 var player_scn
 var enemy_scn
+var enemy_spawner_scn
 
 #Nodes of the scene
 var map
 var players
 var enemy
+var enemy_spawners
 
 func _ready():
 	#Saves the global node
@@ -27,6 +29,7 @@ func _ready():
 	import_map()
 	import_player()
 	import_enemy()
+	import_enemy_spawner()
 	#Instantiates the map
 	instantiate_map()
 	#Instantiates the players
@@ -34,7 +37,13 @@ func _ready():
 	instantiate_player(1,CL_NIGHT,32*14+16,32*8+16)
 	instantiate_player(2,CL_MAIGE,32*17+16,32*8+16)
 	#Instantiates the enemy
-	instantiate_enemy(0,32*1+16,32*1+16)
+	#instantiate_enemy(0,32*1+16,32*1+16)
+	enemy_spawners = []
+	var spawner = new_enemy_spawner()
+	spawner.add_spawn(32*1+16,32*1+16,0,0,0)
+	spawner.add_spawn(32*30+16,32*1+16,0,5,0)
+	spawner.add_spawn(32*30+16,32*15+16,0,10,0)
+	spawner.add_spawn(32*1+16,32*15+16,0,15,0)
 
 func import_map():
 	map_scn = global.get_map_scene(0)
@@ -44,6 +53,9 @@ func import_player():
 
 func import_enemy():
 	enemy_scn = global.get_enemy_scene()
+
+func import_enemy_spawner():
+	enemy_spawner_scn = global.get_enemy_spawner_scene()
 
 func instantiate_map():
 	map = map_scn.instance()
@@ -67,6 +79,13 @@ func instantiate_enemy(id, xpos, ypos):
 	add_child(enemy)
 	enemy.set_owner(self)
 	enemy.set_pos(Vector2(xpos,ypos))
+
+func new_enemy_spawner():
+	var ret = enemy_spawner_scn.instance()
+	add_child(ret)
+	ret.set_owner(self)
+	enemy_spawners.append(ret)
+	return ret
 
 func remove_player(number):
 	players[number] = null

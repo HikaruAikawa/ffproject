@@ -7,6 +7,9 @@ func get_player_scene():
 func get_enemy_scene():
 	return load("res://Scenes/Enemy.tscn")
 
+func get_enemy_spawner_scene():
+	return load("res://Scenes/EnemySpawner.tscn")
+
 func get_map_scene(id):
 	return load("res://Scenes/Maps/Map_"+str(id)+".tscn")
 
