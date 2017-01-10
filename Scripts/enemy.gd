@@ -23,10 +23,6 @@ var turn_timer
 #Time it takes to turn, in seconds
 var turn_time
 
-func _init():
-	turn_time = 1
-	turn_timer = turn_time
-
 func _ready():
 	
 	#Gets the script to access static methods
@@ -40,8 +36,10 @@ func _ready():
 	current_hp = max_hp
 	current_mp = max_mp
 	
+	turn_time = 1
+	turn_timer = turn_time
 	damage_time = 0.2
-	inv_time = 3
+	inv_time = 1
 	blink_time = 0.1
 	
 	map = get_node("/root/Main/Map")
