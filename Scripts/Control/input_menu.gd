@@ -4,6 +4,7 @@ var button_list
 var listening
 var listening_action
 var message_label
+var save_button
 
 func _ready():
 	button_list = []
@@ -45,6 +46,13 @@ func _ready():
 					button.set_text(OS.get_scancode_string(event.scancode))
 			
 			button.connect("pressed",self,"_action_button_pressed",[action])
+	
+	save_button = Button.new()
+	add_child(save_button)
+	save_button.set_owner(self)
+	save_button.connect("pressed",self,"_save_button_pressed")
+	save_button.set_text("Save configuration")
+	
 	set_process_input(true)
 	listening = false
 
@@ -71,3 +79,8 @@ func update_buttons():
 		for event in InputMap.get_action_list(action):
 			if (event.type == InputEvent.KEY):
 				button.set_text(OS.get_scancode_string(event.scancode))
+
+func _save_button_pressed():
+	var config = get_node("/root/config")
+	if (config.save_inputs()): message_label.set_text("File saved successfully")
+	else: message_label.set_text("Error saving file")
