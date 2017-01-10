@@ -5,6 +5,8 @@ var listening
 var listening_action
 var message_label
 var save_button
+var input_container
+var p_input_containers
 
 func _ready():
 	button_list = []
@@ -13,19 +15,34 @@ func _ready():
 	var button
 	var event_list
 	
-	message_label = Label.new()
-	add_child(message_label)
-	message_label.set_owner(self)
-	message_label.set_align(ALIGN_CENTER)
+#	message_label = Label.new()
+#	add_child(message_label)
+#	message_label.set_owner(self)
+#	message_label.set_align(ALIGN_CENTER)
+	message_label = find_node("MessageLabel")
 	message_label.set_text("Press a button to change the input key")
+	
+	var global = get_node("/root/global")
+	input_container = find_node("InputContainer")
+	p_input_containers = []
+	for i in range(0,global.MAX_PLAYERS):
+		p_input_containers.append(VBoxContainer.new())
+		p_input_containers[i].set_h_size_flags(SIZE_EXPAND_FILL)
+		input_container.add_child(p_input_containers[i])
+		var p_label = Label.new()
+		p_input_containers[i].add_child(p_label)
+		p_label.set_text("Player "+str(i+1))
+		p_label.set_align(ALIGN_CENTER)
 	
 	var actions = InputMap.get_actions()
 	actions.sort()
 	for action in actions:
 		if (action.begins_with("gm_")):
 			container = HBoxContainer.new()
-			add_child(container)
-			container.set_owner(self)
+			var current_p_container
+			current_p_container = p_input_containers[int(action.left(5).right(1))-1]
+			current_p_container.add_child(container)
+			container.set_owner(current_p_container)
 			container.set_v_size_flags(SIZE_EXPAND)
 			container.set_alignment(ALIGN_CENTER)
 			
@@ -47,9 +64,10 @@ func _ready():
 			
 			button.connect("pressed",self,"_action_button_pressed",[action])
 	
-	save_button = Button.new()
-	add_child(save_button)
-	save_button.set_owner(self)
+#	save_button = Button.new()
+#	add_child(save_button)
+#	save_button.set_owner(self)
+	save_button = find_node("SaveButton")
 	save_button.connect("pressed",self,"_save_button_pressed")
 	save_button.set_text("Save configuration")
 	
