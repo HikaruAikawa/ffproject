@@ -23,6 +23,9 @@ func get_player_script(id):
 func get_enemy_script(id):
 	return load("res://Scripts/Enemies/enemy_"+str(id)+".gd")
 
+#func get_generic_enemy_script():
+#	return load("res://Scripts/enemy.gd")
+
 func get_skill_script(id):
 	return load("res://Scripts/Skills/skill_"+str(id)+".gd")
 

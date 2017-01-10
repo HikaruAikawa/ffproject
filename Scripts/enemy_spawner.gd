@@ -81,4 +81,14 @@ func spawn_enemy(x,y,enemy):
 #When the next phase starts, resets the timer
 func next_phase():
 	current_phase += 1
+	print("Next phase")
 	spawn_timer = 0
+
+#Returns true if all enemies on the current phase have been spawned
+func all_enemies_spawned():
+	for spawn in spawns[current_phase]:
+		if (!spawn.is_spawned()): return false
+	return true
+
+func get_phase():
+	return current_phase

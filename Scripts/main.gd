@@ -21,6 +21,7 @@ var map
 var players
 var enemy
 var enemy_spawners
+var current_phase
 
 func _ready():
 	#Saves the global node
@@ -37,13 +38,34 @@ func _ready():
 	instantiate_player(1,CL_NIGHT,32*14+16,32*8+16)
 	instantiate_player(2,CL_MAIGE,32*17+16,32*8+16)
 	#Instantiates the enemy
-	#instantiate_enemy(0,32*1+16,32*1+16)
 	enemy_spawners = []
 	var spawner = new_enemy_spawner()
 	spawner.add_spawn(32*1+16,32*1+16,0,0,0)
 	spawner.add_spawn(32*30+16,32*1+16,0,5,0)
-	spawner.add_spawn(32*30+16,32*15+16,0,10,0)
-	spawner.add_spawn(32*1+16,32*15+16,0,15,0)
+	spawner.add_spawn(32*5+16,32*8+16,0,0,1)
+	var spawner = new_enemy_spawner()
+	spawner.add_spawn(32*30+16,32*15+16,0,0,0)
+	spawner.add_spawn(32*1+16,32*15+16,0,5,0)
+	spawner.add_spawn(32*26+16,32*8+16,0,5,1)
+	current_phase = 0
+	
+	set_process(true)
+
+func _process(delta):
+	if (current_phase <= 1):
+		if (should_advance()): next_phase()
+
+func should_advance():
+	for spawner in enemy_spawners:
+		#Returns false if any of the spawners hasn't spawned all enemies, or still has children
+		if (!spawner.all_enemies_spawned()): return false
+		if (!spawner.get_children().empty()): return false
+	#If it hasn't found a spawner that still has enemies, returns true
+	return true
+
+func next_phase():
+	for spawner in enemy_spawners: spawner.next_phase()
+	current_phase += 1
 
 func import_map():
 	map_scn = global.get_map_scene(0)
