@@ -40,6 +40,17 @@ func get_weapon_script(cl,slot,id):
 	elif (slot == 1): slot_str = "l"
 	return load("res://Scripts/Weapons/Class"+str(cl)+"/class_"+str(cl)+"_weapon_"+slot_str+str(id)+".gd")
 
+func get_weapon_script_list(cl, slot):
+	var slot_str
+	if (slot == 0): slot_str = "r"
+	elif (slot == 1): slot_str = "l"
+	list = []
+	var i = 0
+	var file = File.new()
+	while (file.file_exists()):
+		list.append(load("res://Scripts/Weapons/Class"+str(cl)+"/class_"+str(cl)+"_weapon_"+slot_str+str(i)+".gd"))
+	return list
+
 #Changes to the stage with the given identifier
 func set_stage(id): call_deferred("_deferred_set_stage",id)
 func _deferred_set_stage(id):
