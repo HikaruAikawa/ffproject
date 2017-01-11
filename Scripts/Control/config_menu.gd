@@ -92,10 +92,13 @@ func _ready():
 		#For each player, creates the container
 		player_c = VBoxContainer.new()
 		player_weapons_c.add_child(player_c)
-		player_c.set_h_size_flags(SIZE_EXPAND)
+		player_c.set_h_size_flags(SIZE_EXPAND_FILL)
 		player_c.set_name("Player"+str(i)+"WeaponsC")
 		#For each hand, creates a right hand and a left hand buttons
 		for k in range(0,2):
+			#Creates a separator
+			var separator = HSeparator.new()
+			player_c.add_child(separator)
 			#Creates the label for each hand
 			player_label = Label.new()
 			player_c.add_child(player_label)
@@ -106,8 +109,15 @@ func _ready():
 			player_button = OptionButton.new()
 			player_c.add_child(player_button)
 			player_button.set_owner(player_c)
+			player_button.set_h_size_flags(0)
 			player_button.set_name("OptionButton"+str(k))
 			player_button.connect("item_selected",self,"_player_weapon_selected",[i,k])
+			#Creates a label with all the skills of this weapon
+			player_label = Label.new()
+			player_c.add_child(player_label)
+			player_label.set_owner(player_c)
+			player_label.set_align(ALIGN_CENTER)
+			player_label.set_name("SkillsLabel"+str(k))
 			
 		player_weapons_c_list.append(player_c)
 	
@@ -166,15 +176,20 @@ func update_player_classes():
 
 func update_weapon_button_options():
 	var button
+	var label
 	var weapons_list
 	for i in range(config.MAX_PLAYERS):
 		for k in range(0,2):
 			weapons_list = global.get_weapon_script_list(config.get_player_class(i),k)
 			button = player_weapons_c_list[i].find_node("OptionButton"+str(k))
+			label = player_weapons_c_list[i].find_node("SkillsLabel"+str(k))
 			button.clear()
 			for j in range(weapons_list.size()):
 				button.add_item(weapons_list[j].get_name(),j)
-				if (j == config.get_player_weapon(i,k)): button.select(j)
+				if (j == config.get_player_weapon(i,k)):
+					button.select(j)
+					var text = "Skills: " + str(weapons_list[j].get_skill_ids())
+					label.set_text(text)
 
 func _player_class_selected(item,number):
 	config.set_player_class(number,item)

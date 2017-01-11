@@ -192,6 +192,17 @@ align = 0
 selected = -1
 items = [  ]
 
+[node name="HSeparator" type="HSeparator" parent="ConfigContainer/Column2"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 42.0
+margin/right = 410.0
+margin/bottom = 45.0
+
 [node name="PlayerClassesC" type="HBoxContainer" parent="ConfigContainer/Column2"]
 
 focus/ignore_mouse = false
@@ -199,9 +210,9 @@ focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 42.0
+margin/top = 49.0
 margin/right = 410.0
-margin/bottom = 42.0
+margin/bottom = 49.0
 alignment = 0
 
 [node name="PlayerWeaponsC" type="HBoxContainer" parent="ConfigContainer/Column2"]
@@ -211,9 +222,9 @@ focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 46.0
+margin/top = 53.0
 margin/right = 410.0
-margin/bottom = 46.0
+margin/bottom = 53.0
 alignment = 0
 
 [node name="ButtonContainer" type="HBoxContainer" parent="."]
