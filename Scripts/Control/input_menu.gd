@@ -23,7 +23,7 @@ func _ready():
 	
 	input_container = find_node("InputContainer")
 	p_input_containers = []
-	for i in range(0,global.MAX_PLAYERS):
+	for i in range(0,config.MAX_PLAYERS):
 		p_input_containers.append(VBoxContainer.new())
 		p_input_containers[i].set_h_size_flags(SIZE_EXPAND_FILL)
 		input_container.add_child(p_input_containers[i])

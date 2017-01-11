@@ -25,7 +25,7 @@ func _ready():
 	original_size = OS.get_window_size()
 	window_scale = 1
 	player_number = 1
-	player_classes = {0:0, 1:0}
+	player_classes = {0:0, 1:0, 2:0, 3:0}
 	load_inputs()
 	load_config()
 

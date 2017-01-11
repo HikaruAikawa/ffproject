@@ -1,10 +1,5 @@
 extends Node2D
 
-#DEFINITION OF CONSTANTS
-
-const CL_NIGHT = 0
-const CL_MAIGE = 1
-
 #DEFINITION OF VARIABLES
 
 #The global singleton
@@ -21,8 +16,9 @@ var enemy_spawner_scn
 #Nodes of the scene
 var map
 var players
-var enemy
 var enemy_spawners
+
+#Other variables
 var current_phase
 
 func _ready():
