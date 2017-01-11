@@ -66,7 +66,7 @@ func add_spawn(x,y,enemy,delay,phase):
 func spawn_enemy(x,y,enemy):
 	var e = enemy_scn.instance()
 	e.set_script(global.get_enemy_script(enemy))
-	e.set_global_pos(Vector2(x,y))
+	e.set_global_pos(Vector2(32*x+16,32*y+16))
 	add_child(e)
 	e.set_owner(self)
 

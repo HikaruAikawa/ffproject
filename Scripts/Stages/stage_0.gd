@@ -9,13 +9,13 @@ func _ready():
 	
 	#Enemy spawners
 	var spawner = new_enemy_spawner()
-	spawner.add_spawn(32*1+16,32*1+16,0,0,0)
-	spawner.add_spawn(32*30+16,32*1+16,0,5,0)
-	spawner.add_spawn(32*5+16,32*8+16,0,0,1)
+	spawner.add_spawn(1,1,0,0,0)
+	spawner.add_spawn(30,1,0,5,0)
+	spawner.add_spawn(5,8,0,0,1)
 	var spawner = new_enemy_spawner()
-	spawner.add_spawn(32*30+16,32*15+16,0,0,0)
-	spawner.add_spawn(32*1+16,32*15+16,0,5,0)
-	spawner.add_spawn(32*26+16,32*8+16,0,5,1)
+	spawner.add_spawn(30,15,0,0,0)
+	spawner.add_spawn(1,15,0,5,0)
+	spawner.add_spawn(26,8,0,5,1)
 
 func import_map():
 	map_scn = global.get_map_scene(0)

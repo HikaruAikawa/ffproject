@@ -26,6 +26,11 @@ var angle
 var sprite
 var texture
 
+#DEFINITION OF METHODS
+
+func is_player(): return false
+func is_enemy(): return false
+
 func _ready():
 	set_global_pos(user.get_global_pos())
 	sprite = find_node("Sprite")

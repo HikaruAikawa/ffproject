@@ -32,6 +32,9 @@ var blink_state
 var skill_time
 var skill_timer
 
+func is_player(): return false
+func is_enemy(): return false
+
 func _ready():
 	damage_timer = 0
 	inv_timer = 0
@@ -89,6 +92,7 @@ func increase_mp(amount):
 #Takes a certain amount of damage and is knocked back
 func take_damage(amount,kb):
 	if(inv_timer<=0):
+		print (get_name()+" has taken damage")
 		damage_timer = damage_time
 		inv_timer = inv_time
 		blink_timer = blink_time

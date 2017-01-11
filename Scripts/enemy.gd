@@ -23,6 +23,10 @@ var turn_timer
 #Time it takes to turn, in seconds
 var turn_time
 
+
+func is_enemy(): return true
+func is_player(): return false
+
 func _ready():
 	
 	#Gets the script to access static methods
@@ -134,5 +138,5 @@ func _process(delta):
 	#If it collides with a player, it deals damage
 	for hit in hitbox.get_overlapping_areas():
 		var target = hit.get_parent()
-		if (hit.get_layer_mask_bit(10)):
+		if (target.is_player()):
 			target.take_damage(10,15*((target.get_global_pos()-get_global_pos()).normalized()))

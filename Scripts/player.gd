@@ -19,6 +19,9 @@ var skill
 
 #DEFINITION OF METHODS
 
+func is_player(): return true
+func is_enemy(): return false
+
 func _ready():
 	
 	#Gets the class to access static methods
