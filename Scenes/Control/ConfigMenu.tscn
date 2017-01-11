@@ -6,8 +6,8 @@
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
+size_flags/horizontal = 0
+size_flags/vertical = 0
 margin/left = 100.0
 margin/top = 100.0
 margin/right = 924.0
@@ -70,9 +70,8 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="HResC" type="HBoxContainer" parent="ConfigContainer/Column1"]
+[node name="ScaleC" type="HBoxContainer" parent="ConfigContainer/Column1"]
 
-editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
@@ -80,83 +79,42 @@ size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 18.0
 margin/right = 410.0
-margin/bottom = 42.0
+margin/bottom = 38.0
 alignment = 1
 
-[node name="Label" type="Label" parent="ConfigContainer/Column1/HResC"]
+[node name="Label" type="Label" parent="ConfigContainer/Column1/ScaleC"]
 
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 3
 size_flags/vertical = 0
 margin/left = 0.0
-margin/top = 5.0
+margin/top = 3.0
 margin/right = 203.0
-margin/bottom = 19.0
-text = "Horizontal resolution"
+margin/bottom = 17.0
+text = "Window size"
 align = 2
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="LineEdit" type="LineEdit" parent="ConfigContainer/Column1/HResC"]
+[node name="OptionButton" type="OptionButton" parent="ConfigContainer/Column1/ScaleC"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 1
 size_flags/vertical = 2
-margin/left = 279.0
+margin/left = 289.0
 margin/top = 0.0
-margin/right = 337.0
-margin/bottom = 24.0
-placeholder/alpha = 0.6
-focus_mode = 2
-caret/caret_blink = false
-caret/caret_blink_speed = 0.65
-
-[node name="VResC" type="HBoxContainer" parent="ConfigContainer/Column1"]
-
-editor/display_folded = true
-focus/ignore_mouse = false
-focus/stop_mouse = false
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 46.0
-margin/right = 410.0
-margin/bottom = 70.0
-alignment = 1
-
-[node name="Label" type="Label" parent="ConfigContainer/Column1/VResC"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 3
-size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 5.0
-margin/right = 203.0
-margin/bottom = 19.0
-text = "Vertical resolution"
-align = 2
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="LineEdit" type="LineEdit" parent="ConfigContainer/Column1/VResC"]
-
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 1
-size_flags/vertical = 2
-margin/left = 279.0
-margin/top = 0.0
-margin/right = 337.0
-margin/bottom = 24.0
-placeholder/alpha = 0.6
-focus_mode = 2
-caret/caret_blink = false
-caret/caret_blink_speed = 0.65
+margin/right = 328.0
+margin/bottom = 20.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+flat = false
+align = 0
+selected = -1
+items = [  ]
 
 [node name="Column2" type="VBoxContainer" parent="ConfigContainer"]
 
@@ -169,6 +127,69 @@ margin/top = 0.0
 margin/right = 824.0
 margin/bottom = 358.0
 alignment = 0
+
+[node name="Label" type="Label" parent="ConfigContainer/Column2"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 410.0
+margin/bottom = 14.0
+text = "Game"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="PlayerNumberC" type="HBoxContainer" parent="ConfigContainer/Column2"]
+
+editor/display_folded = true
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 18.0
+margin/right = 410.0
+margin/bottom = 38.0
+alignment = 0
+
+[node name="Label" type="Label" parent="ConfigContainer/Column2/PlayerNumberC"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 3.0
+margin/right = 203.0
+margin/bottom = 17.0
+text = "Number of players"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="OptionButton" type="OptionButton" parent="ConfigContainer/Column2/PlayerNumberC"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 1
+size_flags/vertical = 2
+margin/left = 289.0
+margin/top = 0.0
+margin/right = 328.0
+margin/bottom = 20.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+flat = false
+align = 0
+selected = -1
+items = [  ]
 
 [node name="SaveButton" type="Button" parent="."]
 

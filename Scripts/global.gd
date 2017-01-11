@@ -37,6 +37,15 @@ func get_skill_script(id):
 func get_weapon_script(id):
 	return load("res://Scripts/Weapons/weapon_"+str(id)+".gd")
 
+#Changes to the stage with the given identifier
+func set_stage(id): call_deferred("_deferred_set_stage",id)
+func _deferred_set_stage(id):
+	current_scene.free()
+	current_scene = load("res://Scenes/Main.tscn").instance()
+	current_scene.set_script(load("res://Scripts/Stages/stage_"+str(id)+".gd"))
+	get_node("/root").add_child(current_scene)
+	get_tree().set_current_scene(current_scene)
+
 #Changes the current scene when called
 func change_scene(path): call_deferred("_deferred_change_scene",path)
 func _deferred_change_scene(path):

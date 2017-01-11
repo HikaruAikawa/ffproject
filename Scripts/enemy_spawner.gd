@@ -7,14 +7,6 @@ class EnemySpawn extends Node:
 	var enemy
 	var delay
 	var spawned
-#	func new(x,y,enemy,delay):
-#		var ret = EnemySpawn.new()
-#		ret.x = x
-#		ret.y = y
-#		ret.enemy = enemy
-#		ret.delay = delay
-#		spawned = false
-#		return ret
 	func get_x(): return x
 	func get_y(): return y
 	func get_enemy(): return enemy

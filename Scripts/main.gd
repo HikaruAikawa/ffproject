@@ -9,6 +9,8 @@ const CL_MAIGE = 1
 
 #The global singleton
 var global
+#The config singleton
+var config
 
 #Scenes to instantiate
 var map_scn
@@ -24,29 +26,19 @@ var enemy_spawners
 var current_phase
 
 func _ready():
-	#Saves the global node
+	#Saves the global and config nodes
 	global = get_node("/root/global")
+	config = get_node("/root/config")
 	#Imports necessary scenes
 	import_map()
 	import_player()
-	import_enemy()
 	import_enemy_spawner()
 	#Instantiates the map
 	instantiate_map()
 	#Instantiates the players
 	players = {}
-	instantiate_player(1,CL_NIGHT,32*14+16,32*8+16)
-	instantiate_player(2,CL_MAIGE,32*17+16,32*8+16)
-	#Instantiates the enemy
+	#Instantiates the enemy spawners
 	enemy_spawners = []
-	var spawner = new_enemy_spawner()
-	spawner.add_spawn(32*1+16,32*1+16,0,0,0)
-	spawner.add_spawn(32*30+16,32*1+16,0,5,0)
-	spawner.add_spawn(32*5+16,32*8+16,0,0,1)
-	var spawner = new_enemy_spawner()
-	spawner.add_spawn(32*30+16,32*15+16,0,0,0)
-	spawner.add_spawn(32*1+16,32*15+16,0,5,0)
-	spawner.add_spawn(32*26+16,32*8+16,0,5,1)
 	current_phase = 0
 	
 	set_process(true)
@@ -67,14 +59,11 @@ func next_phase():
 	for spawner in enemy_spawners: spawner.next_phase()
 	current_phase += 1
 
-func import_map():
-	map_scn = global.get_map_scene(0)
-
 func import_player():
 	player_scn = global.get_player_scene()
 
-func import_enemy():
-	enemy_scn = global.get_enemy_scene()
+#func import_enemy():
+#	enemy_scn = global.get_enemy_scene()
 
 func import_enemy_spawner():
 	enemy_spawner_scn = global.get_enemy_spawner_scene()
