@@ -15,19 +15,34 @@ margin/bottom = 500.0
 alignment = 0
 script/script = ExtResource( 1 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="MessageLabel" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 824.0
+margin/bottom = 14.0
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="ConfigContainer" type="HBoxContainer" parent="."]
 
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 3
 margin/left = 0.0
-margin/top = 0.0
+margin/top = 18.0
 margin/right = 824.0
 margin/bottom = 376.0
 alignment = 0
 
-[node name="Column1" type="VBoxContainer" parent="HBoxContainer"]
+[node name="Column1" type="VBoxContainer" parent="ConfigContainer"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = false
@@ -36,10 +51,26 @@ size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
 margin/right = 410.0
-margin/bottom = 376.0
+margin/bottom = 358.0
 alignment = 0
 
-[node name="HResC" type="HBoxContainer" parent="HBoxContainer/Column1"]
+[node name="Title" type="Label" parent="ConfigContainer/Column1"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 410.0
+margin/bottom = 14.0
+text = "General"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="HResC" type="HBoxContainer" parent="ConfigContainer/Column1"]
 
 editor/display_folded = true
 focus/ignore_mouse = false
@@ -47,12 +78,12 @@ focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 0.0
+margin/top = 18.0
 margin/right = 410.0
-margin/bottom = 24.0
+margin/bottom = 42.0
 alignment = 1
 
-[node name="Label" type="Label" parent="HBoxContainer/Column1/HResC"]
+[node name="Label" type="Label" parent="ConfigContainer/Column1/HResC"]
 
 focus/ignore_mouse = true
 focus/stop_mouse = true
@@ -68,7 +99,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="LineEdit" type="LineEdit" parent="HBoxContainer/Column1/HResC"]
+[node name="LineEdit" type="LineEdit" parent="ConfigContainer/Column1/HResC"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -83,7 +114,7 @@ focus_mode = 2
 caret/caret_blink = false
 caret/caret_blink_speed = 0.65
 
-[node name="VResC" type="HBoxContainer" parent="HBoxContainer/Column1"]
+[node name="VResC" type="HBoxContainer" parent="ConfigContainer/Column1"]
 
 editor/display_folded = true
 focus/ignore_mouse = false
@@ -91,12 +122,12 @@ focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 28.0
+margin/top = 46.0
 margin/right = 410.0
-margin/bottom = 52.0
+margin/bottom = 70.0
 alignment = 1
 
-[node name="Label" type="Label" parent="HBoxContainer/Column1/VResC"]
+[node name="Label" type="Label" parent="ConfigContainer/Column1/VResC"]
 
 focus/ignore_mouse = true
 focus/stop_mouse = true
@@ -112,7 +143,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="LineEdit" type="LineEdit" parent="HBoxContainer/Column1/VResC"]
+[node name="LineEdit" type="LineEdit" parent="ConfigContainer/Column1/VResC"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -127,7 +158,7 @@ focus_mode = 2
 caret/caret_blink = false
 caret/caret_blink_speed = 0.65
 
-[node name="Column2" type="VBoxContainer" parent="HBoxContainer"]
+[node name="Column2" type="VBoxContainer" parent="ConfigContainer"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = false
@@ -136,10 +167,10 @@ size_flags/vertical = 2
 margin/left = 414.0
 margin/top = 0.0
 margin/right = 824.0
-margin/bottom = 376.0
+margin/bottom = 358.0
 alignment = 0
 
-[node name="Button" type="Button" parent="."]
+[node name="SaveButton" type="Button" parent="."]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
