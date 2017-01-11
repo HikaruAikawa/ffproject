@@ -34,8 +34,11 @@ func get_enemy_script(id):
 func get_skill_script(id):
 	return load("res://Scripts/Skills/skill_"+str(id)+".gd")
 
-func get_weapon_script(id):
-	return load("res://Scripts/Weapons/weapon_"+str(id)+".gd")
+func get_weapon_script(cl,slot,id):
+	var slot_str
+	if (slot == 0): slot_str = "r"
+	elif (slot == 1): slot_str = "l"
+	return load("res://Scripts/Weapons/Class"+str(cl)+"/class_"+str(cl)+"_weapon_"+slot_str+str(id)+".gd")
 
 #Changes to the stage with the given identifier
 func set_stage(id): call_deferred("_deferred_set_stage",id)

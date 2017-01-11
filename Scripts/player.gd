@@ -7,9 +7,9 @@ const CL_NIGHT = 0
 const CL_MAIGE = 1
 
 #DEFINITION OF VARIABLES 
+
 var script
-var weapon
-var weapon_scn
+var weapons
 var global
 
 #The current stats of this entity
@@ -29,7 +29,6 @@ func _ready():
 	
 	#Saves the global node
 	global = get_node("/root/global")
-	weapon_scn = global.get_weapon_scene()
 	
 	#Gets the data from the class
 	sprite.set_texture(script.get_texture())
@@ -47,8 +46,12 @@ func _ready():
 	damage_time = 0.2
 	inv_time = 3
 	blink_time = 0.1
+	
+	weapons = [null, null]
+	
 	#Creates the skill that will be used (testing purposes)
-	add_weapon(0)
+	equip_weapon(0,0)
+	equip_weapon(1,0)
 
 func _process(delta):
 	movement_speed = current_stats[SPD]
@@ -94,17 +97,19 @@ func get_stat(stat):
 	return current_stats[stat]
 
 #Replaces the current weapon with the given one
-func add_weapon(id):
-	if (weapon != null):
-		weapon.free()
-	weapon = weapon_scn.instance()
-	weapon.set_script(global.get_weapon_script(id))
-	add_child(weapon)
-	weapon.set_owner(self)
+func equip_weapon(slot,id):
+	if (weapons[slot] != null):
+		weapons[slot].free()
+	weapons[slot] = Node2D.new()
+	weapons[slot].set_script(global.get_weapon_script(get_id(),slot,id))
+	add_child(weapons[slot])
+	weapons[slot].set_owner(self)
+	if (slot == 0): weapons[slot].set_name("RWeapon")
+	elif (slot == 1): weapons[slot].set_name("LWeapon")
 
 #Returns the current weapon
-func get_weapon():
-	return weapon
+func get_weapon(slot):
+	return weapons[slot]
 
 func die():
 	get_node("/root/Main").remove_player(player_number)

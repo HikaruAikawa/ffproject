@@ -43,9 +43,9 @@ func _input(event):
 	
 	if (player.get_state() == ST_IDLE || player.get_state() == ST_MOVING):
 		if (event.is_action_pressed("gm_p"+player_number+"_skill_0")):
-			player.get_weapon().use_skill(0)
+			player.get_weapon(0).use_skill(0)
 		elif (event.is_action_pressed("gm_p"+player_number+"_skill_1")):
-			player.get_weapon().use_skill(1)
+			player.get_weapon(1).use_skill(0)
 	
 #	#DEBUGGING INPUTS
 	if (event.is_action("db_p"+player_number+"_reduce_health")):

@@ -9,8 +9,6 @@ const CL_MAIGE = 1
 
 var global
 var script
-#The class that can use this weapon
-var using_class
 #The player currently using this weapon
 var user
 #The index of this weapon
