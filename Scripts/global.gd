@@ -44,11 +44,12 @@ func get_weapon_script_list(cl, slot):
 	var slot_str
 	if (slot == 0): slot_str = "r"
 	elif (slot == 1): slot_str = "l"
-	list = []
+	var list = []
 	var i = 0
 	var file = File.new()
-	while (file.file_exists()):
+	while (file.file_exists("res://Scripts/Weapons/Class"+str(cl)+"/class_"+str(cl)+"_weapon_"+slot_str+str(i)+".gd")):
 		list.append(load("res://Scripts/Weapons/Class"+str(cl)+"/class_"+str(cl)+"_weapon_"+slot_str+str(i)+".gd"))
+		i += 1
 	return list
 
 #Changes to the stage with the given identifier

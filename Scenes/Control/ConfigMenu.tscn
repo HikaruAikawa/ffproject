@@ -44,6 +44,7 @@ alignment = 0
 
 [node name="Column1" type="VBoxContainer" parent="ConfigContainer"]
 
+editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 3
@@ -201,6 +202,18 @@ margin/left = 0.0
 margin/top = 42.0
 margin/right = 410.0
 margin/bottom = 42.0
+alignment = 0
+
+[node name="PlayerWeaponsC" type="HBoxContainer" parent="ConfigContainer/Column2"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 46.0
+margin/right = 410.0
+margin/bottom = 46.0
 alignment = 0
 
 [node name="ButtonContainer" type="HBoxContainer" parent="."]

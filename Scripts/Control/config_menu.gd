@@ -10,6 +10,8 @@ var scale_c
 var player_number_c
 var player_classes_c
 var player_classes_c_list
+var player_weapons_c
+var player_weapons_c_list
 
 #Other variables
 var scale_map
@@ -79,7 +81,33 @@ func _ready():
 		player_button.connect("item_selected",self,"_player_class_selected",[i])
 		#Adds the container to the list
 		player_classes_c_list.append(player_c)
+	
+	#Gets the menu item for the weapons of each player
+	player_weapons_c = find_node("PlayerWeaponsC")
+	player_weapons_c_list = []
+	var weapons_list
+	for i in range(config.MAX_PLAYERS):
+		#For each player, creates the container
+		player_c = VBoxContainer.new()
+		player_weapons_c.add_child(player_c)
+		player_c.set_h_size_flags(SIZE_EXPAND)
+		player_c.set_name("Player"+str(i)+"ClassC")
+		#For each hand, creates a right hand and a left hand buttons
+		for k in range(0,2):
+			#Creates the label for each hand
+			player_label = Label.new()
+			player_c.add_child(player_label)
+			if (k == 0): player_label.set_text("Right hand")
+			else: player_label.set_text("Left hand")
+			#Creates the button to choose from the weapons
+			player_button = OptionButton.new()
+			player_c.add_child(player_button)
+			player_button.set_owner(player_c)
+			player_button.set_name("OptionButton"+str(k))
+		player_weapons_c_list.append(player_c)
+	
 	update_player_classes()
+	update_weapon_button_options()
 
 func _save_button_pressed():
 	var file = ConfigFile.new()
@@ -98,6 +126,13 @@ func _save_button_pressed():
 		var container = player_classes_c.find_node("Player"+str(i)+"ClassC",true,false)
 		val = container.find_node("OptionButton",true,false).get_selected_ID()
 		file.set_value("Game", "Player"+str(i)+"Class", val)
+	
+	#Player weapons
+	for i in range(config.MAX_PLAYERS):
+		val = player_weapons_c_list[i].find_node("OptionButton0",true,false).get_selected_ID()
+		file.set_value("Game", "Player"+str(i)+"WeaponR", val)
+		val = player_weapons_c_list[i].find_node("OptionButton1",true,false).get_selected_ID()
+		file.set_value("Game", "Player"+str(i)+"WeaponL", val)
 	
 	#Saves the file
 	if (config.save_config(file)):
@@ -119,11 +154,26 @@ func update_player_classes():
 	for i in range(config.MAX_PLAYERS):
 		if (i>=config.get_player_number()):
 			player_classes_c_list[i].set_hidden(true)
+			player_weapons_c_list[i].set_hidden(true)
 		else:
 			player_classes_c_list[i].set_hidden(false)
+			player_weapons_c_list[i].set_hidden(false)
+
+func update_weapon_button_options():
+	player_weapons_c_list
+	var button
+	var weapons_list
+	for i in range(config.MAX_PLAYERS):
+		for k in range(0,2):
+			weapons_list = global.get_weapon_script_list(config.get_player_class(i),k)
+			button = player_weapons_c_list[i].find_node("OptionButton"+str(k))
+			button.clear()
+			for w in weapons_list:
+				button.add_item(w.get_name(),w.get_id())
 
 func _player_class_selected(item,number):
 	config.set_player_class(number,item)
+	update_weapon_button_options()
 
 #Auxiliary function
 func find_key(dict,value):

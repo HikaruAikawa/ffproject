@@ -16,6 +16,7 @@ var original_size
 var window_scale
 var player_number
 var player_classes
+var player_weapons
 
 #DEFINITION OF METHODS
 
@@ -26,6 +27,7 @@ func _ready():
 	window_scale = 1
 	player_number = 1
 	player_classes = {0:0, 1:0, 2:0, 3:0}
+	player_weapons = {0:[0,0], 1:[0,0], 2:[0,0], 3:[0,0]}
 	load_inputs()
 	load_config()
 
@@ -85,6 +87,8 @@ func load_config():
 		player_number = file.get_value("Game","PlayerNumber",1)
 		for i in range(player_number):
 			player_classes[i] = file.get_value("Game","Player"+str(i)+"Class",0)
+			player_weapons[i][0] = file.get_value("Game","Player"+str(i)+"WeaponR",0)
+			player_weapons[i][1] = file.get_value("Game","Player"+str(i)+"WeaponL",0)
 		return true
 	else: return false
 
