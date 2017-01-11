@@ -33,6 +33,7 @@ func _ready():
 	instantiate_map()
 	#Instantiates the players
 	players = {}
+	instantiate_players()
 	#Instantiates the enemy spawners
 	enemy_spawners = []
 	current_phase = 0
@@ -71,17 +72,22 @@ func instantiate_map():
 	map.set_name("Map")
 	map.set_z(-10)
 
-func instantiate_player(number, id, xpos, ypos):
+func instantiate_player(number, cl, xpos, ypos):
 	players[number] = player_scn.instance()
-	players[number].set_script(global.get_player_script(id))
+	players[number].set_script(global.get_player_script(cl))
 	players[number].set_player_number(number)
 	players[number].set_name("Player "+str(number))
 	add_child(players[number])
 	players[number].set_owner(self)
 	players[number].set_pos(Vector2(xpos,ypos))
 
+func instantiate_players():
+	var spawns = get_player_spawns()
+	for i in range(config.get_player_number()):
+		instantiate_player(i, config.get_player_class(i), 32*int(spawns[i].x)+16, 32*int(spawns[i].y)+16)
+
 func instantiate_enemy(id, xpos, ypos):
-	enemy = enemy_scn.instance()
+	var enemy = enemy_scn.instance()
 	enemy.set_script(global.get_enemy_script(id))
 	add_child(enemy)
 	enemy.set_owner(self)
