@@ -132,8 +132,8 @@ func _process(delta):
 							set_direction(DR_UP)
 							if (test_move(forward)): set_direction(DR_RIGHT)
 					turn_timer = 0
-		else: set_state(ST_IDLE)
-	else: set_state(ST_IDLE)
+		else: if (get_state() == ST_MOVING): set_state(ST_IDLE)
+	else: if (get_state() == ST_MOVING): set_state(ST_IDLE)
 	
 	#If it collides with a player, it deals damage
 	for hit in hitbox.get_overlapping_areas():
