@@ -107,3 +107,10 @@ func set_player_class(i,cl): player_classes[i] = cl
 func get_player_class(i): return player_classes[i]
 
 func get_player_classes(): return player_classes
+
+func set_player_weapon(i,slot,wp): player_weapons[i][slot] = wp
+
+func get_player_weapon(i,slot): return player_weapons[i][slot]
+
+func reset_player_weapons(i):
+	player_weapons[i] = [0,0]
