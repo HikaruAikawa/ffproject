@@ -36,6 +36,7 @@ func _ready():
 		var s = scale_map[i]
 		option_button.add_item(str(s),i)
 	option_button.select(find_key(scale_map,config.window_scale))
+	option_button.connect("item_selected",self,"_scale_changed")
 	
 	
 	#Gets the menu item for the number of players
@@ -44,6 +45,7 @@ func _ready():
 	for i in range(0,MAX_PLAYERS):
 		option_button.add_item(str(i+1),i)
 	option_button.select(config.player_number-1)
+	option_button.connect("item_selected",self,"_player_number_changed")
 
 func _save_button_pressed():
 	var config = get_node("/root/config")
@@ -60,8 +62,13 @@ func _save_button_pressed():
 	
 	if (config.save_config(file)):
 		message_label.set_text("Configuration saved successfully")
-		config.load_config()
 	else: message_label.set_text("Error saving configuration")
+
+func _scale_changed(item):
+	config.set_window_scale(scale_map[scale_c.find_node("OptionButton").get_selected_ID()])
+
+func _player_number_changed(item):
+	config.set_player_number(player_number_c.find_node("OptionButton").get_selected_ID() + 1)
 
 func find_key(dict,value):
 	for i in dict.keys():

@@ -81,3 +81,9 @@ func load_config():
 func set_window_scale(scale):
 	window_scale = scale
 	OS.set_window_size(original_size * window_scale)
+
+func get_window_scale(): return window_scale
+
+func set_player_number(number): player_number = number
+
+func get_player_number(): return player_number
