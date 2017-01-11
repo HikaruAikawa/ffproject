@@ -9,6 +9,7 @@ const MAX_PLAYERS = 2
 #Variables for on-screen menu items
 var message_label
 var save_button
+var back_button
 var scale_map
 var scale_c
 var player_number_c
@@ -16,11 +17,15 @@ var player_number_c
 var config
 
 func _ready():
+	
 	config = get_node("/root/config")
-	#Saves the message label and save button
+	
+	#Saves the message label and save and back buttons
 	message_label = find_node("MessageLabel")
 	save_button = find_node("SaveButton")
 	save_button.connect("pressed",self,"_save_button_pressed")
+	back_button = find_node("BackButton")
+	back_button.connect("pressed",self,"_back_button_pressed")
 	
 	#Gets the menu item for the screen scale
 	scale_c = find_node("ScaleC")
@@ -48,7 +53,6 @@ func _ready():
 	option_button.connect("item_selected",self,"_player_number_changed")
 
 func _save_button_pressed():
-	var config = get_node("/root/config")
 	var file = ConfigFile.new()
 	var val
 	
@@ -61,15 +65,20 @@ func _save_button_pressed():
 	file.set_value("Game", "PlayerNumber", val)
 	
 	if (config.save_config(file)):
-		message_label.set_text("Configuration saved successfully")
+		message_label.set_text("File saved successfully")
 	else: message_label.set_text("Error saving configuration")
 
+func _back_button_pressed():
+	get_node("/root/global").change_scene("res://Scenes/Control/MainMenu.tscn")
+
+#Functions called dynamically when an item from an option button is changed
 func _scale_changed(item):
 	config.set_window_scale(scale_map[scale_c.find_node("OptionButton").get_selected_ID()])
 
 func _player_number_changed(item):
 	config.set_player_number(player_number_c.find_node("OptionButton").get_selected_ID() + 1)
 
+#Auxiliary function
 func find_key(dict,value):
 	for i in dict.keys():
 		if (dict[i] == value): return i

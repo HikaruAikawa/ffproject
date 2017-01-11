@@ -42,20 +42,49 @@ margin/right = 824.0
 margin/bottom = 476.0
 alignment = 0
 
-[node name="SaveButton" type="Button" parent="."]
+[node name="ButtonContainer" type="HBoxContainer" parent="."]
 
+editor/display_folded = true
 focus/ignore_mouse = false
-focus/stop_mouse = true
+focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 480.0
 margin/right = 824.0
 margin/bottom = 500.0
+alignment = 0
+
+[node name="SaveButton" type="Button" parent="ButtonContainer"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 410.0
+margin/bottom = 20.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 text = "Save"
+flat = false
+
+[node name="BackButton" type="Button" parent="ButtonContainer"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 2
+margin/left = 414.0
+margin/top = 0.0
+margin/right = 824.0
+margin/bottom = 20.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Back"
 flat = false
 
 

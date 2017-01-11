@@ -5,6 +5,7 @@ var listening
 var listening_action
 var message_label
 var save_button
+var back_button
 var input_container
 var p_input_containers
 
@@ -15,14 +16,11 @@ func _ready():
 	var button
 	var event_list
 	
-#	message_label = Label.new()
-#	add_child(message_label)
-#	message_label.set_owner(self)
-#	message_label.set_align(ALIGN_CENTER)
 	message_label = find_node("MessageLabel")
 	message_label.set_text("Press a button to change the input key")
 	
 	var global = get_node("/root/global")
+	
 	input_container = find_node("InputContainer")
 	p_input_containers = []
 	for i in range(0,global.MAX_PLAYERS):
@@ -64,12 +62,10 @@ func _ready():
 			
 			button.connect("pressed",self,"_action_button_pressed",[action])
 	
-#	save_button = Button.new()
-#	add_child(save_button)
-#	save_button.set_owner(self)
 	save_button = find_node("SaveButton")
 	save_button.connect("pressed",self,"_save_button_pressed")
-	save_button.set_text("Save configuration")
+	back_button = find_node("BackButton")
+	back_button.connect("pressed",self,"_back_button_pressed")
 	
 	set_process_input(true)
 	listening = false
@@ -102,3 +98,6 @@ func _save_button_pressed():
 	var config = get_node("/root/config")
 	if (config.save_inputs()): message_label.set_text("File saved successfully")
 	else: message_label.set_text("Error saving file")
+
+func _back_button_pressed():
+	get_node("/root/global").change_scene("res://Scenes/Control/MainMenu.tscn")
