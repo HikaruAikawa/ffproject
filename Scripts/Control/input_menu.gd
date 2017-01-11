@@ -62,6 +62,8 @@ func _ready():
 			
 			button.connect("pressed",self,"_action_button_pressed",[action])
 	
+	update_buttons()
+	
 	save_button = find_node("SaveButton")
 	save_button.connect("pressed",self,"_save_button_pressed")
 	back_button = find_node("BackButton")
@@ -72,27 +74,41 @@ func _ready():
 
 func _action_button_pressed(action):
 	if (!listening):
-		message_label.set_text("Press any key")
+		message_label.set_text("Press any key to bind it, ESC to remove it")
 		listening = true
 		listening_action = action
 
 func _input(event):
 	if (listening):
+		var isValid = true
 		if (event.type == InputEvent.KEY):
-			for other_event in InputMap.get_action_list(listening_action):
-				if (other_event.type == InputEvent.KEY):
-					InputMap.action_erase_event(listening_action,other_event)
-			InputMap.action_add_event(listening_action,event)
+			for other_action in InputMap.get_actions():
+				if (InputMap.action_has_event(other_action,event) && other_action.begins_with("gm_")):
+					isValid = false
+			if (isValid):
+				for other_event in InputMap.get_action_list(listening_action):
+					if (other_event.type == InputEvent.KEY):
+						InputMap.action_erase_event(listening_action,other_event)
+				if (event.scancode == OS.find_scancode_from_string("Escape")):
+					message_label.set_text("The selected key has been removed")
+				else:
+					InputMap.action_add_event(listening_action,event)
+					message_label.set_text("The selected key has been changed")
+			else:
+				message_label.set_text("That key is already in use")
 			listening = false
-			message_label.set_text("Press a button to change the input key")
 			update_buttons()
 
 func update_buttons():
 	for button in button_list:
 		var action = button.get_name().right(7)
+		var found = false
 		for event in InputMap.get_action_list(action):
 			if (event.type == InputEvent.KEY):
+				found = true
 				button.set_text(OS.get_scancode_string(event.scancode))
+		if (!found):
+			button.set_text("(Empty)")
 
 func _save_button_pressed():
 	var config = get_node("/root/config")

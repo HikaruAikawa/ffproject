@@ -62,13 +62,14 @@ func load_inputs():
 						InputMap.action_erase_event(action,event)
 				#Then saves the keyboard event found in the file
 				if (action.find("p1") != -1):
-					key_code = file.get_value("p1",action)
+					key_code = file.get_value("p1",action,0)
 				elif (action.find("p2") != -1):
-					key_code = file.get_value("p2",action)
-				new_event = InputEvent()
-				new_event.type = InputEvent.KEY
-				new_event.scancode = key_code
-				InputMap.action_add_event(action,new_event)
+					key_code = file.get_value("p2",action,0)
+				if (key_code != 0):
+					new_event = InputEvent()
+					new_event.type = InputEvent.KEY
+					new_event.scancode = key_code
+					InputMap.action_add_event(action,new_event)
 		return true
 	else: return false
 
