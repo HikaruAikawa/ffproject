@@ -43,7 +43,7 @@ func _ready():
 	blink_time = 0.1
 	
 	map = get_node("/root/Main/Map")
-	target = get_node("/root/Main/Player 1")
+	#target = get_node("/root/Main/Player 1")
 	path = []
 	hitbox = get_node("Hitbox")
 

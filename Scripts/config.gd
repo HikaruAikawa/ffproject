@@ -1,5 +1,10 @@
 extends Node
 
+#DEFINITION OF CONSTANTS
+
+const MAX_PLAYERS = 2
+const MAX_CLASSES = 2
+
 #DEFINITION OF VARIABLES
 
 #Paths to find the files
@@ -10,6 +15,7 @@ var config_path
 var original_size
 var window_scale
 var player_number
+var player_classes
 
 #DEFINITION OF METHODS
 
@@ -18,6 +24,8 @@ func _ready():
 	config_path = "res://config.cfg"
 	original_size = OS.get_window_size()
 	window_scale = 1
+	player_number = 1
+	player_classes = {0:0, 1:0}
 	load_inputs()
 	load_config()
 
@@ -75,6 +83,8 @@ func load_config():
 	if (err == OK):
 		set_window_scale(file.get_value("General","WindowScale", 1))
 		player_number = file.get_value("Game","PlayerNumber",1)
+		for i in range(player_number):
+			player_classes[i] = file.get_value("Game","Player"+str(i)+"Class",0)
 		return true
 	else: return false
 
@@ -87,3 +97,9 @@ func get_window_scale(): return window_scale
 func set_player_number(number): player_number = number
 
 func get_player_number(): return player_number
+
+func set_player_class(i,cl): player_classes[i] = cl
+
+func get_player_class(i): return player_classes[i]
+
+func get_player_classes(): return player_classes
