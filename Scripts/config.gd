@@ -4,6 +4,10 @@ extends Node
 
 const MAX_PLAYERS = 2
 const MAX_CLASSES = 2
+const MAX_WEAPONS = {
+	0: [2,2],
+	1: [2,2]
+}
 
 #DEFINITION OF VARIABLES
 

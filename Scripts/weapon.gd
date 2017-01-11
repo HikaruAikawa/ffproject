@@ -27,7 +27,6 @@ func _ready():
 	script = get_script()
 	skills = []
 	user = get_parent()
-	id = script.get_id()
 	for sk_id in script.get_skill_ids():
 		add_skill(sk_id)
 
@@ -57,10 +56,6 @@ func get_name():
 #Returns the skill in the position i
 func get_skill(i):
 	return skills[i]
-
-#Returns the index of this weapon
-func get_id():
-	return id
 
 func get_texture():
 	return texture

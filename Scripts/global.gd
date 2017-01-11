@@ -45,9 +45,7 @@ func get_weapon_script_list(cl, slot):
 	if (slot == 0): slot_str = "r"
 	elif (slot == 1): slot_str = "l"
 	var list = []
-	var i = 0
-	var file = File.new()
-	while (file.file_exists("res://Scripts/Weapons/Class"+str(cl)+"/class_"+str(cl)+"_weapon_"+slot_str+str(i)+".gd")):
+	for i in range(config.MAX_WEAPONS[cl][slot]):
 		list.append(load("res://Scripts/Weapons/Class"+str(cl)+"/class_"+str(cl)+"_weapon_"+slot_str+str(i)+".gd"))
 		i += 1
 	return list
