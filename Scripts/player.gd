@@ -101,11 +101,11 @@ func equip_weapon(slot,id):
 	if (weapons[slot] != null):
 		weapons[slot].free()
 	weapons[slot] = Node2D.new()
+	if (slot == 0): weapons[slot].set_name("RWeapon")
+	elif (slot == 1): weapons[slot].set_name("LWeapon")
 	weapons[slot].set_script(global.get_weapon_script(get_id(),slot,id))
 	add_child(weapons[slot])
 	weapons[slot].set_owner(self)
-	if (slot == 0): weapons[slot].set_name("RWeapon")
-	elif (slot == 1): weapons[slot].set_name("LWeapon")
 
 #Returns the current weapon
 func get_weapon(slot):

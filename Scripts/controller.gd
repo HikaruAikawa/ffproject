@@ -20,6 +20,8 @@ var player_number
 var action_stack
 var weapon
 
+var debug = true
+
 func _ready():
 	#Gets the player and player number
 	player = get_parent()
@@ -59,10 +61,11 @@ func _input(event):
 			player.get_weapon(1).use_skill(0)
 	
 #	#DEBUGGING INPUTS
-	if (event.is_action("db_p"+player_number+"_reduce_health")):
-		player.increase_hp(-1)
-	elif (event.is_action("db_p"+player_number+"_increase_health")):
-		player.increase_hp(1)
+	if (debug):
+		if (event.is_action("db_p"+player_number+"_reduce_health")):
+			player.increase_hp(-1)
+		elif (event.is_action("db_p"+player_number+"_increase_health")):
+			get_tree().set_pause(true)
 
 func _process(delta):
 	if (player.get_state() == ST_IDLE || player.get_state() == ST_MOVING):

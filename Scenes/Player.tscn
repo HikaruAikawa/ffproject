@@ -28,7 +28,6 @@ collision/margin = 1.0
 
 [node name="Sprite" type="Sprite" parent="."]
 
-editor/display_folded = true
 vframes = 4
 hframes = 3
 frame = 1
