@@ -45,6 +45,10 @@ func use():
 			user.increase_mp(-mp_cost)
 			cooldown_timer = cooldown
 
+#By default, when the button is pressed, the skill is used
+func _button(pressed):
+	use()
+
 #Utility methods for other skills
 
 func turn_user(n):

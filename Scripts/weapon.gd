@@ -55,8 +55,11 @@ func get_name():
 	return name
 
 #Returns the skill in the position i
-func get_skill(i):
-	return skills[i]
+func get_skill(k):
+	return skills[k]
+
+func get_skills():
+	return skills
 
 func get_texture():
 	return texture

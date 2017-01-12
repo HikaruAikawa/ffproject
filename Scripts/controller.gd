@@ -22,13 +22,31 @@ var weapon
 
 var debug = true
 
+#DEFINITION OF SIGNALS
+
+signal skill_0_button(pressed)
+signal skill_1_button(pressed)
+
+#DEFINITION OF METHODS
+
 func _ready():
 	#Gets the player and player number
 	player = get_parent()
 	player_number = str(player.get_player_number()+1)
 	action_stack = []
+	
+	#Connects the skills at a later point, when the weapons have been initialized
+	call_deferred("connect_skill",0,0)
+	call_deferred("connect_skill",1,0)
+	
 	set_process(true)
 	set_process_input(true)
+
+func connect_skill(slot,sk_id):
+	for other_sk in player.get_weapon(slot).get_skills():
+		disconnect("skill_"+str(slot)+"_button",other_sk,"_button")
+	var sk = player.get_weapon(slot).get_skill(sk_id)
+	connect("skill_"+str(slot)+"_button",sk,"_button")
 
 #Handles all inputs
 func _input(event):
@@ -56,9 +74,11 @@ func _input(event):
 	
 	if (player.get_state() == ST_IDLE || player.get_state() == ST_MOVING):
 		if (is_event_action_pressed(event,"gm_p"+player_number+"_skill_0")):
-			player.get_weapon(0).use_skill(0)
+			#player.get_weapon(0).use_skill(0)
+			emit_signal("skill_0_button",true)
 		elif (is_event_action_pressed(event,"gm_p"+player_number+"_skill_1")):
-			player.get_weapon(1).use_skill(0)
+			#player.get_weapon(1).use_skill(0)
+			emit_signal("skill_1_button",true)
 	
 #	#DEBUGGING INPUTS
 	if (debug):
@@ -71,6 +91,11 @@ func _process(delta):
 	if (player.get_state() == ST_IDLE || player.get_state() == ST_MOVING):
 		if (action_stack.empty()): player.set_state(ST_IDLE)
 		else: player.set_state_direction(ST_MOVING,action_stack[0])
+	
+	#This check allows the skills to be initialized after the weapons have been assigned
+#	if (!skills_connected):
+#		connect_skill(0,0)
+#		connect_skill(1,0)
 
 func is_event_action(event,action):
 	if (event.type == InputEvent.KEY):

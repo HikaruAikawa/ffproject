@@ -48,10 +48,6 @@ func _ready():
 	blink_time = 0.1
 	
 	weapons = [null, null]
-	
-	#Creates the skill that will be used (testing purposes)
-	equip_weapon(0,0)
-	equip_weapon(1,0)
 
 func _process(delta):
 	movement_speed = current_stats[SPD]
