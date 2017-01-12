@@ -67,7 +67,7 @@ func _process(delta):
 	var overlapping_areas = hitbox.get_overlapping_areas()
 	if(!overlapping_areas.empty()):
 		for hit in overlapping_areas:
-			if (hit.get_layer_mask_bit(11)):
+			if (hit.get_layer_mask_bit(11) && hit.get_parent().is_enemy()):
 				hit.get_parent().take_damage(10,15*(hit.get_global_pos()-get_global_pos()).normalized())
 	swing_timer -= delta
 	if (swing_timer <= 0):

@@ -3,7 +3,6 @@
 [ext_resource path="res://Scripts/swing.gd" type="Script" id=1]
 [ext_resource path="res://Textures/Weapons/sword_0.tex" type="Texture" id=2]
 
-
 [node name="Swing" type="Node2D"]
 
 transform/rot = 45.0
