@@ -79,18 +79,23 @@ func _action_button_pressed(action):
 		listening_action = action
 
 func _input(event):
+	#Only handles the input if the user has pressed a button
 	if (listening):
 		var isValid = true
 		if (event.type == InputEvent.KEY):
+			#The key won't be valid if it's already in use
 			for other_action in InputMap.get_actions():
 				if (InputMap.action_has_event(other_action,event) && other_action.begins_with("gm_")):
 					isValid = false
 			if (isValid):
+				#Erases all other events of the type key assigned to that action
 				for other_event in InputMap.get_action_list(listening_action):
 					if (other_event.type == InputEvent.KEY):
 						InputMap.action_erase_event(listening_action,other_event)
+				#If Escape is pressed, leaves the key blank
 				if (event.scancode == OS.find_scancode_from_string("Escape")):
 					message_label.set_text("The selected key has been removed")
+				#If something else is pressed, assigns it
 				else:
 					InputMap.action_add_event(listening_action,event)
 					message_label.set_text("The selected key has been changed")
