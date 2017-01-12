@@ -1,5 +1,16 @@
 extends Node2D
 
+#DEFINITION OF CONSTANTS
+
+const ST_IDLE = 0
+const ST_MOVING = 1
+const ST_HURT = 2
+const ST_SKILL = 3
+const DR_UP = 0
+const DR_LEFT = 1
+const DR_DOWN = 2
+const DR_RIGHT = 3
+
 #DEFINITION OF VARIABLES 
 
 var script
@@ -33,3 +44,12 @@ func use():
 		if(effect()):
 			user.increase_mp(-mp_cost)
 			cooldown_timer = cooldown
+
+#Utility methods for other skills
+
+func turn_user(n):
+	var dir = user.get_direction()
+	dir += n
+	if (dir > 3): dir = 0
+	elif (dir < 0): dir = 3
+	user.set_direction(dir)

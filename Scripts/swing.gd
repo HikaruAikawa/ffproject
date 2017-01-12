@@ -29,6 +29,11 @@ var starting_angle
 #The sprite node of the weapon that will be swung, and its texture
 var sprite
 var texture
+#The damage and knockback this swing will inflict
+var damage
+var knockback
+#This indicates how much the swing should be displaced from the border of the user
+var pullback
 
 #DEFINITION OF METHODS
 
@@ -38,9 +43,6 @@ func is_enemy(): return false
 func _ready():
 	
 	swing_timer = swing_time + swing_start_time
-	
-	#This indicates how much the swing should be displaced from the border of the user
-	var pullback = 10
 	
 	#Positions itself in front of the user
 	set_global_pos(user.get_global_pos())
@@ -78,39 +80,51 @@ func _ready():
 		rotate(PI)
 	elif (user.get_direction() == DR_UP):
 		set_z(-1)
-	target_angle = get_rot()
-	starting_angle = target_angle + angle
-	rotate(angle)
+	rotate(PI/4)
+	starting_angle = get_rot() - starting_angle
+	target_angle = get_rot() - target_angle
+	set_rot(starting_angle)
 
 	set_process(true)
 
-func initialize(usr,tex,sw_time,sw_start_time,sw_end_time,ang,sz):
-	user = usr
-	texture = tex
-	swing_time = sw_time
-	swing_start_time = sw_start_time
-	swing_end_time = sw_end_time
-	angle = ang
-	size = sz
+func initialize(user,texture,swing_time,swing_start_time,swing_end_time,starting_angle,target_angle,size,damage,knockback,pullback):
+	self.user = user
+	self.texture = texture
+	self.swing_time = swing_time
+	self.swing_start_time = swing_start_time
+	self.swing_end_time = swing_end_time
+	self.starting_angle = starting_angle
+	self.target_angle = target_angle
+	self.size = size
+	self.damage = damage
+	self.knockback = knockback
+	self.pullback = pullback
 
 func _process(delta):
 	swing_timer -= delta
+	
+	var rot = get_global_transform().get_rotation()
+	if (rot >= -PI/4 && rot <= 3*PI/4):
+		set_z(-1)
+	else: set_z(1)
+	
 	if (swing_timer < swing_time && swing_timer > 0):
 		#rotate(-angle*delta/swing_time)
 		set_rot(lerp(starting_angle,target_angle,1-(swing_timer/swing_time)))
-		print(1-(swing_timer/swing_time))
 		var overlapping_areas = hitbox.get_overlapping_areas()
 		if(!overlapping_areas.empty()):
 			for hit in overlapping_areas:
 				if (hit.get_layer_mask_bit(11) && hit.get_parent().is_enemy()):
-					hit.get_parent().take_damage(10,15*(hit.get_global_pos()-get_global_pos()).normalized())
+					hit.get_parent().take_damage(damage,knockback*(hit.get_global_pos()-get_global_pos()).normalized())
 	elif (swing_timer < 0 && swing_timer > -swing_end_time):
 		set_rot(target_angle)
 	elif (swing_timer < -swing_end_time):
+		get_parent().finished()
 		self.queue_free()
 
+func get_timer(): return swing_timer
+
 #func _draw():
-#	var pullback = 10
 #	var extents = hitbox.get_shape(0).get_extents()
 #	var pos = (hitbox.get_global_pos()-get_global_pos())
 #	var matrix = hitbox.get_shape_transform(0)

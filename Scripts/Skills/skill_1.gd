@@ -1,32 +1,37 @@
 extends "res://Scripts/skill.gd"
 
-var swing
-var texture
-var swing_script
-
-var swing_time
-var swing_start_time
-var swing_end_time
+var target
+var game_area
 
 #CLASS METHODS
 
-static func get_mp_cost(): return 2
-static func get_cooldown(): return 0.5
+static func get_mp_cost(): return 20
+static func get_cooldown(): return 2
 
 #OTHER METHODS
+
 func _ready():
-	texture = get_parent().get_texture()
-	swing_script = load("res://Scripts/swing.gd")
+	mp_cost = 20
+	cooldown = 2
 	
-	swing_start_time = 0
-	swing_time = 0.1
-	swing_end_time = 0.1
+	target = Area2D.new()
+	add_child(target)
+	target.set_owner(self)
+#	
+	var rect = RectangleShape2D.new()
+	rect.set_extents(Vector2(15,15))
+	target.add_shape(rect)
+	target.set_shape_as_trigger(0,true)
+	
+	game_area = get_node("/root/Main/Map/GameArea")
+
+func _process(delta):
+	target.set_pos(96*user.get_forward())
 
 func effect():
-	user.set_using_skill(swing_time + swing_start_time + swing_end_time)
-	swing = Node2D.new()
-	swing.set_script(swing_script)
-	swing.initialize(user,texture,swing_time,swing_start_time,swing_end_time,PI/2,32)
-	add_child(swing)
-	swing.set_owner(self)
-	return true
+	if(target.get_overlapping_bodies().empty() && target.overlaps_area(game_area)):
+		user.set_global_pos(target.get_global_pos())
+		return true
+	else:
+		print("Imposible teleportar")
+		return false

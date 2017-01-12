@@ -27,6 +27,7 @@ func _ready():
 	script = get_script()
 	skills = []
 	user = get_parent()
+	name = script.get_name()
 	for sk_id in script.get_skill_ids():
 		add_skill(sk_id)
 

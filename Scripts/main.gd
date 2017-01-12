@@ -80,6 +80,8 @@ func instantiate_player(number, cl, xpos, ypos):
 	add_child(players[number])
 	players[number].set_owner(self)
 	players[number].set_pos(Vector2(xpos,ypos))
+	players[number].equip_weapon(0,config.get_player_weapon(number,0))
+	players[number].equip_weapon(1,config.get_player_weapon(number,1))
 
 func instantiate_players():
 	var spawns = get_player_spawns()

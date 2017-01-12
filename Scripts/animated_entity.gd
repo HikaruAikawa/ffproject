@@ -124,6 +124,12 @@ func set_animation():
 	current_animation_delays = animations[state][direction][1]
 	animation_timer = 0
 
+#Sets the current animation, with the state and direction given
+func set_given_animation(st,dir):
+	current_animation = animations[st][dir][0]
+	current_animation_delays = animations[st][dir][1]
+	animation_timer = 0
+
 func new_skill(number):
 	var skill = Node2D.new()
 	skill.set_script(load("res://Scripts/Skills/skill_"+String(number)+".gd"))
