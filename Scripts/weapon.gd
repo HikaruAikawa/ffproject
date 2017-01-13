@@ -30,6 +30,7 @@ func _ready():
 	name = script.get_name()
 	for sk_id in script.get_skill_ids():
 		add_skill(sk_id)
+	unlock_skill(0)
 
 #Uses the skill in the position i, if it's available
 func use_skill(i):
@@ -55,11 +56,17 @@ func get_name():
 	return name
 
 #Returns the skill in the position i
-func get_skill(k):
-	return skills[k]
+func get_skill(i):
+	return skills[i]
 
-func get_skills():
-	return skills
+func is_skill_unlocked(i):
+	return skills[i].is_unlocked()
+
+func unlock_skill(i):
+	skills[i].set_unlocked(true)
+
+#func get_skills():
+#	return skills
 
 func get_texture():
 	return texture

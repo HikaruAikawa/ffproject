@@ -5,6 +5,7 @@ var game_area
 
 #CLASS METHODS
 
+static func get_skill_name(): return "Teleport"
 static func get_mp_cost(): return 20
 static func get_cooldown(): return 2
 
@@ -33,5 +34,5 @@ func effect():
 		user.set_global_pos(target.get_global_pos())
 		return true
 	else:
-		print("Imposible teleportar")
+		#print("Can't teleport")
 		return false

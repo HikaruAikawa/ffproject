@@ -13,6 +13,7 @@ var progress
 
 #CLASS METHODS
 
+static func get_skill_name(): return "Circular attack"
 static func get_mp_cost(): return 10
 static func get_cooldown(): return 3
 

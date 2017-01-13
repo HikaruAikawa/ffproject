@@ -105,19 +105,20 @@ func _ready():
 			if (k == 0): player_label.set_text("Right hand")
 			else: player_label.set_text("Left hand")
 			player_label.set_align(ALIGN_CENTER)
+			#Creates a label with all the skills of this weapon
+			player_label = Label.new()
+			player_label.set_align(ALIGN_CENTER)
+			player_label.set_name("SkillsLabel"+str(k))
 			#Creates the button to choose from the weapons
 			player_button = OptionButton.new()
 			player_c.add_child(player_button)
 			player_button.set_owner(player_c)
 			player_button.set_h_size_flags(0)
 			player_button.set_name("OptionButton"+str(k))
-			player_button.connect("item_selected",self,"_player_weapon_selected",[i,k])
-			#Creates a label with all the skills of this weapon
-			player_label = Label.new()
+			player_button.connect("item_selected",self,"_player_weapon_selected",[i,k,player_label])
+			
 			player_c.add_child(player_label)
 			player_label.set_owner(player_c)
-			player_label.set_align(ALIGN_CENTER)
-			player_label.set_name("SkillsLabel"+str(k))
 			
 		player_weapons_c_list.append(player_c)
 	
@@ -158,12 +159,29 @@ func _back_button_pressed():
 	global.change_scene("res://Scenes/Control/MainMenu.tscn")
 
 #Functions called dynamically when an item from an option button is changed
+
 func _scale_changed(item):
 	config.set_window_scale(scale_map[scale_c.find_node("OptionButton").get_selected_ID()])
 
 func _player_number_changed(item):
 	config.set_player_number(player_number_c.find_node("OptionButton").get_selected_ID() + 1)
 	update_player_classes()
+	
+func _player_class_selected(item,number):
+	config.set_player_class(number,item)
+	config.reset_player_weapons(number)
+	update_weapon_button_options()
+
+func _player_weapon_selected(item,number,slot,skills_label):
+	config.set_player_weapon(number,slot,item)
+	var text = "Skills: "
+	var skill_ids = global.get_weapon_script(config.get_player_class(number),slot,item).get_skill_ids()
+	for id in range(skill_ids.size()):
+		if (id != 0): text += ", "
+		text += global.get_skill_script(skill_ids[id]).get_skill_name()
+	skills_label.set_text(text)
+
+#Functions to update the content on the menu
 
 func update_player_classes():
 	for i in range(config.MAX_PLAYERS):
@@ -188,16 +206,8 @@ func update_weapon_button_options():
 				button.add_item(weapons_list[j].get_name(),j)
 				if (j == config.get_player_weapon(i,k)):
 					button.select(j)
-					var text = "Skills: " + str(weapons_list[j].get_skill_ids())
-					label.set_text(text)
-
-func _player_class_selected(item,number):
-	config.set_player_class(number,item)
-	config.reset_player_weapons(number)
-	update_weapon_button_options()
-
-func _player_weapon_selected(item,number,slot):
-	config.set_player_weapon(number,slot,item)
+					#This updates the text showing the skills this weapon can use
+					_player_weapon_selected(j,i,k,label)
 
 #Auxiliary function
 func find_key(dict,value):

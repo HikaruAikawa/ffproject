@@ -12,6 +12,7 @@ var active
 
 #CLASS METHODS
 
+static func get_skill_name(): return "Attack"
 static func get_mp_cost(): return 0
 static func get_cooldown(): return 0.5
 

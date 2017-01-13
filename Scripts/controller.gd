@@ -19,6 +19,7 @@ var player
 var player_number
 var action_stack
 var weapon
+var selected_skill
 
 var debug = true
 
@@ -36,6 +37,7 @@ func _ready():
 	action_stack = []
 	
 	#Connects the skills at a later point, when the weapons have been initialized
+	selected_skill = [null,null]
 	call_deferred("connect_skill",0,0)
 	call_deferred("connect_skill",1,0)
 	
@@ -43,10 +45,13 @@ func _ready():
 	set_process_input(true)
 
 func connect_skill(slot,sk_id):
-	for other_sk in player.get_weapon(slot).get_skills():
-		disconnect("skill_"+str(slot)+"_button",other_sk,"_button")
-	var sk = player.get_weapon(slot).get_skill(sk_id)
-	connect("skill_"+str(slot)+"_button",sk,"_button")
+	if (player.get_weapon(slot).is_skill_unlocked(sk_id)):
+		if (selected_skill[slot] != null):
+			var old_sk = player.get_weapon(slot).get_skill(selected_skill[slot])
+			disconnect("skill_"+str(slot)+"_button",old_sk,"_button")
+		var sk = player.get_weapon(slot).get_skill(sk_id)
+		connect("skill_"+str(slot)+"_button",sk,"_button")
+		selected_skill[slot] = sk_id
 
 #Handles all inputs
 func _input(event):
@@ -54,14 +59,6 @@ func _input(event):
 	var direction = player.get_direction()
 	
 	#MOVEMENT INPUTS
-#	if (event.is_action_pressed("gm_p"+player_number+"_up")): action_stack.push_front(DR_UP)
-#	elif (event.is_action_pressed("gm_p"+player_number+"_left")): action_stack.push_front(DR_LEFT)
-#	elif (event.is_action_pressed("gm_p"+player_number+"_down")): action_stack.push_front(DR_DOWN)
-#	elif (event.is_action_pressed("gm_p"+player_number+"_right")): action_stack.push_front(DR_RIGHT)
-#	elif (event.is_action_released("gm_p"+player_number+"_up")): action_stack.erase(DR_UP)
-#	elif (event.is_action_released("gm_p"+player_number+"_left")): action_stack.erase(DR_LEFT)
-#	elif (event.is_action_released("gm_p"+player_number+"_down")): action_stack.erase(DR_DOWN)
-#	elif (event.is_action_released("gm_p"+player_number+"_right")): action_stack.erase(DR_RIGHT)
 
 	if (is_event_action_pressed(event,"gm_p"+player_number+"_up")): action_stack.push_front(DR_UP)
 	elif (is_event_action_pressed(event,"gm_p"+player_number+"_left")): action_stack.push_front(DR_LEFT)

@@ -21,6 +21,8 @@ var cooldown
 var cooldown_timer
 #A reference to the entity using this skill
 var user
+#Stores whether or not this skill is already unlocked or not
+var unlocked
 
 #Enables processing
 func _ready():
@@ -28,6 +30,7 @@ func _ready():
 	mp_cost = script.get_mp_cost()
 	cooldown = script.get_cooldown()
 	cooldown_timer = 0
+	unlocked = false
 	set_process(true)
 
 #Every frame, the cooldown timer will decrease if it's not 0
@@ -48,6 +51,9 @@ func use():
 #By default, when the button is pressed, the skill is used
 func _button(pressed):
 	use()
+
+func set_unlocked(b): unlocked = b
+func is_unlocked(): return unlocked
 
 #Utility methods for other skills
 
