@@ -1,5 +1,7 @@
 extends "res://Scripts/animated_entity.gd"
 
+var hitbox
+
 func _ready():
 	movement_speed = 1
 	set_state(ST_MOVING)
@@ -7,7 +9,14 @@ func _ready():
 	add_child(sprite)
 	sprite.set_hframes(3)
 	sprite.set_vframes(1)
-	pass
+	hitbox = Area2D.new()
+	var shape = RectangleShape2D.new()
+	shape.set_extents(Vector2(12,12))
+	hitbox.add_shape(shape)
+
+func _process():
+	if (!hitbox.get_overlapping_areas().empty()):
+		self.queue_free()
 
 func init_animations():
 	animations = {
