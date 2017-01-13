@@ -25,6 +25,7 @@ var debug = true
 
 #DEFINITION OF SIGNALS
 
+signal attack_button(pressed)
 signal skill_0_button(pressed)
 signal skill_1_button(pressed)
 
@@ -38,8 +39,9 @@ func _ready():
 	
 	#Connects the skills at a later point, when the weapons have been initialized
 	selected_skill = [null,null]
-	call_deferred("connect_skill",0,0)
-	call_deferred("connect_skill",1,0)
+	call_deferred("connect_attack")
+	call_deferred("connect_skill",0,1)
+	call_deferred("connect_skill",1,1)
 	
 	set_process(true)
 	set_process_input(true)
@@ -52,6 +54,11 @@ func connect_skill(slot,sk_id):
 		var sk = player.get_weapon(slot).get_skill(sk_id)
 		connect("skill_"+str(slot)+"_button",sk,"_button")
 		selected_skill[slot] = sk_id
+
+#The attack action always executes the first skill on the right-hand weapon
+func connect_attack():
+	var sk = player.get_weapon(0).get_skill(0)
+	connect("attack_button",sk,"_button")
 
 #Handles all inputs
 func _input(event):
@@ -68,6 +75,12 @@ func _input(event):
 	elif (is_event_action_released(event,"gm_p"+player_number+"_left")): action_stack.erase(DR_LEFT)
 	elif (is_event_action_released(event,"gm_p"+player_number+"_down")): action_stack.erase(DR_DOWN)
 	elif (is_event_action_released(event,"gm_p"+player_number+"_right")): action_stack.erase(DR_RIGHT)
+	
+	#The attack action always executes the first skill on the right-hand weapon
+	if (is_event_action_pressed(event,"gm_p"+player_number+"_attack")):
+		emit_signal("attack_button",true)
+	elif (is_event_action_released(event,"gm_p"+player_number+"_attack")):
+		emit_signal("attack_button",false)
 	
 	if (is_event_action_pressed(event,"gm_p"+player_number+"_skill_0")):
 		#player.get_weapon(0).use_skill(0)

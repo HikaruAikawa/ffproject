@@ -177,8 +177,9 @@ func _player_weapon_selected(item,number,slot,skills_label):
 	var text = "Skills: "
 	var skill_ids = global.get_weapon_script(config.get_player_class(number),slot,item).get_skill_ids()
 	for id in range(skill_ids.size()):
-		if (id != 0): text += ", "
-		text += global.get_skill_script(skill_ids[id]).get_skill_name()
+		if (id > 0):
+			if (id != 1): text += ", "
+			text += global.get_skill_script(skill_ids[id]).get_skill_name()
 	skills_label.set_text(text)
 
 #Functions to update the content on the menu
