@@ -53,8 +53,9 @@ func use():
 
 #By default, when the button is pressed, the skill is used
 func _button(pressed):
-	if (user.get_state() == ST_IDLE || user.get_state() == ST_MOVING):
-		use()
+	if (pressed):
+		if (user.get_state() == ST_IDLE || user.get_state() == ST_MOVING):
+			use()
 
 func set_unlocked(b): unlocked = b
 func is_unlocked(): return unlocked

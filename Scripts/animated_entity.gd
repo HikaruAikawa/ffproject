@@ -135,13 +135,13 @@ func set_given_animation(st,dir):
 #	return test_move(speed*vect)
 
 #The same as test_move, but ignores any obstacles in the way
-func test_move_no_collision(vect):
-	print(is_colliding())
-	var ret
-	set_global_pos(get_global_pos()+vect)
-	ret = is_colliding()
-	print(is_colliding())
-	set_global_pos(get_global_pos()-vect)
-	return ret
+#func test_move_no_collision(vect):
+#	print(is_colliding())
+#	var ret
+#	set_global_pos(get_global_pos()+vect)
+#	ret = is_colliding()
+#	print(is_colliding())
+#	set_global_pos(get_global_pos()-vect)
+#	return ret
 	
 	

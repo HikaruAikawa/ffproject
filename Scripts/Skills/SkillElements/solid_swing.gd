@@ -112,7 +112,6 @@ func _process(delta):
 	else: set_z(1)
 	
 	if (swing_timer < swing_time && swing_timer > 0):
-		#rotate(-angle*delta/swing_time)
 		sprite.set_rot(lerp(starting_angle,target_angle,1-(swing_timer/swing_time)))
 		var overlapping_areas = hitbox.get_overlapping_areas()
 		if(!overlapping_areas.empty()):
