@@ -28,6 +28,8 @@ var inv_timer
 var blink_time
 var blink_timer
 var blink_state
+var blinking_timer
+#var blinking_time
 #Timer for the use of a skill
 var skill_time
 var skill_timer
@@ -39,6 +41,7 @@ func _ready():
 	damage_timer = 0
 	inv_timer = 0
 	blink_timer = 0
+	blinking_timer = 0
 	skill_timer = 0
 	blink_state = false
 
@@ -60,15 +63,18 @@ func _process(delta):
 		else:
 			set_state(ST_IDLE)
 			sprite.set_modulate(Color(1,1,1,1))
+			blinking_timer = inv_timer
 	if(inv_timer>0):
 		inv_timer -= delta
+	if (blinking_timer>0):
 		#This timer switches the blinking state (between transparent and solid) when it reaches 0, then resets
 		#(Only if it's not getting knocked back)
-		if (damage_timer<=0):
-			blink_timer -= delta
-			if (blink_timer<=0):
-				switch_blinking()
-				blink_timer = blink_time
+		#if (damage_timer<=0):
+		blink_timer -= delta
+		blinking_timer -= delta
+		if (blink_timer<=0):
+			switch_blinking()
+			blink_timer = blink_time
 	else: if (blink_state): switch_blinking()
 
 #Sets the entity to the state using a skill
@@ -106,6 +112,12 @@ func switch_blinking():
 	else:
 		sprite.set_modulate(Color(1,1,1,1))
 		blink_state = false
+
+func set_invincible(time):
+	inv_timer = time
+
+func is_invincible():
+	return inv_timer>0
 
 func die():
 	self.queue_free()

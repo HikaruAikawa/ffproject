@@ -20,7 +20,7 @@ static func get_cooldown(): return 3
 #OTHER METHODS
 func _ready():
 	texture = get_parent().get_texture()
-	swing_script = load("res://Scripts/swing.gd")
+	swing_script = load("res://Scripts/Skills/SkillElements/swing.gd")
 	
 	swing_start_time = 0.1
 	swing_time = 0.4
@@ -48,9 +48,7 @@ func _process(delta):
 				if (progress+1 <= i+1 && new_progress+1 > i+1):
 					turn_user(-1)
 			progress = new_progress
-#		if (timer < -swing_end_time):
-#			swing.queue_free()
-#			active = false
 
 func finished():
 	active = false
+	swing.queue_free()

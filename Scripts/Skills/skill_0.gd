@@ -19,7 +19,7 @@ static func get_cooldown(): return 0.5
 #OTHER METHODS
 func _ready():
 	texture = get_parent().get_texture()
-	swing_script = load("res://Scripts/swing.gd")
+	swing_script = load("res://Scripts/Skills/SkillElements/swing.gd")
 	
 	swing_start_time = 0
 	swing_time = 0.1
@@ -39,3 +39,4 @@ func effect():
 
 func finished():
 	active = false
+	swing.queue_free()
