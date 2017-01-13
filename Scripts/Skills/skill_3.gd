@@ -12,8 +12,6 @@ var distance
 var initial_pos
 var target_pos
 
-var active
-
 #CLASS METHODS
 
 static func get_skill_name(): return "Dashing attack"
@@ -21,6 +19,7 @@ static func get_mp_cost(): return 10
 static func get_cooldown(): return 1.5
 
 #OTHER METHODS
+
 func _ready():
 	texture = get_parent().get_texture()
 	swing_script = load("res://Scripts/Skills/SkillElements/solid_swing.gd")
@@ -30,8 +29,6 @@ func _ready():
 	swing_end_time = 0.05
 	
 	distance = 96
-	
-	active = false
 
 func effect():
 	user.set_using_skill(swing_time + swing_start_time + swing_end_time)

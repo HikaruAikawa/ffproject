@@ -130,14 +130,6 @@ func set_given_animation(st,dir):
 	current_animation_delays = animations[st][dir][1]
 	animation_timer = 0
 
-func new_skill(number):
-	var skill = Node2D.new()
-	skill.set_script(load("res://Scripts/Skills/skill_"+String(number)+".gd"))
-	add_child(skill)
-	skill.set_owner(self)
-	skill.set_user(self)
-	return skill
-
 #Checks if there is collision in the given direction (not needed just yet)
 #func test_direction(vect):
 #	return test_move(speed*vect)

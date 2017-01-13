@@ -8,7 +8,6 @@ var swing_time
 var swing_start_time
 var swing_end_time
 
-var active
 var progress
 
 #CLASS METHODS
@@ -18,6 +17,7 @@ static func get_mp_cost(): return 10
 static func get_cooldown(): return 3
 
 #OTHER METHODS
+
 func _ready():
 	texture = get_parent().get_texture()
 	swing_script = load("res://Scripts/Skills/SkillElements/swing.gd")
@@ -25,8 +25,6 @@ func _ready():
 	swing_start_time = 0.1
 	swing_time = 0.4
 	swing_end_time = 0.1
-	
-	active = false
 	progress = 0
 
 func effect():

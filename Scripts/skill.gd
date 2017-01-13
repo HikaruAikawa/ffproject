@@ -23,6 +23,8 @@ var cooldown_timer
 var user
 #Stores whether or not this skill is already unlocked or not
 var unlocked
+#Stores whether or not the skill is being used
+var active
 
 #Enables processing
 func _ready():
@@ -31,6 +33,7 @@ func _ready():
 	cooldown = script.get_cooldown()
 	cooldown_timer = 0
 	unlocked = false
+	active = false
 	set_process(true)
 
 #Every frame, the cooldown timer will decrease if it's not 0
@@ -50,7 +53,8 @@ func use():
 
 #By default, when the button is pressed, the skill is used
 func _button(pressed):
-	use()
+	if (user.get_state() == ST_IDLE || user.get_state() == ST_MOVING):
+		use()
 
 func set_unlocked(b): unlocked = b
 func is_unlocked(): return unlocked

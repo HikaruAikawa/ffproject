@@ -8,8 +8,6 @@ const EPS = 0.5
 
 #DEFINITION OF VARIABLES
 
-#The script of this enemy
-var script
 #This enemy's body hitbox (and hurtbox)
 var hitbox
 #The map on which to find a path
@@ -29,16 +27,8 @@ func is_player(): return false
 
 func _ready():
 	
-	#Gets the script to access static methods
-	script = get_script()
-	
 	#Gets the data from the script
 	sprite.set_texture(script.get_texture())
-	movement_speed = script.get_speed()
-	max_hp = script.get_hp()
-	max_mp = script.get_mp()
-	current_hp = max_hp
-	current_mp = max_mp
 	
 	turn_time = 1
 	turn_timer = turn_time
@@ -47,7 +37,6 @@ func _ready():
 	blink_time = 0.1
 	
 	map = get_node("/root/Main/Map")
-	#target = get_node("/root/Main/Player 1")
 	path = []
 	hitbox = get_node("Hitbox")
 
@@ -138,5 +127,5 @@ func _process(delta):
 	#If it collides with a player, it deals damage
 	for hit in hitbox.get_overlapping_areas():
 		var target = hit.get_parent()
-		if (target.is_player()):
+		if (target.is_player() && get_state() != ST_HURT && !is_invincible()):
 			target.take_damage(10,15*((target.get_global_pos()-get_global_pos()).normalized()))

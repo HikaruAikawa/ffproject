@@ -69,13 +69,18 @@ func _input(event):
 	elif (is_event_action_released(event,"gm_p"+player_number+"_down")): action_stack.erase(DR_DOWN)
 	elif (is_event_action_released(event,"gm_p"+player_number+"_right")): action_stack.erase(DR_RIGHT)
 	
-	if (player.get_state() == ST_IDLE || player.get_state() == ST_MOVING):
-		if (is_event_action_pressed(event,"gm_p"+player_number+"_skill_0")):
-			#player.get_weapon(0).use_skill(0)
-			emit_signal("skill_0_button",true)
-		elif (is_event_action_pressed(event,"gm_p"+player_number+"_skill_1")):
-			#player.get_weapon(1).use_skill(0)
-			emit_signal("skill_1_button",true)
+	if (is_event_action_pressed(event,"gm_p"+player_number+"_skill_0")):
+		#player.get_weapon(0).use_skill(0)
+		emit_signal("skill_0_button",true)
+	elif (is_event_action_pressed(event,"gm_p"+player_number+"_skill_1")):
+		#player.get_weapon(1).use_skill(0)
+		emit_signal("skill_1_button",true)
+	if (is_event_action_released(event,"gm_p"+player_number+"_skill_0")):
+		#player.get_weapon(0).use_skill(0)
+		emit_signal("skill_0_button",false)
+	elif (is_event_action_released(event,"gm_p"+player_number+"_skill_1")):
+		#player.get_weapon(1).use_skill(0)
+		emit_signal("skill_1_button",false)
 	
 #	#DEBUGGING INPUTS
 	if (debug):

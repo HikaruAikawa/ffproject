@@ -9,15 +9,24 @@ static func get_id():
 static func get_name():
 	return "Night"
 
-static func get_base_stat(i):
-	var base_stats = {
+static func get_base_stats():
+	return {
 		HP : 100,
 		MP : 50,
 		ATK : 10,
-		DEF : 20,
+		DEF : 5,
 		SPD : 2
 	}
-	return base_stats[i]
+
+#static func get_base_stat(i):
+#	var base_stats = {
+#		HP : 100,
+#		MP : 50,
+#		ATK : 10,
+#		DEF : 20,
+#		SPD : 2
+#	}
+#	return base_stats[i]
 
 static func get_texture():
 	return load("res://Textures/Characters/player_class_0.tex")

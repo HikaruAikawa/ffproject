@@ -8,14 +8,10 @@ const CL_MAIGE = 1
 
 #DEFINITION OF VARIABLES 
 
-var script
 var weapons
 var global
 
-#The current stats of this entity
-var current_stats
 var player_number
-var skill
 
 #DEFINITION OF METHODS
 
@@ -24,24 +20,11 @@ func is_enemy(): return false
 
 func _ready():
 	
-	#Gets the class to access static methods
-	script = get_script()
-	
 	#Saves the global node
 	global = get_node("/root/global")
 	
 	#Gets the data from the class
 	sprite.set_texture(script.get_texture())
-	current_stats = []
-	current_stats.resize(MAX_STATS)
-	for i in range(MAX_STATS):
-		current_stats[i] = script.get_base_stat(i)
-	
-	#Sets HP and MP
-	max_hp = current_stats[HP]
-	max_mp = current_stats[MP]
-	current_hp = max_hp
-	current_mp = max_mp
 	
 	damage_time = 0.2
 	inv_time = 3
