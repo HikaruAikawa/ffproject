@@ -54,7 +54,7 @@ func _ready():
 	add_child(hitbox)
 	hitbox.set_pos(Vector2(0,0))
 	var shape = RectangleShape2D.new()
-	shape.set_extents(Vector2(size,24))
+	shape.set_extents(Vector2(size/2,12))
 	hitbox.add_shape(shape,Matrix32(PI/4,Vector2((size-pullback)/2,(-size+pullback)/2)))
 	
 	#Sets the correct collision mask
@@ -120,17 +120,17 @@ func _process(delta):
 
 func get_timer(): return swing_timer
 
-#func _draw():
-#	var extents = hitbox.get_shape(0).get_extents()
-#	var pos = (hitbox.get_global_pos()-get_global_pos())
-#	var matrix = hitbox.get_shape_transform(0)
-#	var rect = Rect2(pos-extents/2,extents)
-#	var p1 = matrix.xform(rect.pos)
-#	var p2 = matrix.xform(rect.end)
-#	var p3 = matrix.xform(Vector2(rect.pos.x,rect.end.y))
-#	var p4 = matrix.xform(Vector2(rect.end.x,rect.pos.y))
-#	#draw_rect(rect,Color(1,1,1,1))
-#	draw_circle(p1,2,Color(1,1,1,1))
-#	draw_circle(p2,2,Color(1,1,1,1))
-#	draw_circle(p3,2,Color(1,1,1,1))
-#	draw_circle(p4,2,Color(1,1,1,1))
+func _draw():
+	var extents = hitbox.get_shape(0).get_extents()
+	var pos = (hitbox.get_global_pos()-get_global_pos())
+	var matrix = hitbox.get_shape_transform(0)
+	var rect = Rect2(pos-extents,extents*2)
+	var p1 = matrix.xform(rect.pos)
+	var p2 = matrix.xform(rect.end)
+	var p3 = matrix.xform(Vector2(rect.pos.x,rect.end.y))
+	var p4 = matrix.xform(Vector2(rect.end.x,rect.pos.y))
+	#draw_rect(rect,Color(1,1,1,1))
+	draw_circle(p1,2,Color(1,1,1,1))
+	draw_circle(p2,2,Color(1,1,1,1))
+	draw_circle(p3,2,Color(1,1,1,1))
+	draw_circle(p4,2,Color(1,1,1,1))

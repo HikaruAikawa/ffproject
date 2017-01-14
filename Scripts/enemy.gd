@@ -122,5 +122,5 @@ func _process(delta):
 	#If it collides with a player, it deals damage
 	for hit in hitbox.get_overlapping_areas():
 		var target = hit.get_parent()
-		if (target.is_player() && get_state() != cons.ST_HURT && !is_invincible()):
+		if (hit.get_layer_mask_bit(cons.LYH_PLAYERS) && get_state() != cons.ST_HURT && !is_invincible()):
 			target.take_damage(10,15*((target.get_global_pos()-get_global_pos()).normalized()))

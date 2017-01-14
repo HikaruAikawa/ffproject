@@ -28,9 +28,9 @@ func _process(delta):
 func _button(pressed):
 	if (pressed):
 		active = true
-		user.set_current_stat(user.DEF,user.get_current_stat(user.DEF)*multiplier)
+		user.set_current_stat(cons.DEF,user.get_current_stat(cons.DEF)*multiplier)
 	else:
-		user.set_current_stat(user.DEF,user.get_current_stat(user.DEF)/multiplier)
+		user.set_current_stat(cons.DEF,user.get_current_stat(cons.DEF)/multiplier)
 		active = false
 		user.set_using_skill(0)
 

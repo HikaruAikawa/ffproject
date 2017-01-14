@@ -71,7 +71,6 @@ func _process(delta):
 			damage_timer -= delta
 			#Changes color to red (experimental)
 			sprite.set_modulate(Color(1,0,0,1))
-			#If it collides, stop moving backwards
 		#If it is, returns to natural state
 		else:
 			set_state(cons.ST_IDLE)
