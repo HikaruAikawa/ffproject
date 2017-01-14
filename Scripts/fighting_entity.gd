@@ -1,14 +1,5 @@
 extends "res://Scripts/animated_entity.gd"
 
-#DEFINITION OF CONSTANTS
-#
-#const HP = 0
-#const MP = 1
-#const ATK = 2
-#const DEF = 3
-#const SPD = 4
-#const MAX_STATS = 5
-
 #DEFINITION OF VARIABLES
 
 var script
@@ -31,7 +22,6 @@ var blink_time
 var blink_timer
 var blink_state
 var blinking_timer
-#var blinking_time
 #Timer for the use of a skill
 var skill_time
 var skill_timer
@@ -75,7 +65,7 @@ func _process(delta):
 		knockback_timer -= delta
 		move(knockback*(delta/damage_time))
 		if (test_move(knockback*(delta/damage_time))): knockback_timer = 0
-	elif (get_state() == cons.ST_HURT):
+	if (get_state() == cons.ST_HURT):
 		#If the damage timer is not 0, counts down
 		if(damage_timer>0):
 			damage_timer -= delta
