@@ -1,9 +1,14 @@
 extends "res://Scripts/animated_entity.gd"
 
 var hitbox
+var damage
+var knockback
 
 func _ready():
-	movement_speed = 1
+	
+	damage = 20
+	knockback = 5
+	movement_speed = 3
 	set_state(cons.ST_MOVING)
 	sprite.set_hframes(3)
 	sprite.set_vframes(1)
@@ -22,10 +27,11 @@ func _ready():
 func _process(delta):
 	for hit in hitbox.get_overlapping_areas():
 		if (hit.get_layer_mask_bit(cons.LYH_ENEMIES)):
-			print("Enemy found")
+			#print("Enemy found")
+			hit.get_parent().take_damage(damage,knockback*(hit.get_global_pos()-get_global_pos()).normalized())
 			die()
 	if (!hitbox.get_overlapping_bodies().empty()):
-		print("Wall found")
+		#print("Wall found")
 		die()
 
 func init_animations():

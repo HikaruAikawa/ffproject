@@ -37,6 +37,7 @@ func _ready():
 	var actions = InputMap.get_actions()
 	actions.sort()
 	for action in actions:
+		#if (action.begins_with("gm_") || action.begins_with("db_")):
 		if (action.begins_with("gm_")):
 			container = HBoxContainer.new()
 			var current_p_container
