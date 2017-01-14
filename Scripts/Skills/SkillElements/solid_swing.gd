@@ -1,16 +1,6 @@
 #This is a copy of swing.gd, but only rotates the sprite
 extends Node2D
 
-#DEFINITION OF CONSTANTS
-
-const ST_IDLE = 0
-const ST_MOVING = 1
-const ST_HURT = 2
-const DR_UP = 0
-const DR_LEFT = 1
-const DR_DOWN = 2
-const DR_RIGHT = 3
-
 #DEFINITION OF VARIABLES
 
 #The user of this swing
@@ -74,13 +64,13 @@ func _ready():
 	hitbox.set_collision_mask_bit(11,true)
 	
 	#The sprite gets positioned according to the user's current direction
-	if (user.get_direction() == DR_RIGHT):
+	if (user.get_direction() == cons.DR_RIGHT):
 		sprite.rotate(-PI/2)
-	elif (user.get_direction() == DR_LEFT):
+	elif (user.get_direction() == cons.DR_LEFT):
 		sprite.rotate(PI/2)
-	elif (user.get_direction() == DR_DOWN):
+	elif (user.get_direction() == cons.DR_DOWN):
 		sprite.rotate(PI)
-	elif (user.get_direction() == DR_UP):
+	elif (user.get_direction() == cons.DR_UP):
 		set_z(-1)
 	sprite.rotate(PI/4)
 	starting_angle = sprite.get_rot() - starting_angle

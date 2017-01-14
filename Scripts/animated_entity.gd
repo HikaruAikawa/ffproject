@@ -1,16 +1,5 @@
 extends KinematicBody2D
 
-#DEFINITION OF CONSTANTS
-
-const ST_IDLE = 0
-const ST_MOVING = 1
-const ST_HURT = 2
-const ST_SKILL = 3
-const DR_UP = 0
-const DR_LEFT = 1
-const DR_DOWN = 2
-const DR_RIGHT = 3
-
 #DEFINITION OF VARIABLES
 
 #State and direction
@@ -39,7 +28,7 @@ func _ready():
 	sprite = get_node("Sprite")
 	#Sets animation properties
 	animation_delay_timer = 0
-	set_state_direction(ST_IDLE,DR_DOWN)
+	set_state_direction(cons.ST_IDLE,cons.DR_DOWN)
 	init_animations()
 	#Enables the use of process and fixed process
 	set_process(true)
@@ -60,7 +49,7 @@ func _process(delta):
 #Fixed process method (for physics)
 func _fixed_process(delta):
 	#If the entity is moving, change position
-	if (get_state() == ST_MOVING):
+	if (get_state() == cons.ST_MOVING):
 		move(forward)
 
 #Sets the state to the given value
@@ -79,16 +68,16 @@ func set_direction(dir):
 		#Animations are updated
 		if(animations!=null): set_animation()
 		#Updates the "forward" and "right" directions
-		if (direction == DR_UP):
+		if (direction == cons.DR_UP):
 			forward = Vector2(0,-1)
 			right = Vector2(1,0)
-		elif (direction == DR_LEFT):
+		elif (direction == cons.DR_LEFT):
 			forward = Vector2(-1,0)
 			right = Vector2(0,-1)
-		elif (direction == DR_DOWN):
+		elif (direction == cons.DR_DOWN):
 			forward = Vector2(0,1)
 			right = Vector2(-1,0)
-		elif (direction == DR_RIGHT):
+		elif (direction == cons.DR_RIGHT):
 			forward = Vector2(1,0)
 			right = Vector2(0,1)
 

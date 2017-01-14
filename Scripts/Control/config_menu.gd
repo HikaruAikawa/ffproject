@@ -15,13 +15,8 @@ var player_weapons_c_list
 
 #Other variables
 var scale_map
-var config
-var global
 
 func _ready():
-	
-	config = get_node("/root/config")
-	global = get_node("/root/global")
 	
 	#Saves the message label and save and back buttons
 	message_label = find_node("MessageLabel")
@@ -49,7 +44,7 @@ func _ready():
 	#Gets the menu item for the number of players
 	player_number_c = find_node("PlayerNumberC")
 	option_button = player_number_c.find_node("OptionButton")
-	for i in range(0,config.MAX_PLAYERS):
+	for i in range(0,cons.MAX_PLAYERS):
 		option_button.add_item(str(i+1),i)
 	option_button.select(config.player_number-1)
 	option_button.connect("item_selected",self,"_player_number_changed")
@@ -60,7 +55,7 @@ func _ready():
 	var player_c
 	var player_label
 	var player_button
-	for i in range(0,config.MAX_PLAYERS):
+	for i in range(0,cons.MAX_PLAYERS):
 		#For each player, creates the container
 		player_c = VBoxContainer.new()
 		player_classes_c.add_child(player_c)
@@ -77,7 +72,7 @@ func _ready():
 		player_c.add_child(player_button)
 		player_button.set_owner(player_c)
 		player_button.set_name("OptionButton")
-		for j in range(0,config.MAX_CLASSES):
+		for j in range(0,cons.MAX_CLASSES):
 			player_button.add_item(global.get_player_script(j).get_name(),j)
 			#If the class coincides, mark it as selected
 			if (config.get_player_class(i) == j): player_button.select(j)
@@ -88,7 +83,7 @@ func _ready():
 	#Gets the menu item for the weapons of each player
 	player_weapons_c = find_node("PlayerWeaponsC")
 	player_weapons_c_list = []
-	for i in range(config.MAX_PLAYERS):
+	for i in range(cons.MAX_PLAYERS):
 		#For each player, creates the container
 		player_c = VBoxContainer.new()
 		player_weapons_c.add_child(player_c)
@@ -138,13 +133,13 @@ func _save_button_pressed():
 	file.set_value("Game", "PlayerNumber", val)
 	
 	#Player classes
-	for i in range(config.MAX_PLAYERS):
+	for i in range(cons.MAX_PLAYERS):
 		var container = player_classes_c.find_node("Player"+str(i)+"ClassC")
 		val = container.find_node("OptionButton").get_selected_ID()
 		file.set_value("Game", "Player"+str(i)+"Class", val)
 	
 	#Player weapons
-	for i in range(config.MAX_PLAYERS):
+	for i in range(cons.MAX_PLAYERS):
 		val = player_weapons_c_list[i].find_node("OptionButton0").get_selected_ID()
 		file.set_value("Game", "Player"+str(i)+"WeaponR", val)
 		val = player_weapons_c_list[i].find_node("OptionButton1").get_selected_ID()
@@ -185,7 +180,7 @@ func _player_weapon_selected(item,number,slot,skills_label):
 #Functions to update the content on the menu
 
 func update_player_classes():
-	for i in range(config.MAX_PLAYERS):
+	for i in range(cons.MAX_PLAYERS):
 		if (i>=config.get_player_number()):
 			player_classes_c_list[i].set_hidden(true)
 			player_weapons_c_list[i].set_hidden(true)
@@ -197,7 +192,7 @@ func update_weapon_button_options():
 	var button
 	var label
 	var weapons_list
-	for i in range(config.MAX_PLAYERS):
+	for i in range(cons.MAX_PLAYERS):
 		for k in range(0,2):
 			weapons_list = global.get_weapon_script_list(config.get_player_class(i),k)
 			button = player_weapons_c_list[i].find_node("OptionButton"+str(k))

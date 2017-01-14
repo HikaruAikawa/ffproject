@@ -2,8 +2,6 @@ extends Node
 
 var current_scene
 
-const MAX_PLAYERS = 2
-
 func _ready():
 	var root = get_node("/root")
 	current_scene = root.get_child(root.get_child_count()-1)
@@ -45,7 +43,7 @@ func get_weapon_script_list(cl, slot):
 	if (slot == 0): slot_str = "r"
 	elif (slot == 1): slot_str = "l"
 	var list = []
-	for i in range(config.MAX_WEAPONS[cl][slot]):
+	for i in range(cons.MAX_WEAPONS[cl][slot]):
 		list.append(load("res://Scripts/Weapons/Class"+str(cl)+"/class_"+str(cl)+"_weapon_"+slot_str+str(i)+".gd"))
 		i += 1
 	return list

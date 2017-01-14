@@ -1,13 +1,13 @@
 extends "res://Scripts/animated_entity.gd"
 
 #DEFINITION OF CONSTANTS
-
-const HP = 0
-const MP = 1
-const ATK = 2
-const DEF = 3
-const SPD = 4
-const MAX_STATS = 5
+#
+#const HP = 0
+#const MP = 1
+#const ATK = 2
+#const DEF = 3
+#const SPD = 4
+#const MAX_STATS = 5
 
 #DEFINITION OF VARIABLES
 
@@ -55,27 +55,27 @@ func _ready():
 	#Gets the data from the class
 	base_stats = script.get_base_stats()
 	current_stats = []
-	current_stats.resize(MAX_STATS)
-	for i in range(MAX_STATS):
+	current_stats.resize(cons.MAX_STATS)
+	for i in range(cons.MAX_STATS):
 		current_stats[i] = base_stats[i]
 	
 	#Sets HP and MP
-	current_hp = current_stats[HP]
-	current_mp = current_stats[MP]
-	movement_speed = current_stats[SPD]
+	current_hp = current_stats[cons.HP]
+	current_mp = current_stats[cons.MP]
+	movement_speed = current_stats[cons.SPD]
 
 func _process(delta):
-	movement_speed = current_stats[SPD]
-	if (get_state() == ST_SKILL):
+	movement_speed = current_stats[cons.SPD]
+	if (get_state() == cons.ST_SKILL):
 		skill_timer -= delta
 		if (skill_timer <= 0):
-			set_state(ST_IDLE)
+			set_state(cons.ST_IDLE)
 	#If the knockback timer is not 0, gets knocked back
 	if(knockback_timer>0):
 		knockback_timer -= delta
 		move(knockback*(delta/damage_time))
 		if (test_move(knockback*(delta/damage_time))): knockback_timer = 0
-	elif (get_state() == ST_HURT):
+	elif (get_state() == cons.ST_HURT):
 		#If the damage timer is not 0, counts down
 		if(damage_timer>0):
 			damage_timer -= delta
@@ -84,7 +84,7 @@ func _process(delta):
 			#If it collides, stop moving backwards
 		#If it is, returns to natural state
 		else:
-			set_state(ST_IDLE)
+			set_state(cons.ST_IDLE)
 			sprite.set_modulate(Color(1,1,1,1))
 			blinking_timer = inv_timer
 	if(inv_timer>0):
@@ -102,7 +102,7 @@ func _process(delta):
 
 #Sets the entity to the state using a skill
 func set_using_skill(time):
-	set_state(ST_SKILL)
+	set_state(cons.ST_SKILL)
 	skill_timer = time
 
 func get_current_stat(i): return current_stats[i]
@@ -112,23 +112,23 @@ func set_current_stat(i,val): current_stats[i] = val
 func increase_hp(amount):
 	current_hp+=amount
 	if (current_hp<=0): die()
-	elif (current_hp>current_stats[HP]): current_hp=current_stats[HP]
+	elif (current_hp>current_stats[cons.HP]): current_hp=current_stats[cons.HP]
 
 #Increases (or decreases) magic points by the given amount
 func increase_mp(amount):
 	current_mp+=amount
 	if (current_mp<0): current_mp=0
-	elif (current_mp>current_stats[MP]): current_mp=current_stats[MP]
+	elif (current_mp>current_stats[cons.MP]): current_mp=current_stats[cons.MP]
 
 #Takes a certain amount of damage and is knocked back
 func take_damage(amount,kb):
 	if(!is_invincible()):
-		if (amount-current_stats[DEF] > 0):
+		if (amount-current_stats[cons.DEF] > 0):
 			damage_timer = damage_time
 			inv_timer = inv_time
 			blink_timer = blink_time
-			increase_hp(-(amount-current_stats[DEF]))
-			set_state(ST_HURT)
+			increase_hp(-(amount-current_stats[cons.DEF]))
+			set_state(cons.ST_HURT)
 		knockback_timer = damage_time
 		knockback = kb
 

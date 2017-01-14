@@ -11,11 +11,11 @@ static func get_name():
 
 static func get_base_stats():
 	return {
-		HP : 100,
-		MP : 100,
-		ATK : 15,
-		DEF : 5,
-		SPD : 2.5
+		cons.HP : 100,
+		cons.MP : 100,
+		cons.ATK : 15,
+		cons.DEF : 5,
+		cons.SPD : 2.5
 	}
 
 static func get_texture():

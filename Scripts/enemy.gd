@@ -1,11 +1,6 @@
 #An enemy's main node, a kinematic body
 extends "res://Scripts/fighting_entity.gd"
 
-#DEFINITION OF CONSTANTS
-
-#A small amount, to check if it should turn immediately
-const EPS = 0.5
-
 #DEFINITION OF VARIABLES
 
 #This enemy's body hitbox (and hurtbox)
@@ -42,23 +37,23 @@ func _ready():
 
 func init_animations():
 	animations = {
-		ST_IDLE : {
-			DR_UP:		[[10],[0]],
-			DR_LEFT:	[[4],[0]],
-			DR_DOWN:	[[1],[0]],
-			DR_RIGHT:	[[7],[0]]
+		cons.ST_IDLE : {
+			cons.DR_UP:		[[10],[0]],
+			cons.DR_LEFT:	[[4],[0]],
+			cons.DR_DOWN:	[[1],[0]],
+			cons.DR_RIGHT:	[[7],[0]]
 		} ,
-		ST_MOVING : {
-			DR_UP:		[[9,10,11,10],[10,10,10,10]],
-			DR_LEFT:	[[3,4,5,4],[10,10,10,10]],
-			DR_DOWN:	[[0,1,2,1],[10,10,10,10]],
-			DR_RIGHT:	[[6,7,8,7],[10,10,10,10]]
+		cons.ST_MOVING : {
+			cons.DR_UP:		[[9,10,11,10],[10,10,10,10]],
+			cons.DR_LEFT:	[[3,4,5,4],[10,10,10,10]],
+			cons.DR_DOWN:	[[0,1,2,1],[10,10,10,10]],
+			cons.DR_RIGHT:	[[6,7,8,7],[10,10,10,10]]
 		} ,
-		ST_HURT : {
-			DR_UP:		[[10],[0]],
-			DR_LEFT:	[[4],[0]],
-			DR_DOWN:	[[1],[0]],
-			DR_RIGHT:	[[7],[0]]
+		cons.ST_HURT : {
+			cons.DR_UP:		[[10],[0]],
+			cons.DR_LEFT:	[[4],[0]],
+			cons.DR_DOWN:	[[1],[0]],
+			cons.DR_RIGHT:	[[7],[0]]
 		}
 	}
 	set_animation()
@@ -84,9 +79,9 @@ func _process(delta):
 		#Only moves if there are enough points
 		if (path.size()>2):
 			#If it's directly in line with the target, ignores the timer and turns
-			if(abs((path[2]-get_global_pos()).x) < EPS || abs((path[2]-get_global_pos()).y) < EPS): turn_timer = turn_time
-			if (get_state()==ST_IDLE || get_state()==ST_MOVING):
-				set_state(ST_MOVING)
+			if(abs((path[2]-get_global_pos()).x) < cons.EPS || abs((path[2]-get_global_pos()).y) < cons.EPS): turn_timer = turn_time
+			if (get_state()==cons.ST_IDLE || get_state()==cons.ST_MOVING):
+				set_state(cons.ST_MOVING)
 				#What these checks do, in order:
 				#1. Check which cardinal direction the movement is closest to, and set that direction
 				#2. If there is a wall in that direction, turn to the other direction it's the closest to
@@ -94,38 +89,38 @@ func _process(delta):
 					var angle = (path[2]-get_global_pos()).angle()
 					if (-PI<=angle && angle<-PI/2):
 						if (angle<-3*PI/4):
-							set_direction(DR_UP)
-							if (test_move(forward)): set_direction(DR_LEFT)
+							set_direction(cons.DR_UP)
+							if (test_move(forward)): set_direction(cons.DR_LEFT)
 						else:
-							set_direction(DR_LEFT)
-							if (test_move(forward)): set_direction(DR_UP)
+							set_direction(cons.DR_LEFT)
+							if (test_move(forward)): set_direction(cons.DR_UP)
 					elif (-PI/2<=angle && angle<0):
 						if (angle<-PI/4):
-							set_direction(DR_LEFT)
-							if (test_move(forward)): set_direction(DR_DOWN)
+							set_direction(cons.DR_LEFT)
+							if (test_move(forward)): set_direction(cons.DR_DOWN)
 						else:
-							set_direction(DR_DOWN)
-							if (test_move(forward)): set_direction(DR_LEFT)
+							set_direction(cons.DR_DOWN)
+							if (test_move(forward)): set_direction(cons.DR_LEFT)
 					elif (0<=angle && angle<PI/2):
 						if (angle<PI/4):
-							set_direction(DR_DOWN)
-							if (test_move(forward)): set_direction(DR_RIGHT)
+							set_direction(cons.DR_DOWN)
+							if (test_move(forward)): set_direction(cons.DR_RIGHT)
 						else:
-							set_direction(DR_RIGHT)
-							if (test_move(forward)): set_direction(DR_DOWN)
+							set_direction(cons.DR_RIGHT)
+							if (test_move(forward)): set_direction(cons.DR_DOWN)
 					else:
 						if (angle<3*PI/4):
-							set_direction(DR_RIGHT)
-							if (test_move(forward)): set_direction(DR_UP)
+							set_direction(cons.DR_RIGHT)
+							if (test_move(forward)): set_direction(cons.DR_UP)
 						else:
-							set_direction(DR_UP)
-							if (test_move(forward)): set_direction(DR_RIGHT)
+							set_direction(cons.DR_UP)
+							if (test_move(forward)): set_direction(cons.DR_RIGHT)
 					turn_timer = 0
-		else: if (get_state() == ST_MOVING): set_state(ST_IDLE)
-	else: if (get_state() == ST_MOVING): set_state(ST_IDLE)
+		else: if (get_state() == cons.ST_MOVING): set_state(cons.ST_IDLE)
+	else: if (get_state() == cons.ST_MOVING): set_state(cons.ST_IDLE)
 	
 	#If it collides with a player, it deals damage
 	for hit in hitbox.get_overlapping_areas():
 		var target = hit.get_parent()
-		if (target.is_player() && get_state() != ST_HURT && !is_invincible()):
+		if (target.is_player() && get_state() != cons.ST_HURT && !is_invincible()):
 			target.take_damage(10,15*((target.get_global_pos()-get_global_pos()).normalized()))

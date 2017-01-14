@@ -1,15 +1,5 @@
 extends Node2D
 
-#DEFINITION OF CONSTANTS
-
-const ST_IDLE = 0
-const ST_MOVING = 1
-const ST_HURT = 2
-const DR_UP = 0
-const DR_LEFT = 1
-const DR_DOWN = 2
-const DR_RIGHT = 3
-
 #DEFINITION OF VARIABLES
 
 #The user of this swing
@@ -72,13 +62,13 @@ func _ready():
 	hitbox.set_collision_mask_bit(11,true)
 	
 	#The sprite gets positioned according to the user's current direction
-	if (user.get_direction() == DR_RIGHT):
+	if (user.get_direction() == cons.DR_RIGHT):
 		rotate(-PI/2)
-	elif (user.get_direction() == DR_LEFT):
+	elif (user.get_direction() == cons.DR_LEFT):
 		rotate(PI/2)
-	elif (user.get_direction() == DR_DOWN):
+	elif (user.get_direction() == cons.DR_DOWN):
 		rotate(PI)
-	elif (user.get_direction() == DR_UP):
+	elif (user.get_direction() == cons.DR_UP):
 		set_z(-1)
 	rotate(PI/4)
 	starting_angle = get_rot() - starting_angle
@@ -114,6 +104,8 @@ func _process(delta):
 		var overlapping_areas = hitbox.get_overlapping_areas()
 		if(!overlapping_areas.empty()):
 			for hit in overlapping_areas:
+				#If the hitbox belongs to an enemy...
+				#if (hit.get_layer_mask_bit(11) && hit.get_parent().is_enemy()):
 				if (hit.get_layer_mask_bit(11) && hit.get_parent().is_enemy()):
 					hit.get_parent().take_damage(damage,knockback*(hit.get_global_pos()-get_global_pos()).normalized())
 	elif (swing_timer < 0 && swing_timer > -swing_end_time):

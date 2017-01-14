@@ -2,11 +2,6 @@ extends "res://Scripts/main.gd"
 
 func _ready():
 	
-	#Players
-#	instantiate_player(0,config.get_player_class(0),32*14+16,32*8+16)
-#	if (config.player_number >= 2):
-#		instantiate_player(1,config.get_player_class(1),32*17+16,32*8+16)
-	
 	#Enemy spawners
 	var spawner = new_enemy_spawner()
 	spawner.add_spawn(1,1,0,0,0)

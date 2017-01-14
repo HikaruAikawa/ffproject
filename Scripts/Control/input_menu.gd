@@ -1,13 +1,15 @@
 extends VBoxContainer
 
+#The list of buttons for all actions
 var button_list
+#Whether or not the menu is listening for a new key, and which action it will be assigned to
 var listening
 var listening_action
+#The message displayed at the top
 var message_label
+#Buttons for saving and going back to the main menu
 var save_button
 var back_button
-var input_container
-var p_input_containers
 
 func _ready():
 	button_list = []
@@ -21,9 +23,9 @@ func _ready():
 	
 	var global = get_node("/root/global")
 	
-	input_container = find_node("InputContainer")
-	p_input_containers = []
-	for i in range(0,config.MAX_PLAYERS):
+	var input_container = find_node("InputContainer")
+	var p_input_containers = []
+	for i in range(0,cons.MAX_PLAYERS):
 		p_input_containers.append(VBoxContainer.new())
 		p_input_containers[i].set_h_size_flags(SIZE_EXPAND_FILL)
 		input_container.add_child(p_input_containers[i])

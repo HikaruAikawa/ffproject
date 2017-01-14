@@ -22,8 +22,8 @@ input/pickable = false
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
-collision/layers = 1
-collision/mask = 1
+collision/layers = 4
+collision/mask = 7
 collision/margin = 1.0
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -77,7 +77,7 @@ gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
 collision/layers = 1024
-collision/mask = 1024
+collision/mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 

@@ -1,15 +1,9 @@
 #Player's main node, a kinematic body
 extends "res://Scripts/fighting_entity.gd"
 
-#DEFINITION OF CONSTANTS
-
-const CL_NIGHT = 0
-const CL_MAIGE = 1
-
 #DEFINITION OF VARIABLES 
 
 var weapons
-var global
 
 var player_number
 
@@ -19,9 +13,6 @@ func is_player(): return true
 func is_enemy(): return false
 
 func _ready():
-	
-	#Saves the global node
-	global = get_node("/root/global")
 	
 	#Gets the data from the class
 	sprite.set_texture(script.get_texture())
@@ -33,7 +24,7 @@ func _ready():
 	weapons = [null, null]
 
 func _process(delta):
-	movement_speed = current_stats[SPD]
+	movement_speed = current_stats[cons.SPD]
 
 func set_player_number(n):
 	player_number = n
@@ -44,29 +35,29 @@ func get_player_number():
 #Initializes all animations into arrays
 func init_animations():
 	animations = {
-		ST_IDLE : {
-			DR_UP:		[[10],[0]],
-			DR_LEFT:	[[4],[0]],
-			DR_DOWN:	[[1],[0]],
-			DR_RIGHT:	[[7],[0]]
+		cons.ST_IDLE : {
+			cons.DR_UP:		[[10],[0]],
+			cons.DR_LEFT:	[[4],[0]],
+			cons.DR_DOWN:	[[1],[0]],
+			cons.DR_RIGHT:	[[7],[0]]
 		} ,
-		ST_MOVING : {
-			DR_UP:		[[9,10,11,10],[10,10,10,10]],
-			DR_LEFT:	[[3,4,5,4],[10,10,10,10]],
-			DR_DOWN:	[[0,1,2,1],[10,10,10,10]],
-			DR_RIGHT:	[[6,7,8,7],[10,10,10,10]]
+		cons.ST_MOVING : {
+			cons.DR_UP:		[[9,10,11,10],[10,10,10,10]],
+			cons.DR_LEFT:	[[3,4,5,4],[10,10,10,10]],
+			cons.DR_DOWN:	[[0,1,2,1],[10,10,10,10]],
+			cons.DR_RIGHT:	[[6,7,8,7],[10,10,10,10]]
 		} ,
-		ST_HURT : {
-			DR_UP:		[[10],[0]],
-			DR_LEFT:	[[4],[0]],
-			DR_DOWN:	[[1],[0]],
-			DR_RIGHT:	[[7],[0]]
+		cons.ST_HURT : {
+			cons.DR_UP:		[[10],[0]],
+			cons.DR_LEFT:	[[4],[0]],
+			cons.DR_DOWN:	[[1],[0]],
+			cons.DR_RIGHT:	[[7],[0]]
 		} ,
-		ST_SKILL : {
-			DR_UP:		[[9],[0]],
-			DR_LEFT:	[[3],[0]],
-			DR_DOWN:	[[0],[0]],
-			DR_RIGHT:	[[6],[0]]
+		cons.ST_SKILL : {
+			cons.DR_UP:		[[9],[0]],
+			cons.DR_LEFT:	[[3],[0]],
+			cons.DR_DOWN:	[[0],[0]],
+			cons.DR_RIGHT:	[[6],[0]]
 		}
 	}
 	set_animation()

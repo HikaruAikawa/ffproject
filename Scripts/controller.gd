@@ -1,18 +1,6 @@
 #Player's controller
 extends Node2D
 
-#DEFINITION OF CONSTANTS
-
-const ST_IDLE = 0
-const ST_MOVING = 1
-const DR_UP = 0
-const DR_LEFT = 1
-const DR_DOWN = 2
-const DR_RIGHT = 3
-const PR_ANY = 0
-const PR_PRESSED = 1
-const PR_RELEASED = 2
-
 #DEFINITION OF VARIABLES
 
 var player
@@ -67,14 +55,14 @@ func _input(event):
 	
 	#MOVEMENT INPUTS
 
-	if (is_event_action_pressed(event,"gm_p"+player_number+"_up")): action_stack.push_front(DR_UP)
-	elif (is_event_action_pressed(event,"gm_p"+player_number+"_left")): action_stack.push_front(DR_LEFT)
-	elif (is_event_action_pressed(event,"gm_p"+player_number+"_down")): action_stack.push_front(DR_DOWN)
-	elif (is_event_action_pressed(event,"gm_p"+player_number+"_right")): action_stack.push_front(DR_RIGHT)
-	elif (is_event_action_released(event,"gm_p"+player_number+"_up")): action_stack.erase(DR_UP)
-	elif (is_event_action_released(event,"gm_p"+player_number+"_left")): action_stack.erase(DR_LEFT)
-	elif (is_event_action_released(event,"gm_p"+player_number+"_down")): action_stack.erase(DR_DOWN)
-	elif (is_event_action_released(event,"gm_p"+player_number+"_right")): action_stack.erase(DR_RIGHT)
+	if (is_event_action_pressed(event,"gm_p"+player_number+"_up")): action_stack.push_front(cons.DR_UP)
+	elif (is_event_action_pressed(event,"gm_p"+player_number+"_left")): action_stack.push_front(cons.DR_LEFT)
+	elif (is_event_action_pressed(event,"gm_p"+player_number+"_down")): action_stack.push_front(cons.DR_DOWN)
+	elif (is_event_action_pressed(event,"gm_p"+player_number+"_right")): action_stack.push_front(cons.DR_RIGHT)
+	elif (is_event_action_released(event,"gm_p"+player_number+"_up")): action_stack.erase(cons.DR_UP)
+	elif (is_event_action_released(event,"gm_p"+player_number+"_left")): action_stack.erase(cons.DR_LEFT)
+	elif (is_event_action_released(event,"gm_p"+player_number+"_down")): action_stack.erase(cons.DR_DOWN)
+	elif (is_event_action_released(event,"gm_p"+player_number+"_right")): action_stack.erase(cons.DR_RIGHT)
 	
 	#The attack action always executes the first skill on the right-hand weapon
 	if (is_event_action_pressed(event,"gm_p"+player_number+"_attack")):
@@ -103,14 +91,9 @@ func _input(event):
 			get_tree().set_pause(true)
 
 func _process(delta):
-	if (player.get_state() == ST_IDLE || player.get_state() == ST_MOVING):
-		if (action_stack.empty()): player.set_state(ST_IDLE)
-		else: player.set_state_direction(ST_MOVING,action_stack[0])
-	
-	#This check allows the skills to be initialized after the weapons have been assigned
-#	if (!skills_connected):
-#		connect_skill(0,0)
-#		connect_skill(1,0)
+	if (player.get_state() == cons.ST_IDLE || player.get_state() == cons.ST_MOVING):
+		if (action_stack.empty()): player.set_state(cons.ST_IDLE)
+		else: player.set_state_direction(cons.ST_MOVING,action_stack[0])
 
 func is_event_action(event,action):
 	if (event.type == InputEvent.KEY):

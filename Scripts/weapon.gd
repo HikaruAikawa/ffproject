@@ -1,13 +1,7 @@
 extends Node2D
 
-#DEFINITION OF CONSTANTS
-
-const CL_NIGHT = 0
-const CL_MAIGE = 1
-
 #DEFINITION OF VARIABLES
 
-var global
 var script
 #The player currently using this weapon
 var user
@@ -23,7 +17,6 @@ var skills
 #DEFINITION OF METHODS
 
 func _ready():
-	global = get_node("/root/global")
 	script = get_script()
 	skills = []
 	user = get_parent()

@@ -1,0 +1,23 @@
+Collision bodies
+0-Default
+1-Walls
+2-Players
+3-Enemies
+4-GameArea
+5-Walls
+6-Walls
+7-Walls
+8-Walls
+9-Walls
+
+Hitboxes
+10-Players
+11-Enemies
+12-Player attacks
+13-
+14-
+15-
+16-
+17-
+18-
+19-

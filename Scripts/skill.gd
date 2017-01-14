@@ -1,16 +1,5 @@
 extends Node2D
 
-#DEFINITION OF CONSTANTS
-
-const ST_IDLE = 0
-const ST_MOVING = 1
-const ST_HURT = 2
-const ST_SKILL = 3
-const DR_UP = 0
-const DR_LEFT = 1
-const DR_DOWN = 2
-const DR_RIGHT = 3
-
 #DEFINITION OF VARIABLES 
 
 var script
@@ -54,7 +43,7 @@ func use():
 #By default, when the button is pressed, the skill is used
 func _button(pressed):
 	if (pressed):
-		if (user.get_state() == ST_IDLE || user.get_state() == ST_MOVING):
+		if (user.get_state() == cons.ST_IDLE || user.get_state() == cons.ST_MOVING):
 			use()
 
 func set_unlocked(b): unlocked = b

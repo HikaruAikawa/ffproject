@@ -18,8 +18,8 @@ input/pickable = false
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
-collision/layers = 2
-collision/mask = 2
+collision/layers = 8
+collision/mask = 11
 collision/margin = 1.0
 script/script = ExtResource( 1 )
 
@@ -46,8 +46,8 @@ gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
-collision/layers = 3072
-collision/mask = 3072
+collision/layers = 2048
+collision/mask = 1024
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 

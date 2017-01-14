@@ -9,5 +9,5 @@ func _ready():
 	
 func _process(delta):
 	var magic = player.current_mp
-	var max_magic = player.get_stat(player.MP)
+	var max_magic = player.get_stat(cons.MP)
 	set_region_rect(Rect2(0,0,((1.0*magic)/max_magic)*32,32))
