@@ -58,8 +58,13 @@ func _ready():
 	hitbox.add_shape(shape,Matrix32(PI/4,Vector2((size-pullback)/2,(-size+pullback)/2)))
 	
 	#Sets the correct collision mask
-	hitbox.set_collision_mask_bit(0,false)
-	hitbox.set_collision_mask_bit(11,true)
+	hitbox.set_collision_mask_bit(cons.LYB_DEFAULT,false)
+	#If the user is a player, attacks enemies
+	if (user.get_layer_mask_bit(cons.LYB_PLAYERS)):
+		hitbox.set_collision_mask_bit(cons.LYH_ENEMIES,true)
+	#If the user is an enemy, attacks players
+	elif (user.get_layer_mask_bit(cons.LYB_ENEMIES)):
+		hitbox.set_collision_mask_bit(cons.LYH_PLAYERS,true)
 	
 	#The sprite gets positioned according to the user's current direction
 	if (user.get_direction() == cons.DR_RIGHT):
@@ -106,7 +111,7 @@ func _process(delta):
 			for hit in overlapping_areas:
 				#If the hitbox belongs to an enemy...
 				#if (hit.get_layer_mask_bit(11) && hit.get_parent().is_enemy()):
-				if (hit.get_layer_mask_bit(11) && hit.get_parent().is_enemy()):
+				if (hit.get_layer_mask_bit(cons.LYH_ENEMIES)):
 					hit.get_parent().take_damage(damage,knockback*(hit.get_global_pos()-get_global_pos()).normalized())
 	elif (swing_timer < 0 && swing_timer > -swing_end_time):
 		set_rot(target_angle)
