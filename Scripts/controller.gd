@@ -9,7 +9,7 @@ var action_stack
 var weapon
 var selected_skill
 
-var debug = true
+var debug = false
 
 #DEFINITION OF SIGNALS
 

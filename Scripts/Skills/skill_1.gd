@@ -24,6 +24,9 @@ func _ready():
 	target.add_shape(rect)
 	target.set_shape_as_trigger(0,true)
 	
+	target.set_layer_mask_bit(cons.LYB_DEFAULT,false)
+	target.set_collision_mask_bit(cons.LYB_GAME_AREA,true)
+	
 	game_area = get_node("/root/Main/Map/GameArea")
 
 func _process(delta):
