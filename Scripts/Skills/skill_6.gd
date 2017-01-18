@@ -42,7 +42,10 @@ func effect():
 	swing.set_user(user)
 	swing.set_attack(10,64)
 	swing.set_sprite(texture,4*user.get_forward(),4)
-	swing.set_hitbox(32*user.get_forward(),Vector2(32,96))
+	if (user_dir == cons.DR_DOWN || user_dir == cons.DR_UP):
+		swing.set_hitbox(32*user.get_forward(),Vector2(96,32))
+	else:
+		swing.set_hitbox(32*user.get_forward(),Vector2(32,96))
 	swing.set_times(swing_time,swing_start_time,swing_end_time)
 	var ang = get_user_rotation()
 	swing.set_angles(ang+PI/2,ang-PI/2)
