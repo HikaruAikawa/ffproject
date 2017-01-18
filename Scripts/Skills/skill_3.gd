@@ -24,9 +24,9 @@ func _ready():
 	texture = get_parent().get_texture()
 	swing_script = load("res://Scripts/Skills/SkillElements/solid_swing.gd")
 	
-	swing_start_time = 0.05
+	swing_start_time = 0.0
 	swing_time = 0.1
-	swing_end_time = 0.05
+	swing_end_time = 0.1
 	
 	distance = 96
 
