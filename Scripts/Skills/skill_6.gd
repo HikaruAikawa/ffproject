@@ -56,10 +56,11 @@ func effect():
 
 func _process(delta):
 	if (active):
-		var timer = swing.get_timer()
-		if (timer > 2*swing_time/3): user.set_direction(user_dir_left)
-		elif (timer <= swing_time/3): user.set_direction(user_dir_right)
-		else: user.set_direction(user_dir)
+		pass
+#		var timer = swing.get_timer()
+#		if (timer > 2*swing_time/3): user.set_direction(user_dir_left)
+#		elif (timer <= swing_time/3): user.set_direction(user_dir_right)
+#		else: user.set_direction(user_dir)
 
 func finished():
 	active = false
