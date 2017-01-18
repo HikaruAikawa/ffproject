@@ -42,7 +42,6 @@ func effect():
 	swing.set_times(swing_time,swing_start_time,swing_end_time)
 	var ang = get_user_rotation()
 	swing.set_angles(ang+PI/4,ang-PI/4)
-#	swing.initialize(user,texture,swing_time,swing_start_time,swing_end_time,-PI/4,PI/4,32,32,10,0,10)
 	add_child(swing)
 	swing.set_owner(self)
 	active = true

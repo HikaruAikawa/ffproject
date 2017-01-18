@@ -25,14 +25,6 @@ func _ready():
 	swing_end_time = 0.05
 
 func effect():
-#	user.set_using_skill(swing_time + swing_start_time + swing_end_time)
-#	swing = Node2D.new()
-#	swing.set_script(swing_script)
-#	swing.initialize(user,texture,swing_time,swing_start_time,swing_end_time,-PI/4,PI/4,32,10,15,10)
-#	add_child(swing)
-#	swing.set_owner(self)
-#	active = true
-#	return true
 
 	user.set_using_skill(swing_time + swing_start_time + swing_end_time)
 	swing = Node2D.new()
