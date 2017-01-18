@@ -58,3 +58,10 @@ func turn_user(n):
 	if (dir > 3): dir = 0
 	elif (dir < 0): dir = 3
 	user.set_direction(dir)
+
+func get_user_rotation():
+	var dir = user.get_direction()
+	if (dir == cons.DR_UP): return 0
+	elif (dir == cons.DR_LEFT): return PI/2
+	elif (dir == cons.DR_DOWN): return PI
+	else: return 3*PI/2

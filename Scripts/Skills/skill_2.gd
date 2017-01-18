@@ -28,10 +28,25 @@ func _ready():
 	progress = 0
 
 func effect():
+#	user.set_using_skill(swing_time + swing_start_time + swing_end_time)
+#	swing = Node2D.new()
+#	swing.set_script(swing_script)
+#	swing.initialize(user,texture,swing_time,swing_start_time,swing_end_time,0,2*PI,32,10,96,16)
+#	add_child(swing)
+#	swing.set_owner(self)
+#	active = true
+#	return true
+
 	user.set_using_skill(swing_time + swing_start_time + swing_end_time)
 	swing = Node2D.new()
 	swing.set_script(swing_script)
-	swing.initialize(user,texture,swing_time,swing_start_time,swing_end_time,0,2*PI,32,10,96,16)
+	swing.set_user(user)
+	swing.set_attack(10,96)
+	swing.set_sprite(texture,Vector2(0,0),0)
+	swing.set_hitbox(Vector2(0,0),Vector2(96,96))
+	swing.set_times(swing_time,swing_start_time,swing_end_time)
+	var ang = get_user_rotation()
+	swing.set_angles(ang,ang-2*PI)
 	add_child(swing)
 	swing.set_owner(self)
 	active = true
