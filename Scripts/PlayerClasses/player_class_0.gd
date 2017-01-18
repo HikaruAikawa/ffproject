@@ -11,7 +11,7 @@ static func get_name():
 
 static func get_base_stats():
 	return {
-		cons.HP : 50,
+		cons.HP : 20,
 		cons.MP : 50,
 		cons.ATK : 10,
 		cons.DEF : 8,

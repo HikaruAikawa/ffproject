@@ -6,7 +6,7 @@ var game_area
 #CLASS METHODS
 
 static func get_skill_name(): return "Teleport"
-static func get_mp_cost(): return 20
+static func get_mp_cost(): return 4
 static func get_cooldown(): return 2
 
 #OTHER METHODS

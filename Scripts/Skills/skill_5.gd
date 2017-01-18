@@ -14,7 +14,7 @@ var projectile_thrown
 #CLASS METHODS
 
 static func get_skill_name(): return "Fireball"
-static func get_mp_cost(): return 0
+static func get_mp_cost(): return 2
 static func get_cooldown(): return 1
 
 #OTHER METHODS

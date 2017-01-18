@@ -14,8 +14,8 @@ var user_dir_right
 
 #CLASS METHODS
 
-static func get_skill_name(): return "Wide swing"
-static func get_mp_cost(): return 10
+static func get_skill_name(): return "Wide attack"
+static func get_mp_cost(): return 3
 static func get_cooldown(): return 2
 
 #OTHER METHODS
@@ -41,11 +41,11 @@ func effect():
 	swing.set_script(swing_script)
 	swing.set_user(user)
 	swing.set_attack(10,64)
-	swing.set_sprite(texture,4*user.get_forward(),4)
+	swing.set_sprite(texture,Vector2(0,0),16)
 	if (user_dir == cons.DR_DOWN || user_dir == cons.DR_UP):
-		swing.set_hitbox(32*user.get_forward(),Vector2(96,32))
+		swing.set_hitbox(16*user.get_forward(),Vector2(96,64))
 	else:
-		swing.set_hitbox(32*user.get_forward(),Vector2(32,96))
+		swing.set_hitbox(16*user.get_forward(),Vector2(64,96))
 	swing.set_times(swing_time,swing_start_time,swing_end_time)
 	var ang = get_user_rotation()
 	swing.set_angles(ang+PI/2,ang-PI/2)
