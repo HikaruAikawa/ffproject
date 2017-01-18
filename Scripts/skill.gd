@@ -44,7 +44,8 @@ func use():
 func _button(pressed):
 	if (pressed):
 		if (user.get_state() == cons.ST_IDLE || user.get_state() == cons.ST_MOVING):
-			use()
+			if (!user.is_in_knockback()):
+				use()
 
 func set_unlocked(b): unlocked = b
 func is_unlocked(): return unlocked

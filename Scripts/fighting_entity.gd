@@ -75,7 +75,7 @@ func _process(delta):
 		else:
 			set_state(cons.ST_IDLE)
 			sprite.set_modulate(Color(1,1,1,1))
-			blinking_timer = inv_timer
+			#blinking_timer = inv_timer
 	if(inv_timer>0):
 		inv_timer -= delta
 	if (blinking_timer>0):
@@ -88,6 +88,10 @@ func _process(delta):
 			switch_blinking()
 			blink_timer = blink_time
 	else: if (blink_state): switch_blinking()
+
+func is_in_knockback():
+	if (knockback_timer > 0): return true
+	else: return false
 
 #Sets the entity to the state using a skill
 func set_using_skill(time):
@@ -115,7 +119,7 @@ func take_damage(amount,kb):
 		if (amount-current_stats[cons.DEF] > 0):
 			damage_timer = damage_time
 			inv_timer = inv_time
-			blink_timer = blink_time
+			blinking_timer = inv_time
 			increase_hp(-(amount-current_stats[cons.DEF]))
 			set_state(cons.ST_HURT)
 		knockback_timer = damage_time
