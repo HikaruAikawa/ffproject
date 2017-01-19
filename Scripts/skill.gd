@@ -18,6 +18,7 @@ var active
 
 signal entered_cooldown
 signal exited_cooldown
+signal error_using
 
 #Enables processing
 func _ready():
@@ -48,6 +49,8 @@ func use():
 			user.increase_mp(-mp_cost)
 			cooldown_timer = cooldown
 			set_on_cooldown(true)
+		else: emit_signal("error_using")
+	else: emit_signal("error_using")
 
 #By default, when the button is pressed, the skill is used
 func _button(pressed):
@@ -55,6 +58,8 @@ func _button(pressed):
 		if (user.get_state() == cons.ST_IDLE || user.get_state() == cons.ST_MOVING):
 			if (!user.is_in_knockback()):
 				use()
+			else: emit_signal("error_using")
+		else: emit_signal("error_using")
 
 func set_unlocked(b): unlocked = b
 func is_unlocked(): return unlocked
