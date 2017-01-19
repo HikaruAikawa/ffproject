@@ -2,7 +2,6 @@
 
 [ext_resource path="res://Textures/Tiles/tiles_0.tex" type="Texture" id=1]
 
-
 [sub_resource type="NavigationPolygon" id=1]
 
 vertices = Vector2Array( -16, -16, 16, -16, 16, 16, -16, 16 )
@@ -30,7 +29,6 @@ enabled = true
 
 [node name="Wall0" type="Sprite" parent="."]
 
-editor/display_folded = true
 transform/pos = Vector2( 16, 16 )
 texture = ExtResource( 1 )
 region = true

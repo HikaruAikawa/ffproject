@@ -16,12 +16,7 @@ func _ready():
 #	texture = get_parent().get_texture()
 	multiplier = 2
 
-#func effect():
-#	active = true
-#	return true
-
 func _process(delta):
-	#print(user.get_current_stat(user.DEF))
 	if (active):
 		user.set_using_skill(1)
 

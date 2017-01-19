@@ -13,9 +13,9 @@ var projectile_thrown
 
 #CLASS METHODS
 
-static func get_skill_name(): return "Fireball"
-static func get_mp_cost(): return 2
-static func get_cooldown(): return 1
+static func get_skill_name(): return "Triple Fireball"
+static func get_mp_cost(): return 6
+static func get_cooldown(): return 1.5
 
 #OTHER METHODS
 
@@ -47,12 +47,16 @@ func _process(delta):
 			user.set_state(cons.ST_IDLE)
 
 func throw_projectile():
-	projectile = projectile_scn.instance()
-	projectile.set_script(projectile_script)
-	get_node("/root/Main").add_child(projectile)
-	projectile.set_texture(texture)
-	projectile.set_global_pos(user.get_global_pos())
-	projectile.set_direction_vector(user.get_forward())
+	var i
+	for i in range(0,3):
+		projectile = projectile_scn.instance()
+		projectile.set_script(projectile_script)
+		get_node("/root/Main").add_child(projectile)
+		projectile.set_texture(texture)
+		projectile.set_global_pos(user.get_global_pos())
+		if (i == 0): projectile.set_direction_vector(user.get_forward())
+		elif (i == 1): projectile.set_direction_vector(user.get_forward().rotated(PI/6))
+		elif (i == 2): projectile.set_direction_vector(user.get_forward().rotated(-PI/6))
 
 #func effect():
 #	active = true

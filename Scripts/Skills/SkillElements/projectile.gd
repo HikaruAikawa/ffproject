@@ -4,12 +4,14 @@ var hitbox
 var damage
 var knockback
 
+var direction_vector
+
 func _ready():
 	
 	damage = 20
 	knockback = 5
 	movement_speed = 3
-	set_state(cons.ST_MOVING)
+	set_state(cons.ST_IDLE)
 	sprite.set_hframes(3)
 	sprite.set_vframes(1)
 	
@@ -23,16 +25,22 @@ func _ready():
 	hitbox.set_collision_mask_bit(cons.LYH_ENEMIES,true)
 	hitbox.set_collision_mask_bit(cons.LYB_WALLS,true)
 	add_child(hitbox)
+	
+	set_fixed_process(true)
 
 func _process(delta):
 	for hit in hitbox.get_overlapping_areas():
 		if (hit.get_layer_mask_bit(cons.LYH_ENEMIES)):
-			#print("Enemy found")
-			hit.get_parent().take_damage(damage,knockback*(hit.get_global_pos()-get_global_pos()).normalized())
-			die()
+			var target = hit.get_parent()
+			if (!target.is_invincible()):
+				target.take_damage(damage,knockback*(hit.get_global_pos()-get_global_pos()).normalized())
+				die()
 	if (!hitbox.get_overlapping_bodies().empty()):
 		#print("Wall found")
 		die()
+
+func _fixed_process(delta):
+	move(direction_vector)
 
 func init_animations():
 	animations = {
@@ -53,6 +61,9 @@ func init_animations():
 
 func set_texture(texture):
 	sprite.set_texture(texture)
+
+func set_direction_vector(vect):
+	direction_vector = vect.normalized()
 
 #func _draw():
 #	var extents = hitbox.get_shape(0).get_extents()

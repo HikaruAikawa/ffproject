@@ -119,6 +119,12 @@ func set_given_animation(st,dir):
 	current_animation_delays = animations[st][dir][1]
 	animation_timer = 0
 
+#Sets a customized animation (mainly for the use of skills)
+func set_custom_animation(anim,delays):
+	current_animation = anim
+	current_animation_delays = delays
+	animation_timer = 0
+
 #Checks if there is collision in the given direction (not needed just yet)
 #func test_direction(vect):
 #	return test_move(speed*vect)

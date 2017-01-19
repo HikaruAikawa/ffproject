@@ -6,7 +6,7 @@ var game_area
 #CLASS METHODS
 
 static func get_skill_name(): return "Teleport"
-static func get_mp_cost(): return 20
+static func get_mp_cost(): return 4
 static func get_cooldown(): return 2
 
 #OTHER METHODS
@@ -25,6 +25,7 @@ func _ready():
 	target.set_shape_as_trigger(0,true)
 	
 	target.set_layer_mask_bit(cons.LYB_DEFAULT,false)
+	target.set_collision_mask_bit(cons.LYB_WALLS,true)
 	target.set_collision_mask_bit(cons.LYB_GAME_AREA,true)
 	
 	game_area = get_node("/root/Main/Map/GameArea")

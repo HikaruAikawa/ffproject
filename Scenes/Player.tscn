@@ -9,7 +9,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 15, 15 )
+extents = Vector2( 15.5, 15.5 )
 
 [sub_resource type="RectangleShape2D" id=2]
 
@@ -24,7 +24,8 @@ shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 collision/layers = 4
 collision/mask = 7
-collision/margin = 1.0
+one_way_collision/max_depth = 1.0
+collision/margin = 0.5
 
 [node name="Sprite" type="Sprite" parent="."]
 

@@ -44,7 +44,8 @@ func use():
 func _button(pressed):
 	if (pressed):
 		if (user.get_state() == cons.ST_IDLE || user.get_state() == cons.ST_MOVING):
-			use()
+			if (!user.is_in_knockback()):
+				use()
 
 func set_unlocked(b): unlocked = b
 func is_unlocked(): return unlocked
@@ -57,3 +58,10 @@ func turn_user(n):
 	if (dir > 3): dir = 0
 	elif (dir < 0): dir = 3
 	user.set_direction(dir)
+
+func get_user_rotation():
+	var dir = user.get_direction()
+	if (dir == cons.DR_UP): return 0
+	elif (dir == cons.DR_LEFT): return PI/2
+	elif (dir == cons.DR_DOWN): return PI
+	else: return 3*PI/2
