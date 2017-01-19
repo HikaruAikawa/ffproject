@@ -127,9 +127,9 @@ func is_event_action_released(event,action):
 func cycle_skill(slot,steps):
 	var weapon = player.get_weapon(slot)
 	cursor[slot] += steps
-	if (cursor[slot] > weapon.get_skills_unlocked()):
+	if (cursor[slot] > weapon.get_skills_unlocked()-1):
 		cursor[slot] = 1
 	elif (cursor[slot] < 1):
-		cursor[slot] = weapon.get_skills_unlocked()
+		cursor[slot] = weapon.get_skills_unlocked()-1
 	connect_skill(slot,cursor[slot])
 	emit_signal("skill_"+str(slot)+"_changed",weapon.get_skill(cursor[slot]),weapon.get_skill_ids()[cursor[slot]])
