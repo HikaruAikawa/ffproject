@@ -13,6 +13,8 @@ var name
 var texture
 #An array with the skills assigned to this weapon
 var skills
+#The amount of skills this weapon has unlocked
+var skills_unlocked
 
 #DEFINITION OF METHODS
 
@@ -23,8 +25,7 @@ func _ready():
 	name = script.get_name()
 	for sk_id in script.get_skill_ids():
 		add_skill(sk_id)
-	unlock_skill(0)
-	unlock_skill(1)
+	set_skills_unlocked(2)
 
 #Uses the skill in the position i, if it's available
 func use_skill(i):
@@ -53,11 +54,10 @@ func get_name():
 func get_skill(i):
 	return skills[i]
 
-func is_skill_unlocked(i):
-	return skills[i].is_unlocked()
+func get_skills_unlocked(): return skills_unlocked
 
-func unlock_skill(i):
-	skills[i].set_unlocked(true)
+func set_skills_unlocked(n): skills_unlocked = n
+
 
 #func get_skills():
 #	return skills

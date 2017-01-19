@@ -24,10 +24,12 @@ func _button(pressed):
 	if (pressed):
 		active = true
 		user.set_current_stat(cons.DEF,user.get_current_stat(cons.DEF)*multiplier)
+		emit_signal("entered_cooldown",true)
 	else:
 		user.set_current_stat(cons.DEF,user.get_current_stat(cons.DEF)/multiplier)
 		active = false
 		user.set_using_skill(0)
+		emit_signal("exited_cooldown")
 
 func finished():
 	active = false

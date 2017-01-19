@@ -2,11 +2,6 @@ extends Node2D
 
 #DEFINITION OF VARIABLES
 
-#The global singleton
-var global
-#The config singleton
-var config
-
 #Scenes to instantiate
 var map_scn
 var player_scn
@@ -17,14 +12,18 @@ var enemy_spawner_scn
 var map
 var players
 var enemy_spawners
+var skill_icons_container
 
 #Other variables
 var current_phase
+var player_skill_icons_script
 
 func _ready():
-	#Saves the global and config nodes
-	global = get_node("/root/global")
-	config = get_node("/root/config")
+	#Creates the container for the skill icons
+	player_skill_icons_script = load("res://Scripts/Control/player_skill_icons.gd")
+	skill_icons_container = find_node("SkillIconsContainer")
+	#This places the container right at the bottom
+	skill_icons_container.set_pos(Vector2(0,get_node("/root").get_rect().size.y - 32))
 	#Imports necessary scenes
 	import_map()
 	import_player()
@@ -36,6 +35,7 @@ func _ready():
 	instantiate_players()
 	#Instantiates the enemy spawners
 	enemy_spawners = []
+	create_player_skill_icons()
 	current_phase = 0
 	
 	set_process(true)
@@ -107,3 +107,10 @@ func remove_player(number):
 
 func get_player_list():
 	return players
+
+func create_player_skill_icons():
+	for i in players.keys():
+		var cont = player_skill_icons_script.new()
+		cont.set_player(players[i])
+		cont.set_h_size_flags(cont.SIZE_EXPAND_FILL)
+		skill_icons_container.add_child(cont)
