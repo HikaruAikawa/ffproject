@@ -78,7 +78,7 @@ func _process(delta):
 			#blinking_timer = inv_timer
 	if(inv_timer>0):
 		inv_timer -= delta
-	if (blinking_timer>0):
+	if (blinking_timer>0 && damage_timer <= 0):
 		#This timer switches the blinking state (between transparent and solid) when it reaches 0, then resets
 		#(Only if it's not getting knocked back)
 		#if (damage_timer<=0):
