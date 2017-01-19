@@ -8,12 +8,16 @@ var mp_cost
 #The time in seconds it takes for the ability to become useable again
 var cooldown
 var cooldown_timer
+var on_cooldown
 #A reference to the entity using this skill
 var user
 #Stores whether or not this skill is already unlocked or not
 var unlocked
 #Stores whether or not the skill is being used
 var active
+
+signal entered_cooldown
+signal exited_cooldown
 
 #Enables processing
 func _ready():
@@ -23,22 +27,27 @@ func _ready():
 	cooldown_timer = 0
 	unlocked = false
 	active = false
+	on_cooldown = false
 	set_process(true)
 
 #Every frame, the cooldown timer will decrease if it's not 0
 func _process(delta):
-	if (cooldown_timer>0): cooldown_timer -= delta
-	elif (cooldown_timer<0): cooldown_timer = 0
+	if (on_cooldown):
+		if (cooldown_timer>0): cooldown_timer -= delta
+		else:
+			cooldown_timer = 0
+			set_on_cooldown(false)
 
 func set_user(usr):
 	user = usr
 
 #When used, takes effect
 func use():
-	if (cooldown_timer==0 && user.current_mp >= mp_cost):
+	if (!on_cooldown && user.current_mp >= mp_cost):
 		if(effect()):
 			user.increase_mp(-mp_cost)
 			cooldown_timer = cooldown
+			set_on_cooldown(true)
 
 #By default, when the button is pressed, the skill is used
 func _button(pressed):
@@ -65,3 +74,11 @@ func get_user_rotation():
 	elif (dir == cons.DR_LEFT): return PI/2
 	elif (dir == cons.DR_DOWN): return PI
 	else: return 3*PI/2
+
+func set_on_cooldown(boolean):
+	if (boolean):
+		on_cooldown = true
+		emit_signal("entered_cooldown",false)
+	else:
+		on_cooldown = false
+		emit_signal("exited_cooldown")
