@@ -25,7 +25,7 @@ func _ready():
 	name = script.get_name()
 	for sk_id in script.get_skill_ids():
 		add_skill(sk_id)
-	set_skills_unlocked(2)
+	set_skills_unlocked(3)
 
 #Uses the skill in the position i, if it's available
 func use_skill(i):
