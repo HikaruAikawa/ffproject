@@ -8,6 +8,7 @@ var player_number
 var action_stack
 var weapon
 var selected_skill
+var cursor
 
 var debug = false
 
@@ -16,6 +17,8 @@ var debug = false
 signal attack_button(pressed)
 signal skill_0_button(pressed)
 signal skill_1_button(pressed)
+signal skill_0_changed(new_skill,new_id)
+signal skill_1_changed(new_skill,new_id)
 
 #DEFINITION OF METHODS
 
@@ -28,14 +31,15 @@ func _ready():
 	#Connects the skills at a later point, when the weapons have been initialized
 	selected_skill = [null,null]
 	call_deferred("connect_attack")
-	call_deferred("connect_skill",0,1)
-	call_deferred("connect_skill",1,1)
+	cursor = [1,1]
+	call_deferred("connect_skill",0,cursor[0])
+	call_deferred("connect_skill",1,cursor[1])
 	
 	set_process(true)
 	set_process_input(true)
 
 func connect_skill(slot,sk_id):
-	if (player.get_weapon(slot).is_skill_unlocked(sk_id)):
+	if (player.get_weapon(slot).get_skills_unlocked() > sk_id):
 		if (selected_skill[slot] != null):
 			var old_sk = player.get_weapon(slot).get_skill(selected_skill[slot])
 			disconnect("skill_"+str(slot)+"_button",old_sk,"_button")
@@ -65,23 +69,18 @@ func _input(event):
 	elif (is_event_action_released(event,"gm_p"+player_number+"_right")): action_stack.erase(cons.DR_RIGHT)
 	
 	#The attack action always executes the first skill on the right-hand weapon
-	if (is_event_action_pressed(event,"gm_p"+player_number+"_attack")):
-		emit_signal("attack_button",true)
-	elif (is_event_action_released(event,"gm_p"+player_number+"_attack")):
-		emit_signal("attack_button",false)
+	if (is_event_action_pressed(event,"gm_p"+player_number+"_attack")): emit_signal("attack_button",true)
+	elif (is_event_action_released(event,"gm_p"+player_number+"_attack")): emit_signal("attack_button",false)
 	
-	if (is_event_action_pressed(event,"gm_p"+player_number+"_skill_0")):
-		#player.get_weapon(0).use_skill(0)
-		emit_signal("skill_0_button",true)
-	elif (is_event_action_pressed(event,"gm_p"+player_number+"_skill_1")):
-		#player.get_weapon(1).use_skill(0)
-		emit_signal("skill_1_button",true)
-	if (is_event_action_released(event,"gm_p"+player_number+"_skill_0")):
-		#player.get_weapon(0).use_skill(0)
-		emit_signal("skill_0_button",false)
-	elif (is_event_action_released(event,"gm_p"+player_number+"_skill_1")):
-		#player.get_weapon(1).use_skill(0)
-		emit_signal("skill_1_button",false)
+	if (is_event_action_pressed(event,"gm_p"+player_number+"_skill_0")): emit_signal("skill_0_button",true)
+	elif (is_event_action_pressed(event,"gm_p"+player_number+"_skill_1")): emit_signal("skill_1_button",true)
+	if (is_event_action_released(event,"gm_p"+player_number+"_skill_0")): emit_signal("skill_0_button",false)
+	elif (is_event_action_released(event,"gm_p"+player_number+"_skill_1")): emit_signal("skill_1_button",false)
+	
+	if (is_event_action_pressed(event,"gm_p"+player_number+"_skill_0_up")): cycle_skill(0,1)
+	elif (is_event_action_pressed(event,"gm_p"+player_number+"_skill_0_down")): cycle_skill(0,-1)
+	elif (is_event_action_pressed(event,"gm_p"+player_number+"_skill_1_up")): cycle_skill(1,1)
+	elif (is_event_action_pressed(event,"gm_p"+player_number+"_skill_1_down")): cycle_skill(1,-1)
 	
 #	#DEBUGGING INPUTS
 	if (debug):
@@ -124,3 +123,13 @@ func is_event_action_released(event,action):
 		return clearEvent.is_action_released(action)
 	else:
 		return event.is_action_released(action)
+
+func cycle_skill(slot,steps):
+	var weapon = player.get_weapon(slot)
+	cursor[slot] += steps
+	if (cursor[slot] > weapon.get_skills_unlocked()):
+		cursor[slot] = 1
+	elif (cursor[slot] < 1):
+		cursor[slot] = weapon.get_skills_unlocked()
+	connect_skill(slot,cursor[slot])
+	emit_signal("skill_"+str(slot)+"_changed",weapon.get_skill(cursor[slot]),weapon.get_skill_ids()[cursor[slot]])

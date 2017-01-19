@@ -12,7 +12,7 @@ var on_cooldown
 #A reference to the entity using this skill
 var user
 #Stores whether or not this skill is already unlocked or not
-var unlocked
+#var unlocked
 #Stores whether or not the skill is being used
 var active
 
@@ -26,7 +26,7 @@ func _ready():
 	mp_cost = script.get_mp_cost()
 	cooldown = script.get_cooldown()
 	cooldown_timer = 0
-	unlocked = false
+#	unlocked = false
 	active = false
 	on_cooldown = false
 	set_process(true)
@@ -61,8 +61,8 @@ func _button(pressed):
 			else: emit_signal("error_using")
 		else: emit_signal("error_using")
 
-func set_unlocked(b): unlocked = b
-func is_unlocked(): return unlocked
+#func set_unlocked(b): unlocked = b
+#func is_unlocked(): return unlocked
 
 #Utility methods for other skills
 

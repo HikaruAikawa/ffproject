@@ -1,6 +1,7 @@
 extends TextureFrame
 
 var cooldown_frame
+var skill
 var skill_texture
 var skill_cooldown_texture
 var time
@@ -26,9 +27,6 @@ func _ready():
 	add_child(cooldown_frame)
 	cooldown_frame.set_owner(self)
 	cooldown_frame.set_draw_behind_parent(false)
-	#Sets the textures
-	set_texture(skill_texture)
-	cooldown_frame.set_texture(skill_cooldown_texture)
 	#Sets the cooldown frame to be invisible
 	cooldown_frame.set_centered(false)
 	cooldown_frame.set_region(true)
@@ -50,8 +48,11 @@ func _process(delta):
 			error_active = false
 
 func set_textures(skill_texture,skill_cooldown_texture):
+	#Sets the textures
 	self.skill_texture = skill_texture
 	self.skill_cooldown_texture = skill_cooldown_texture
+	set_texture(skill_texture)
+	cooldown_frame.set_texture(skill_cooldown_texture)
 
 func set_time(time):
 	self.time = time
@@ -73,3 +74,20 @@ func _set_error():
 	error_timer = error_time
 	error_active = true
 
+func connect_to_skill(new_skill,new_skill_id):
+	#If there is already a connected skill, disconnects it
+	if (skill != null):
+		skill.disconnect("entered_cooldown",self,"_activate_cooldown_frame")
+		skill.disconnect("exited_cooldown",self,"_deactivate_cooldown_frame")
+		skill.disconnect("error_using",self,"_set_error")
+	skill = new_skill
+	var tex = load("res://Textures/SkillIcons/skill_"+str(new_skill_id)+".tex")
+	var cl_tex = load("res://Textures/SkillIcons/skill_"+str(new_skill_id)+"_cooldown.tex")
+	set_textures(tex,cl_tex)
+	set_time(skill.cooldown)
+	skill.connect("entered_cooldown",self,"_activate_cooldown_frame")
+	skill.connect("exited_cooldown",self,"_deactivate_cooldown_frame")
+	skill.connect("error_using",self,"_set_error")
+
+#func _skill_changed(new_skill,new_id):
+#	connect_to_skill(new_skill,new_id)
