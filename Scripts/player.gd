@@ -4,6 +4,8 @@ extends "res://Scripts/fighting_entity.gd"
 #DEFINITION OF VARIABLES 
 
 var weapons
+var mp_regen
+var mp_regen_timer
 
 var player_number
 
@@ -14,17 +16,24 @@ func is_enemy(): return false
 
 func _ready():
 	
-	#Gets the data from the class
 	sprite.set_texture(script.get_texture())
+	mp_regen = script.get_mp_regen()
 	
 	damage_time = 0.2
 	inv_time = 3
 	blink_time = 0.1
 	
+	mp_regen_timer = 0
+	
 	weapons = [null, null]
 
 func _process(delta):
 	movement_speed = current_stats[cons.SPD]
+	#Regenerates magic
+	mp_regen_timer += delta
+	if (mp_regen_timer >= 1):
+		increase_mp(mp_regen)
+		mp_regen_timer -= 1
 
 func set_player_number(n):
 	player_number = n

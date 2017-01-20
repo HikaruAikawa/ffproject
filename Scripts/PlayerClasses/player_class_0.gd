@@ -18,5 +18,8 @@ static func get_base_stats():
 		cons.SPD : 2
 	}
 
+static func get_mp_regen():
+	return 1
+
 static func get_texture():
 	return load("res://Textures/Characters/player_class_0.tex")
