@@ -1,4 +1,4 @@
-extends "res://Scripts/enemy.gd"
+extends "res://Scripts/Enemies/erratic_enemy.gd"
 
 #CLASS METHODS
 

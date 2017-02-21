@@ -24,8 +24,6 @@ const MAX_PHASES = 20
 
 #DEFINITION OF VARIABLES
 
-var global
-
 #The phase this spawner is currently at
 var current_phase
 #A dictionary of integers (the phase) to arrays of enemy spawns
@@ -36,7 +34,6 @@ var spawn_timer
 var enemy_scn
 
 func _ready():
-	global = get_node("/root/global")
 	enemy_scn = global.get_enemy_scene()
 	current_phase = 0
 	spawn_timer = 0
