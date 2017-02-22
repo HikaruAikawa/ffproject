@@ -15,7 +15,6 @@ func _process(delta):
 	#If it hits a wall, ignores the timer and turns
 	if(test_move(forward)): turn_timer = turn_time
 	if (turn_timer >= turn_time):
-		print("Turning")
 		turn_timer = 0
 		pick_direction()
 	if (get_state() == cons.ST_IDLE): set_state(cons.ST_MOVING)

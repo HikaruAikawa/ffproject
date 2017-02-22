@@ -1,4 +1,4 @@
-extends "res://Scripts/skill.gd"
+extends "res://Scripts/Skills/skill.gd"
 
 var texture
 

@@ -37,7 +37,7 @@ func set_name(nm):
 
 #Sets the array of skills assigned to this weapon
 func add_skill(sk_id):
-	var skill_class = preload("res://Scripts/skill.gd")
+	var skill_class = preload("res://Scripts/Skills/skill.gd")
 	var sk = skill_class.new()
 	sk.set_script(global.get_skill_script(sk_id))
 	add_child(sk)
